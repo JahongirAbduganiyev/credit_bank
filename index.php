@@ -293,11 +293,6 @@
                         alert("Ma'lumotlar bazaga saqlanmadi qaytadan urinib ko'ring!");
                         stopSpinner();
                     }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                    stopSpinner();
                 }
             })
         });

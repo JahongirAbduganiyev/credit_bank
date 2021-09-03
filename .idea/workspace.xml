@@ -11,10 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c122ce6b-122c-44c0-9dd7-5b5110b71bf7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/db_sotuv.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/json_encode/client_insert.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/json_encode/client_tekshir.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/prasrochka.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.babelrc.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.browserslistrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.bundlewatch.config.json" beforeDir="false" />
@@ -152,10 +149,8 @@
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_toastr.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/db_kassa.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/json_encode/client_info.php" beforeDir="false" afterPath="$PROJECT_DIR$/json_encode/client_info.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/kreditlash.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/kreditlash.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/prasrochka.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/prasrochka.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.min.css" beforeDir="false" />
@@ -2377,6 +2372,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
@@ -2399,6 +2395,7 @@
       <workItem from="1630400430504" duration="1623000" />
       <workItem from="1630402152807" duration="13342000" />
       <workItem from="1630523640019" duration="31154000" />
+      <workItem from="1630651297321" duration="688000" />
     </task>
     <servers />
   </component>
