@@ -111,7 +111,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <?
-    $page = $_GET['a'];
+    $page = $_GET['a']??"main";
     include("pages/".$page.".php");
   ?>
   <!-- /.content-wrapper -->
