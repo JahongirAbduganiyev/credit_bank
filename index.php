@@ -110,8 +110,8 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
-  <?
-    $page = $_GET['a']??"main";
+  <?php
+    $page = $_GET['a'] ?? "main";
     include("pages/".$page.".php");
   ?>
   <!-- /.content-wrapper -->
