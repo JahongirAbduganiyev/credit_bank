@@ -1,4 +1,5 @@
 <?php
+	echo "Ilyosbek";
 	return [
 		'dbname' => 'salom'	
 		'hostname' => 'qale',
