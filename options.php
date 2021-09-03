@@ -5,4 +5,8 @@
 		'username' => 'root',
 		'password' => '',
 	];
+
+
+	$arr = array('a' => 125);
+
 ?>
