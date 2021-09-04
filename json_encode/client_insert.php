@@ -119,6 +119,17 @@ if (isset($_POST["client_id"])) {
                     '{$fil_nom}'
                 )");
             if($ress2){true;} else {throw new Exception("Error Processing Request", 1);}
+
+            $ress3 = $con->query("INSERT INTO 
+                prasrochka (
+                    client_id,
+                    status
+                )
+                VALUES (
+                    '{$last_id}',
+                    '0.0'
+                )");
+            if($ress3){true;} else {throw new Exception("Error Processing Request", 1);}
         }
 
         $con->commit();
