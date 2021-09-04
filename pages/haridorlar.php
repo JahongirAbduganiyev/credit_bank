@@ -58,7 +58,7 @@
                                     <button type="button" class="btn btn-info" title="Grafik ko'rish">
                                         <i class="fas fa-clipboard-list"></i>
                                     </button>
-                                    <a href="?a=haridor&client_id={$client['id']}" class="btn btn-info" title="Kreditni yopish">
+                                    <a href="?a=haridor&client_id=<?=$client['id']?>" class="btn btn-info" title="Kreditni yopish">
                                         <i class="fas fa-user-cog"></i>
                                     </a>
                                 </div>
