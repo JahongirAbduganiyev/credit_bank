@@ -3,12 +3,11 @@
 
     use options\Connection;
     use options\Ajax;
-    // use options\Script;
 
     $db = new Connection();
     $ajax = new Ajax();
-    // $s = new Script();
 
+    
     if(!isset($_REQUEST['client_id'])){
         return T_CONTINUE;
     }
@@ -79,9 +78,8 @@
             <p>
                 <?php
                     echo "<pre>";
-                        // print_r($new->query("SELECT * FROM `client`"));
                         print_r($ajax->getAjax());
-                        // print_r($s::show());
+                        // print_r($script::show());
                     echo "</pre>";
                 ?> 
             </p>
@@ -108,7 +106,7 @@
                     <h3 class="card-title col-10">
                         Grafik
                     </h3>
-                    <button type="button" class="btn btn-success btn-sm col-2" data-toggle="modal" data-target="#modal-default">
+                    <button type="button" id="salom" class="btn btn-success btn-sm col-2" data-toggle="modal" data-target="#modal-default">
                         To'lov qilish
                     </button>
                 </div>
@@ -246,7 +244,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="GET">
+                <form action="#" method="GET" id="tolov">
                     <input type="hidden" name="a" value="haridor">
                     <input type="hidden" name="client_id" value="<?=$_REQUEST['client_id']?>">
                     <input type="hidden" name="tolov" value="true">
@@ -293,7 +291,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Bekor qilish</button>
-                        <button type="submit" class="btn btn-primary">To'lov</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="tolovButton">To'lov</button>
                     </div>
                 </form>
                 

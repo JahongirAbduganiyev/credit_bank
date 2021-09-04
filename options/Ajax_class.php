@@ -9,11 +9,15 @@
 
     class Ajax{
 
-        protected static $script;
+        protected static $request;
+
+        function __construct()
+        {
+            self::$request = $_REQUEST;
+        }
 
         public function getAjax(){
-            self::$script = $_REQUEST;
-            return self::$script;
+            return self::$request;
         }
     }
 
