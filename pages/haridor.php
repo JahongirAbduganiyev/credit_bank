@@ -1,11 +1,72 @@
 
 <?php
-    
+
     use options\Connection;
+    use options\Ajax;
+    // use options\Script;
+
     $db = new Connection();
+    $ajax = new Ajax();
+    // $s = new Script();
+
+    if(!isset($_REQUEST['client_id'])){
+        return T_CONTINUE;
+    }
 
     $client_id = $_GET['client_id'];
-    $client = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id}");
+    $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id}");
+    $client = $db->query("SELECT * FROM client WHERE id = {$client_id}");
+
+    if(isset($_REQUEST['tolov'])){
+        $summa = $_REQUEST['summa'];
+        $izoh = $_REQUEST['izoh'];
+        $turi = $_REQUEST['turi'];
+
+        // $db->autocommit(false);
+        // try{
+        //     $insert_depozit = $db->query("
+        //         INSERT INTO `depozit` (
+        //             `id`, 
+        //             `client_id`, 
+        //             `sana`, 
+        //             `kirim`, 
+        //             `chiqim`, 
+        //             `qoldiq`, 
+        //             `izox`, 
+        //             `filial_nomi`) 
+        //         VALUES (
+        //             NULL, 
+        //             '{$client_id}', 
+        //             current_timestamp(), 
+        //             '{$summa}',
+        //             '0', 
+        //             '{$summa}', 
+        //             'client to\'lov\r\n', 
+        //             'buvayda');
+        //     ");
+
+        //     $insert_tolov_tarix = $db->query("
+        //     INSERT INTO `tolov_tarix` (
+        //         `id`, 
+        //         `sana`, 
+        //         `client_id`, 
+        //         `summa`, 
+        //         `tolov_turi`, 
+        //         `izox`) 
+        //     VALUES (
+        //         NULL, 
+        //         current_timestamp(), 
+        //         '{$client_id}', 
+        //         '{$summa}', 
+        //         '{$turi}', 
+        //         '{$izoh}');
+        //     ");
+        // }catch(){
+
+        // }
+
+
+    }
 
 ?>
 <div class="content-wrapper">
@@ -14,13 +75,14 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Haridor:  Ahrorbek Davronov</h1>
+            <h1>Haridor:  <?=$client['fish']?></h1>
             <p>
                 <?php
-                    // echo "<pre>";
-                    //     print_r($new->query("SELECT * FROM `client`"));
-                    //     print_r($config);
-                    // echo "</pre>";
+                    echo "<pre>";
+                        // print_r($new->query("SELECT * FROM `client`"));
+                        print_r($ajax->getAjax());
+                        // print_r($s::show());
+                    echo "</pre>";
                 ?> 
             </p>
           </div>
@@ -57,14 +119,14 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Sana</th>
-                            <th>Oylik tani</th>
+                            <th>Oylik to'lov</th>
                             <th>To'landi</th>
                             <th>Holati</th>
                             <th style="width: 40px">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($client as $row):?>
+                        <?php foreach($client_credit as $row):?>
                         <tr>
                             <td><?=$row['id']?></td>
                             <td><?=$row['tolov_sana']?></td>
@@ -100,21 +162,24 @@
 
                         <h3 class="profile-username text-center"><?=$client['fish']?></h3>
 
-                        <p class="text-muted text-center">Software Engineer</p>
+                        <p class="text-muted text-center"><?=$client['manzil']?></p>
+                        <p class="text-muted text-center"><b><?=$client['sana']?></b> kuni <b><?=$client['filial_nomi']?></b> filialdan tovar sotib olgan</p>
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Followers</b> <a class="float-right">1,322</a>
+                                <b>Telefon</b> <a class="float-right"><?=$client['tel_nomer']?></a>
                             </li>
                             <li class="list-group-item">
-                                <b>Following</b> <a class="float-right">543</a>
+                                <b>Mo'ljal</b> <a class="float-right"><?=$client['moljal']?></a>
+                            <li class="list-group-item">
+                                <b>Client ID</b> <a class="float-right"><?=$client['client_kodi']?></a>
                             </li>
                             <li class="list-group-item">
-                                <b>Friends</b> <a class="float-right">13,287</a>
+                                <b>Credit ID</b> <a class="float-right"><?=$client['credit_kodi']?></a>
                             </li>
                         </ul>
 
-                        <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                        <a href="#" class="btn btn-primary btn-block"><b>SMS</b></a>
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -181,9 +246,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="#" method="GET">
                     <input type="hidden" name="a" value="haridor">
                     <input type="hidden" name="client_id" value="<?=$_REQUEST['client_id']?>">
+                    <input type="hidden" name="tolov" value="true">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12">
@@ -204,37 +270,30 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-sm-6">
-                                <!-- radio -->
+                                <!-- select -->
                                 <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tolov" value="naqd" checked>
-                                        <label class="form-check-label">Naqd</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tolov" value="plastik">
-                                        <label class="form-check-label">Plastik</label>
-                                    </div>
+                                    <select class="form-control" name="turi">
+                                        <option value="naqd">Naqd</option>
+                                        <option value="plastik">Plastik</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <!-- checkbox -->
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="status">
-                                        <label class="form-check-label">Kredit yopish</label>
+                                        <input class="form-check-input" id="status" type="checkbox" name="status">
+                                        <label class="form-check-label" for="status">Kredit yopish</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="card-footer justify-content-end">
-                        <button type="submit" class="btn btn-primary">To'lash</button>
-                    </div> -->
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Bekor qilish</button>
+                        <button type="submit" class="btn btn-primary">To'lov</button>
                     </div>
                 </form>
                 
@@ -246,3 +305,4 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
