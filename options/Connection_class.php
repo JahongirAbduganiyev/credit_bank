@@ -16,7 +16,16 @@
             $this->db = new \mysqli($config['db']['host'], $config['db']['username'], $config['db']['password'], $config['db']['name']);
         }
 
+        public function autocommit($boolen){
+            $this->db->autocommit($boolen);
+        }
+
         public function setArray($query){
+            
+            if($query->num_rows == 1){
+                return $query->fetch_assoc();
+            }
+
             $array =[];
             $i = 0;
             while($row = $query->fetch_assoc()){

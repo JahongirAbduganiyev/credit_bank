@@ -1,5 +1,7 @@
 <?php 
   include('options/autoload.php');
+
+  use options\Script;
 ?>
 
 <!DOCTYPE html>
@@ -320,8 +322,8 @@
         }
 
     });
-
 </script>
 
+<?php Script::show() ?>
 </body>
 </html>
