@@ -30,13 +30,13 @@ include("../db_kassa.php");
         <?php
     }
 
-function round_up($value, $places)
-{
-    $r = ($value*10);
-    if(filter_var($r, FILTER_VALIDATE_INT) === false){
-        $mult = pow(10, abs($places));
-        return ceil($value * $mult) / $mult;
-    }else{
-        return $value;
+    function round_up($value, $places)
+    {
+        $r = ($value*10);
+        if(filter_var($r, FILTER_VALIDATE_INT) === false){
+            $mult = pow(10, abs($places));
+            return ceil($value * $mult) / $mult;
+        }else{
+            return $value;
+        }
     }
-}
