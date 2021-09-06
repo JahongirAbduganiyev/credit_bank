@@ -65,6 +65,24 @@
                             </td>
                         </tr>
                         <?php endforeach;?>
+                        <?php foreach($clients as $client):?>
+                        <tr>
+                            <td><?=$client['id']?></td>
+                            <td><?=$client['fish']?></td>
+                            <td><?=$client['p_nomer']?></td>
+                            <td><?=$client['tel_nomer']?></td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-info" title="Grafik ko'rish">
+                                        <i class="fas fa-clipboard-list"></i>
+                                    </button>
+                                    <a href="?a=haridor&client_id=<?=$client['id']?>" class="btn btn-info" title="Kreditni yopish">
+                                        <i class="fas fa-user-cog"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endforeach;?>
                     </tbody>
                     <tfoot>
                         <tr>

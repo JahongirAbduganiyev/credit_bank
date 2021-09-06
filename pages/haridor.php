@@ -6,7 +6,7 @@
 
     $db = new Connection();
     $ajax = new Ajax();
-
+    
     
     if(!isset($_REQUEST['client_id'])){
         return T_CONTINUE;
@@ -15,55 +15,68 @@
     $client_id = $_GET['client_id'];
     $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id}");
     $client = $db->query("SELECT * FROM client WHERE id = {$client_id}");
+    $tranzaksiya_history = $db->query("SELECT * FROM `tolov_tarix` WHERE client_id = {$client_id}");
 
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];
         $izoh = $_REQUEST['izoh'];
         $turi = $_REQUEST['turi'];
 
-        // $db->autocommit(false);
-        // try{
-        //     $insert_depozit = $db->query("
-        //         INSERT INTO `depozit` (
-        //             `id`, 
-        //             `client_id`, 
-        //             `sana`, 
-        //             `kirim`, 
-        //             `chiqim`, 
-        //             `qoldiq`, 
-        //             `izox`, 
-        //             `filial_nomi`) 
-        //         VALUES (
-        //             NULL, 
-        //             '{$client_id}', 
-        //             current_timestamp(), 
-        //             '{$summa}',
-        //             '0', 
-        //             '{$summa}', 
-        //             'client to\'lov\r\n', 
-        //             'buvayda');
-        //     ");
+        $db->autocommit(false);
+        try{
+            $all_query_ok=true;
+            $insert_depozit = $db->query("
+                INSERT INTO `depozit` (
+                    `id`, 
+                    `client_id`, 
+                    `sana`, 
+                    `kirim`, 
+                    `chiqim`, 
+                    `qoldiq`, 
+                    `izox`, 
+                    `filial_nomi`) 
+                VALUES (
+                    NULL, 
+                    '{$client_id}', 
+                    current_timestamp(), 
+                    '{$summa}',
+                    '0', 
+                    '{$summa}', 
+                    'client to\'lov\r\n', 
+                    'buvayda');
+            ") ? null : $all_query_ok=false;
 
-        //     $insert_tolov_tarix = $db->query("
-        //     INSERT INTO `tolov_tarix` (
-        //         `id`, 
-        //         `sana`, 
-        //         `client_id`, 
-        //         `summa`, 
-        //         `tolov_turi`, 
-        //         `izox`) 
-        //     VALUES (
-        //         NULL, 
-        //         current_timestamp(), 
-        //         '{$client_id}', 
-        //         '{$summa}', 
-        //         '{$turi}', 
-        //         '{$izoh}');
-        //     ");
-        // }catch(){
+            $insert_tolov_tarix = $db->query("
+            INSERT INTO `tolov_tarix` (
+                `id`, 
+                `sana`, 
+                `client_id`, 
+                `summa`, 
+                `tolov_turi`, 
+                `izox`) 
+            VALUES (
+                NULL, 
+                current_timestamp(), 
+                '{$client_id}', 
+                '{$summa}', 
+                '{$turi}', 
+                '{$izoh}');
+            ") ? null : $all_query_ok=false;
 
-        // }
+            if(!$all_query_ok){
+                throw new Exception("Malumotlar qabul qilishda xatolik ! Qaytda urining");
+            }
+            $db->commit();
 
+        }catch(Exception $e){
+            ?>
+                <script !src="">
+                    alert("<?=$e->getMessage()?>");
+                </script>
+            <?php
+        }   
+
+        ?><script>window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
 
     }
 
@@ -78,8 +91,8 @@
             <p>
                 <?php
                     echo "<pre>";
-                        print_r($ajax->getAjax());
-                        // print_r($script::show());
+                        // print_r($ajax->getAjax());
+                        // print_r(Ajax::requestSave());
                     echo "</pre>";
                 ?> 
             </p>
@@ -197,28 +210,28 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                <th>#</th>
-                                <th>User</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Reason</th>
+                                    <th>#</th>
+                                    <th>Sana</th>
+                                    <th>Summa</th>
+                                    <th>Tolov turi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($tranzaksiya_history as $tranz):?>
                                 <tr data-widget="expandable-table" aria-expanded="false">
-                                    <td>183</td>
-                                    <td>John Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td>Approved</td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                    <td><?=$tranz['id']?></td>
+                                    <td><?=$tranz['sana']?></td>
+                                    <td><?=$tranz['summa']?></td>
+                                    <td><?=$tranz['tolov_turi']?></td>
                                 </tr>
                                 <tr class="expandable-body">
                                     <td colspan="5">
                                         <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                           <?=$tranz['izox']?>
                                         </p>
                                     </td>
                                 </tr>
+                                <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>
@@ -291,7 +304,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Bekor qilish</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="tolovButton">To'lov</button>
+                        <button type="submit" class="btn btn-primary" id="tolovButton">To'lov</button>
                     </div>
                 </form>
                 

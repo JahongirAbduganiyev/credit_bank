@@ -1,7 +1,8 @@
 <?php 
   include('options/autoload.php');
 
-  use options\Script;
+use options\Ajax;
+use options\Script;
 ?>
 
 <!DOCTYPE html>
@@ -324,6 +325,10 @@
     });
 </script>
 
-<?php Script::show() ?>
+<?php 
+    if(isset($_GET['a'])){
+        Script::show($_GET['a']); 
+    }
+?>
 </body>
 </html>
