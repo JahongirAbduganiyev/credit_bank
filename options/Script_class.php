@@ -44,7 +44,7 @@
             ?>
                 <script type="text/javascript">
                     $(function () {
-                        $("#example1").DataTable({
+                        $("#example15").DataTable({
                         "responsive": true, "lengthChange": false, "autoWidth": false,
                         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
                         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
@@ -78,7 +78,7 @@
             ?>
                 <script type="text/javascript">
                     $(function () {
-                        $('#example2').DataTable({
+                        $('#example14').DataTable({
                         "paging": true,
                         "lengthChange": false,
                         "searching": false,

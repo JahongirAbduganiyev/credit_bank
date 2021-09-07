@@ -70,7 +70,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped text-center">
+                            <table id="example1" class="table table-bordered table-striped text-center" style="font-size: 13px;">
                                 <thead>
                                 <tr>
                                     <th>Client ID</th>
@@ -81,7 +81,7 @@
                                     <th>Jami qarz</th>
                                     <th>Telefon</th>
                                     <th>Status</th>
-                                    <th style="width: 100px;">Sozlash</th>
+                                    <th style="width: 60px;">Sozlash</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -90,12 +90,21 @@
                                         <th><?= $value['client_kodi']?></th>
                                         <th><?= $value['credit_kodi']?></th>
                                         <th><?= $value['fish']?></th>
-                                        <th><?= $value[11]?></th>
-                                        <th><?= $value[12]?></th>
-                                        <th><?= $value[11]+$value[12]?></th>
+                                        <th><?= number_format($value[11], 2, ',', ' ')?></th>
+                                        <th><?= number_format($value[12], 2, ',', ' ')?></th>
+                                        <th><?= number_format($value[11]+$value[12], 2, ',', ' ')?></th>
                                         <th><?= $value['tel_nomer']?></th>
                                         <th><?= $value[13]?></th>
-                                        <th></th>
+                                        <th>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-info" title="Sms send">
+                                                    <i class="fas fa-clipboard-list"></i>
+                                                </button>
+                                                <a href="#" class="btn btn-info" title="Kreditni yopish">
+                                                    <i class="fas fa-user-cog"></i>
+                                                </a>
+                                            </div>
+                                        </th>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>

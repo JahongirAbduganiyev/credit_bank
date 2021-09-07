@@ -26,7 +26,7 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          
+
           <div class="col-8">
             <div class="card">
               <div class="card-header d-flex justify-content-between bd-highlight mb-3">
@@ -38,7 +38,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
+                <table id="example14" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th style="width:10px;">
