@@ -19,8 +19,11 @@
         public function autocommit($boolen){
             $this->db->autocommit($boolen);
         }
+        public function commit(){
+            $this->db->commit();
+        }
 
-        public function setArray($query){
+        private function setArray($query){
             
             if($query->num_rows == 1){
                 return $query->fetch_assoc();

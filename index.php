@@ -1,7 +1,8 @@
 <?php 
   include('options/autoload.php');
 
-  use options\Script;
+use options\Ajax;
+use options\Script;
 ?>
 
 <!DOCTYPE html>
@@ -87,6 +88,12 @@
                 <a href="?a=kreditlash" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kreditlash</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="?a=tolov" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>To'lov</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -194,6 +201,10 @@
 
 <script src="dist/js/jonny.js"></script>
 
-<?php Script::show() ?>
+<?php 
+    if(isset($_GET['a'])){
+        Script::show($_GET['a']); 
+    }
+?>
 </body>
 </html>

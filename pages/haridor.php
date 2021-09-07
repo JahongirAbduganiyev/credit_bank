@@ -3,68 +3,81 @@
 
     use options\Connection;
     use options\Ajax;
-    // use options\Script;
 
     $db = new Connection();
     $ajax = new Ajax();
-    // $s = new Script();
-
+    
+    
     if(!isset($_REQUEST['client_id'])){
         return T_CONTINUE;
     }
 
     $client_id = $_GET['client_id'];
-    $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id}");
-    $client = $db->query("SELECT * FROM client WHERE id = {$client_id}");
+    $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
+    $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
+    $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
+    $tranzaksiya_history = $db->query("SELECT * FROM `tolov_tarix` WHERE client_id = {$client_id}");
 
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];
         $izoh = $_REQUEST['izoh'];
         $turi = $_REQUEST['turi'];
 
-        // $db->autocommit(false);
-        // try{
-        //     $insert_depozit = $db->query("
-        //         INSERT INTO `depozit` (
-        //             `id`, 
-        //             `client_id`, 
-        //             `sana`, 
-        //             `kirim`, 
-        //             `chiqim`, 
-        //             `qoldiq`, 
-        //             `izox`, 
-        //             `filial_nomi`) 
-        //         VALUES (
-        //             NULL, 
-        //             '{$client_id}', 
-        //             current_timestamp(), 
-        //             '{$summa}',
-        //             '0', 
-        //             '{$summa}', 
-        //             'client to\'lov\r\n', 
-        //             'buvayda');
-        //     ");
+        $db->autocommit(false);
+        try{
+            $all_query_ok=true;
+            $insert_depozit = $db->query("
+                INSERT INTO `depozit` (
+                    `id`, 
+                    `client_id`, 
+                    `sana`, 
+                    `kirim`, 
+                    `chiqim`, 
+                    `qoldiq`, 
+                    `izox`, 
+                    `filial_nomi`) 
+                VALUES (
+                    NULL, 
+                    '{$client_id}', 
+                    current_timestamp(), 
+                    '{$summa}',
+                    '0', 
+                    '{$summa}', 
+                    'client to\'lov\r\n', 
+                    'buvayda');
+            ") ? null : $all_query_ok=false;
 
-        //     $insert_tolov_tarix = $db->query("
-        //     INSERT INTO `tolov_tarix` (
-        //         `id`, 
-        //         `sana`, 
-        //         `client_id`, 
-        //         `summa`, 
-        //         `tolov_turi`, 
-        //         `izox`) 
-        //     VALUES (
-        //         NULL, 
-        //         current_timestamp(), 
-        //         '{$client_id}', 
-        //         '{$summa}', 
-        //         '{$turi}', 
-        //         '{$izoh}');
-        //     ");
-        // }catch(){
+            $insert_tolov_tarix = $db->query("
+            INSERT INTO `tolov_tarix` (
+                `id`, 
+                `sana`, 
+                `client_id`, 
+                `summa`, 
+                `tolov_turi`, 
+                `izox`) 
+            VALUES (
+                NULL, 
+                current_timestamp(), 
+                '{$client_id}', 
+                '{$summa}', 
+                '{$turi}', 
+                '{$izoh}');
+            ") ? null : $all_query_ok=false;
 
-        // }
+            if(!$all_query_ok){
+                throw new Exception("Malumotlar qabul qilishda xatolik ! Qaytda urining");
+            }
+            $db->commit();
 
+        }catch(Exception $e){
+            ?>
+                <script !src="">
+                    alert("<?=$e->getMessage()?>");
+                </script>
+            <?php
+        }   
+
+        ?><script>window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
 
     }
 
@@ -79,9 +92,8 @@
             <p>
                 <?php
                     echo "<pre>";
-                        // print_r($new->query("SELECT * FROM `client`"));
-                        print_r($ajax->getAjax());
-                        // print_r($s::show());
+                        // print_r($ajax->getAjax());
+                        // print_r(Ajax::requestSave());
                     echo "</pre>";
                 ?> 
             </p>
@@ -108,7 +120,7 @@
                     <h3 class="card-title col-10">
                         Grafik
                     </h3>
-                    <button type="button" class="btn btn-success btn-sm col-2" data-toggle="modal" data-target="#modal-default">
+                    <button type="button" id="salom" class="btn btn-success btn-sm col-2" data-toggle="modal" data-target="#modal-default">
                         To'lov qilish
                     </button>
                 </div>
@@ -119,6 +131,8 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Sana</th>
+                            <th>Oylik tani</th>
+                            <th>Oylik foiz</th>
                             <th>Oylik to'lov</th>
                             <th>To'landi</th>
                             <th>Holati</th>
@@ -131,6 +145,8 @@
                             <td><?=$row['id']?></td>
                             <td><?=$row['tolov_sana']?></td>
                             <td><?=$row['oylik_tani']?></td>
+                            <td><?=$client_foiz['kunlik_foiz']?></td>
+                            <td><?=($row['oylik_tani']+$client_foiz['kunlik_foiz'])?></td>
                             <td><?=$row['sondirilgan_tani']?></td>
                             <td>
                                 <div class="progress progress-xs">
@@ -199,28 +215,28 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                <th>#</th>
-                                <th>User</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Reason</th>
+                                    <th>#</th>
+                                    <th>Sana</th>
+                                    <th>Summa</th>
+                                    <th>Tolov turi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($tranzaksiya_history as $tranz):?>
                                 <tr data-widget="expandable-table" aria-expanded="false">
-                                    <td>183</td>
-                                    <td>John Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td>Approved</td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                    <td><?=$tranz['id']?></td>
+                                    <td><?=$tranz['sana']?></td>
+                                    <td><?=$tranz['summa']?></td>
+                                    <td><?=$tranz['tolov_turi']?></td>
                                 </tr>
                                 <tr class="expandable-body">
                                     <td colspan="5">
                                         <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                           <?=$tranz['izox']?>
                                         </p>
                                     </td>
                                 </tr>
+                                <?php endforeach;?>
                             </tbody>
                         </table>
                     </div>
@@ -246,7 +262,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="#" method="GET">
+                <form action="#" method="GET" id="tolov">
                     <input type="hidden" name="a" value="haridor">
                     <input type="hidden" name="client_id" value="<?=$_REQUEST['client_id']?>">
                     <input type="hidden" name="tolov" value="true">
@@ -293,7 +309,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Bekor qilish</button>
-                        <button type="submit" class="btn btn-primary">To'lov</button>
+                        <button type="submit" class="btn btn-primary" id="tolovButton">To'lov</button>
                     </div>
                 </form>
                 
