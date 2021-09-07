@@ -11,6 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c122ce6b-122c-44c0-9dd7-5b5110b71bf7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/dist/js/jonny.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.babelrc.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.browserslistrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.bundlewatch.config.json" beforeDir="false" />
@@ -148,7 +149,8 @@
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_toastr.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/json_encode/prasrochka_schot.php" beforeDir="false" afterPath="$PROJECT_DIR$/json_encode/prasrochka_schot.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/options/Script_class.php" beforeDir="false" afterPath="$PROJECT_DIR$/options/Script_class.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/prasrochka.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/prasrochka.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
@@ -2355,6 +2357,13 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
@@ -2378,6 +2387,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\OSPanel\domains\creditbank\dist\js" />
       <recent name="D:\OSPanel\domains\credit\credit_bank" />
     </key>
   </component>
@@ -2394,7 +2404,8 @@
       <workItem from="1630400430504" duration="1623000" />
       <workItem from="1630402152807" duration="13342000" />
       <workItem from="1630523640019" duration="31154000" />
-      <workItem from="1630651297321" duration="26619000" />
+      <workItem from="1630651297321" duration="30817000" />
+      <workItem from="1631007908121" duration="714000" />
     </task>
     <servers />
   </component>

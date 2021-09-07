@@ -9,7 +9,7 @@
         public static function show(){
             ?>
                 <script>
-                    alert("Salom")
+                    //alert("Salom")
                 </script>
             <?php
         }
