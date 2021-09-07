@@ -26,42 +26,63 @@
         $db->autocommit(false);
         try{
             $all_query_ok=true;
-            $insert_depozit = $db->query("
-                INSERT INTO `depozit` (
+            // $insert_depozit = $db->query("
+            //     INSERT INTO `depozit` (
+            //         `id`, 
+            //         `client_id`, 
+            //         `sana`, 
+            //         `kirim`, 
+            //         `chiqim`, 
+            //         `qoldiq`, 
+            //         `izox`, 
+            //         `filial_nomi`) 
+            //     VALUES (
+            //         NULL, 
+            //         '{$client_id}', 
+            //         current_timestamp(), 
+            //         '{$summa}',
+            //         '0', 
+            //         '{$summa}', 
+            //         'client to\'lov\r\n', 
+            //         'buvayda');
+            // ") ? null : $all_query_ok=false;
+
+            // $insert_tolov_tarix = $db->query("
+            //     INSERT INTO `tolov_tarix` (
+            //         `id`, 
+            //         `sana`, 
+            //         `client_id`, 
+            //         `summa`, 
+            //         `tolov_turi`, 
+            //         `izox`) 
+            //     VALUES (
+            //         NULL, 
+            //         current_timestamp(), 
+            //         '{$client_id}', 
+            //         '{$summa}', 
+            //         '{$turi}', 
+            //         '{$izoh}');
+            // ") ? null : $all_query_ok=false;
+            
+            $insert_vviden = $db->query("
+                INSERT INTO `qora_tolov_tarix`(
                     `id`, 
-                    `client_id`, 
                     `sana`, 
-                    `kirim`, 
-                    `chiqim`, 
-                    `qoldiq`, 
+                    `tolov_summa`, 
+                    `tolov_turi`, 
                     `izox`, 
-                    `filial_nomi`) 
+                    `client_id`, 
+                    `filial_kodi`, 
+                    `status`) 
                 VALUES (
                     NULL, 
-                    '{$client_id}', 
-                    current_timestamp(), 
-                    '{$summa}',
-                    '0', 
+                    'current_timestamp()', 
                     '{$summa}', 
-                    'client to\'lov\r\n', 
-                    'buvayda');
-            ") ? null : $all_query_ok=false;
-
-            $insert_tolov_tarix = $db->query("
-            INSERT INTO `tolov_tarix` (
-                `id`, 
-                `sana`, 
-                `client_id`, 
-                `summa`, 
-                `tolov_turi`, 
-                `izox`) 
-            VALUES (
-                NULL, 
-                current_timestamp(), 
-                '{$client_id}', 
-                '{$summa}', 
-                '{$turi}', 
-                '{$izoh}');
+                    '{$turi}', 
+                    '{$izoh}', 
+                    '{$client_id}',  
+                    '100', 
+                    '0');
             ") ? null : $all_query_ok=false;
 
             if(!$all_query_ok){
