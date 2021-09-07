@@ -11,8 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c122ce6b-122c-44c0-9dd7-5b5110b71bf7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/credit_bank.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/tolov.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.babelrc.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.browserslistrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.bundlewatch.config.json" beforeDir="false" />
@@ -149,13 +147,6 @@
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_sweetalert2.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_toastr.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options/Ajax_class.php" beforeDir="false" afterPath="$PROJECT_DIR$/options/Ajax_class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options/Connection_class.php" beforeDir="false" afterPath="$PROJECT_DIR$/options/Connection_class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options/Script_class.php" beforeDir="false" afterPath="$PROJECT_DIR$/options/Script_class.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/options/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/options/autoload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/haridor.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/haridor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/haridorlar.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/haridorlar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.min.css" beforeDir="false" />
@@ -2409,7 +2400,7 @@
       <workItem from="1630402152807" duration="13342000" />
       <workItem from="1630523640019" duration="31154000" />
       <workItem from="1630651297321" duration="30817000" />
-      <workItem from="1631007908121" duration="1051000" />
+      <workItem from="1631007908121" duration="1608000" />
     </task>
     <servers />
   </component>
