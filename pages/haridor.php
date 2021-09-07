@@ -13,8 +13,9 @@
     }
 
     $client_id = $_GET['client_id'];
-    $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id}");
-    $client = $db->query("SELECT * FROM client WHERE id = {$client_id}");
+    $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
+    $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
+    $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
     $tranzaksiya_history = $db->query("SELECT * FROM `tolov_tarix` WHERE client_id = {$client_id}");
 
     if(isset($_REQUEST['tolov'])){
@@ -130,6 +131,8 @@
                         <tr>
                             <th style="width: 10px">#</th>
                             <th>Sana</th>
+                            <th>Oylik tani</th>
+                            <th>Oylik foiz</th>
                             <th>Oylik to'lov</th>
                             <th>To'landi</th>
                             <th>Holati</th>
@@ -142,6 +145,8 @@
                             <td><?=$row['id']?></td>
                             <td><?=$row['tolov_sana']?></td>
                             <td><?=$row['oylik_tani']?></td>
+                            <td><?=$client_foiz['kunlik_foiz']?></td>
+                            <td><?=($row['oylik_tani']+$client_foiz['kunlik_foiz'])?></td>
                             <td><?=$row['sondirilgan_tani']?></td>
                             <td>
                                 <div class="progress progress-xs">

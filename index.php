@@ -91,6 +91,12 @@ use options\Script;
                 </a>
               </li>
               <li class="nav-item">
+                <a href="?a=tolov" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>To'lov</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="?a=haridorlar" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Haridorlar</p>
