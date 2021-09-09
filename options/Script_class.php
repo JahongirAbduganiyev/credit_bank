@@ -43,12 +43,6 @@
             echo "haridorlar";
             ?>
                 <script type="text/javascript">
-                    $(function () {
-                        $("#example15").DataTable({
-                        "responsive": true, "lengthChange": false, "autoWidth": false,
-                        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-                        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-                    });
                     // $(document).ready(function(){
                     //     $(document).on('click', '#tolovButton', function(e){
                     //         e.preventDefault;
@@ -73,21 +67,9 @@
         }
 
         public function tolovstatus(){
-
-            echo "tolov";
             ?>
                 <script type="text/javascript">
-                    $(function () {
-                        $('#example14').DataTable({
-                        "paging": true,
-                        "lengthChange": false,
-                        "searching": false,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": false,
-                        "responsive": true,
-                        });
-                    });
+                   
                 </script>
             <?php
         }

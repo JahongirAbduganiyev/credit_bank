@@ -36,7 +36,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example15" class="table table-bordered table-striped">
+                <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th style="width: 10px;">ID</th>
