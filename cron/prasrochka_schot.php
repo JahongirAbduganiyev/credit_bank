@@ -14,19 +14,21 @@ include("../db_kassa.php");
             $koifsent = ($farq_kun * 0.1) / 3;
             $status = round_up($koifsent, 1);
 
-            $res1 = $con->query("UPDATE `prasrochka` SET `status`='{$status}' WHERE id=" . $client_id);
+            if ($client_id == "") continue;
+
+            $res1 = $con->query("UPDATE `prasrochka` SET `kun`='{$farq_kun}', `status`='{$status}' WHERE id=" . $client_id);
             if ($res1) {
                 true;
             } else {
                 throw new Exception("Error Processing Request", 1);
             }
         }
-            $con->commit();
+        $con->commit();
     }catch (Exception $e){
         ?>
-            <script !src="">
-                alert("Xatolik yuz berdi qaytadan urunib ko'ring!");
-            </script>
+        <script !src="">
+            alert("Xatolik yuz berdi qaytadan urunib ko'ring!");
+        </script>
         <?php
     }
 
