@@ -27,14 +27,17 @@
       <div class="container-fluid">
         <div class="row">
 
-          <div class="col-8">
+          <div class="col-12">
             <div class="card">
               <div class="card-header d-flex justify-content-between bd-highlight mb-3">
                     <h3 class="card-title col-10">Bugungi qabul qilingan to'lovlar</h3>
-                    <div class="btn-group col-2">
-                        <button type="button" id="checkbutton" class="btn btn-success"><i class="fas fa-check"></i></button>
-                        <button type="button" id="deletebutton" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-                    </div>
+                    <form action="#" class="col-2" action="GET">
+                      <div class="btn-group container">
+                              <input type="hidden" name="a" value="tolovstatus">
+                              <button type="submit" id="checkbutton" class="btn btn-success"><i class="fas fa-check"></i></button>
+                              <button type="submit" id="deletebutton" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                      </div>
+                    </form>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -43,7 +46,7 @@
                         <tr>
                             <th style="width:10px;">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="allcheck">
+                                    <input class="custom-control-input checkall" type="checkbox" id="allcheck">
                                     <label for="allcheck" class="custom-control-label"> </label>
                                 </div>
                             </th>
@@ -60,7 +63,7 @@
                         <tr>
                             <td>
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="check_<?=$tolov['id']?>">
+                                    <input class="custom-control-input checkrow" type="checkbox" id="check_<?=$tolov['id']?>">
                                     <label for="check_<?=$tolov['id']?>" class="custom-control-label"> </label>
                                 </div>
                             </td>
@@ -87,7 +90,7 @@
                         <tr>
                             <th>
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" id="customCheckbox2">
+                                    <input class="custom-control-input checkall" type="checkbox" id="customCheckbox2" id="">
                                     <label for="customCheckbox2" class="custom-control-label"> </label>
                                 </div>
                             </th>

@@ -69,7 +69,41 @@
         public function tolovstatus(){
             ?>
                 <script type="text/javascript">
-                   
+                    $(document).ready(function(){
+                        $(document).on('click', '.checkall', function(e){
+                            if(this.checked){
+                                $('.checkrow').each(function(e){
+                                    this.checked = true
+                                    console.log(this.id);
+                                });
+                            }else{
+                                $('.checkrow').each(function(e){
+                                    this.checked = false
+                                    console.log(this.id);
+                                });
+                            }
+                        });
+
+                        $(document).on('click', '#checkbutton', function(e){
+                            // if(this.checked){
+                            //     $('.checkrow').each(function(e){
+                            //         this.checked = true
+                            //         console.log(this.id);
+                            //     });
+                            // }else{
+                            //     $('.checkrow').each(function(e){
+                            //         this.checked = false
+                            //         console.log(this.id);
+                            //     });
+                            // }
+                            $('.checkrow').each(function(e){
+                                // this.checked = true
+                                if(this.checked){
+                                    console.log(this.id);
+                                }
+                            });
+                        });
+                    });
                 </script>
             <?php
         }
