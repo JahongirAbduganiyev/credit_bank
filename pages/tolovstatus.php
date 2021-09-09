@@ -74,13 +74,12 @@
                             <td><?=$tolov['tolov_turi']?></td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="?a=haridor&client_id" class="btn btn-info btn-sm" title="Kreditni yopish">
+                                    <a class="btn btn-info btn-sm add_<?=$tolov['id']?> add" title="Kreditni yopish" >
                                         <i class="fas fa-check"></i>
                                     </a>
-                                    <button type="button" class="btn btn-danger btn-sm" title="Grafik ko'rish">
+                                    <a class="btn btn-danger btn-sm delete_<?=$tolov['id']?> delete" title="Kreditni yopish" >
                                         <i class="far fa-trash-alt"></i>
-                                    </button>
-                                    
+                                    </a>
                                 </div>
                             </td>
                         </tr>

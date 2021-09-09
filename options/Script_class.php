@@ -96,12 +96,54 @@
                             //         console.log(this.id);
                             //     });
                             // }
+                            // $('.checkrow').each(function(e){
+                            //     // this.checked = true
+                            //     if(this.checked){
+                            //         console.log(this.id);
+                            //     }
+                            // });
+                        });
+                        $(document).on('click', '.checkrow', function(e){
+                            let status = 0;
+                            let id = this.id.split("_");
+                            id = id[1];
+
                             $('.checkrow').each(function(e){
-                                // this.checked = true
                                 if(this.checked){
-                                    console.log(this.id);
+                                    status++;
                                 }
                             });
+
+                            $('.checkrow').each(function(e){
+                                if(status > 1){
+                                    $('.add').removeAttr('href');
+                                    $('.delete').removeAttr('href');   
+                                }
+                            });
+
+                            $('.checkrow').each(function(e){
+                                let id = this.id.split("_");
+                                id = id[1];
+                                
+                                if(this.checked){
+                                    $('.add_'+id).attr('href',"?a=tolovstatus&type=add&tranzak_id="+id);
+                                    $('.delete_'+id).attr('href',"?a=tolovstatus&type=delete&tranzak_id="+id);   
+                                }else{
+                                    ('.add').removeAttr('href');
+                                    $('.delete').removeAttr('href'); 
+                                }
+                                return 0;
+                            });
+
+                            if(this.checked){
+                                $('.add_'+id).attr('href',"?a=tolovstatus&type=add&tranzak_id="+id);
+                                $('.delete_'+id).attr('href',"?a=tolovstatus&type=delete&tranzak_id="+id);
+                            }else{
+                                $('.add_'+id).removeAttr('href');
+                                $('.delete_'+id).removeAttr('href');
+                            }
+
+
                         });
                     });
                 </script>
