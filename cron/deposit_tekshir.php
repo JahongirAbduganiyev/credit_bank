@@ -1,21 +1,30 @@
 <?php
     include("../db_kassa.php");
 
-    //$pras = $con->query("select client_id from muddati_o_tani WHERE status=0 group by client_id");
+    $pras = $con->query("select id from client");
 
-    $pras = $con->query("SELECT * FROM `depozit` WHERE qoldiq!=0 GROUP BY client_id");
+    //$pras = $con->query("SELECT * FROM `depozit` WHERE qoldiq!=0 GROUP BY client_id");
     $clients_id = array();
-    $i = 0;
+    $i = 0; $i1 = 0;
     while ($r = $pras->fetch_array()){
-        $clients_id[$i] = $r['client_id'];
+        $pras1 = $con->query("SELECT * FROM `depozit` WHERE client_id='{$r['id']}' ORDER BY id DESC LIMIT 1");
+        $r1 = $pras1->fetch_array();
+        if($r1['qoldiq'] != 0) {
+            $clients_id[$i1] = $r1['client_id'];
+            $i1++;
+        }
         $i++;
     }
+
+    /*echo '<pre>';
+    print_r($clients_id);
+    echo '</pre>';*/
 
     $clients_info = array();
     for ($k = 0; $k < count($clients_id); $k++){
 
         $foiz_sum = 0; $tani_sum = 0;
-        $info = $con->query("select id from depozit WHERE id=".$clients_id[$k]);
+        $info = $con->query("select client_id from depozit WHERE id=".$clients_id[$k]);
         while ($row = $info->fetch_array()){
             array_push($clients_info, $row);
         }
@@ -44,35 +53,44 @@
     echo '</pre>';
 
         for ($i = 0; $i < count($clients_info); $i++) {
-            $foiz = $clients_info[$i][3] - $clients_info[$i][2];
-            if ($foiz >= 0) {
-                $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
-                            VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][2]}', '{$foiz}', 'Muddati otgan foizidan sondirilgan', 'buvayda')");
-                $clients_info[$i][2] = 0;
-                $clients_info[$i][3] = $foiz;
-            } else {
-                if ($foiz < 0) {
-                    $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
-                            VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][3]}', 0, 'Muddati otgan foizidan sondirilgan', 'buvayda')");
-                    $clients_info[$i][3] = 0;
-                    $clients_info[$i][2] = abs($foiz);
-                }
-            }
 
-            $tani = $clients_info[$i][3] - $clients_info[$i][1];
-            if ($tani >= 0) {
-                $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
-                            VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][1]}', '{$tani}', 'Muddati otgan tanidan sondirilgan', 'buvayda')");
-                $clients_info[$i][1] = 0;
-                $clients_info[$i][3] = $tani;
-            } else {
-                if ($tani < 0) {
+            $g = $con->query("SELECT * FROM `muddati_o_foiz` WHERE status=0 AND client_id=".$clients_info[$i][0]);
+            $g1 = $g->fetch_array();
+
+            $h = $con->query("SELECT * FROM `muddati_o_tani` WHERE status=0 AND client_id=".$clients_info[$i][0]);
+            $h1 = $h->fetch_array();
+
+            if ($g1 && $h1) {
+                $foiz = $clients_info[$i][3] - $clients_info[$i][2];
+                if ($foiz >= 0) {
                     $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
-                            VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][3]}', 0, 'Muddati otgan tanidan sondirilgan', 'buvayda')");
+                                VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][2]}', '{$foiz}', 'Muddati otgan foizidan sondirilgan', 'buvayda')");
+                    $clients_info[$i][2] = 0;
+                    $clients_info[$i][3] = $foiz;
+                } else {
+                    if ($foiz < 0) {
+                        $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
+                                VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][3]}', 0, 'Muddati otgan foizidan sondirilgan', 'buvayda')");
+                        $clients_info[$i][3] = 0;
+                        $clients_info[$i][2] = abs($foiz);
+                    }
+                }
+
+                $tani = $clients_info[$i][3] - $clients_info[$i][1];
+                if ($tani >= 0) {
+                    $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
+                                VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][1]}', '{$tani}', 'Muddati otgan tanidan sondirilgan', 'buvayda')");
                     $clients_info[$i][1] = 0;
                     $clients_info[$i][3] = $tani;
-                    $clients_info[$i][3] = 0;
-                    $clients_info[$i][1] = abs($tani);
+                } else {
+                    if ($tani < 0) {
+                        $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
+                                VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][3]}', 0, 'Muddati otgan tanidan sondirilgan', 'buvayda')");
+                        $clients_info[$i][1] = 0;
+                        $clients_info[$i][3] = $tani;
+                        $clients_info[$i][3] = 0;
+                        $clients_info[$i][1] = abs($tani);
+                    }
                 }
             }
         }
