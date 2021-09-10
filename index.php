@@ -1,5 +1,6 @@
 <?php 
   include('options/autoload.php');
+  include('ims/myphp/myfun.php');
 
 use options\Ajax;
 use options\Script;
@@ -107,6 +108,12 @@ use options\Script;
                 <a href="?a=prasrochka" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Prasrochka</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="?a=boshqarma_inkassa" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inkassa</p>
                 </a>
               </li>
 
