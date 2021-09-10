@@ -103,7 +103,7 @@
                             <td><?=$tolov['izox']?></td>
                             <td><?=$tolov['tolov_turi']?></td>
                             <td>
-                                <div class="btn-group" style="display: ;">
+                                <div class="btn-group">
                                     <a href="?a=tolovstatus&type=add&tranzak_id=<?=$tolov['id']?>" class="btn btn-info btn-sm add_<?=$tolov['id']?> add" title="Kreditni yopish">
                                         <i class="fas fa-check"></i>
                                     </a>
