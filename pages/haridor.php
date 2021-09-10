@@ -3,11 +3,13 @@
 
     use options\Connection;
     use options\Ajax;
+    use options\Script;
 
     $db = new Connection();
     $ajax = new Ajax();
     
-    
+    Script::setPage($_GET['a']);
+
     if(!isset($_REQUEST['client_id'])){
         return T_CONTINUE;
     }
@@ -16,7 +18,7 @@
     $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
     $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
     $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
-    $tranzaksiya_history = $db->query("SELECT * FROM `tolov_tarix` WHERE client_id = {$client_id}");
+    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id}");
 
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];

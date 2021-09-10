@@ -5,9 +5,17 @@
     use options\Ajax;
 
     class Script extends Ajax{
+        
+        public static $page = '';
+
+        public static function setPage($page){
+            self::$page = $page;
+        }
 
         public static function show($page){
+            if(self::$page == $page){
                 self::$page();
+            }
         }
 
         public function haridor(){
@@ -74,76 +82,70 @@
                             if(this.checked){
                                 $('.checkrow').each(function(e){
                                     this.checked = true
-                                    console.log(this.id);
+                                    
+                                    $('.add').removeAttr('href');
+                                    $('.delete').removeAttr('href');
                                 });
                             }else{
                                 $('.checkrow').each(function(e){
                                     this.checked = false
-                                    console.log(this.id);
+
+                                    let id = this.id.split("_");
+                                    id = id[1];
+                                    $('.add_'+id).attr('href',"?a=tolovstatus&type=add&tranzak_id="+id);
+                                    $('.delete_'+id).attr('href',"?a=tolovstatus&type=delete&tranzak_id="+id);
                                 });
                             }
                         });
 
                         $(document).on('click', '#checkbutton', function(e){
-                            // if(this.checked){
-                            //     $('.checkrow').each(function(e){
-                            //         this.checked = true
-                            //         console.log(this.id);
-                            //     });
-                            // }else{
-                            //     $('.checkrow').each(function(e){
-                            //         this.checked = false
-                            //         console.log(this.id);
-                            //     });
-                            // }
-                            // $('.checkrow').each(function(e){
-                            //     // this.checked = true
-                            //     if(this.checked){
-                            //         console.log(this.id);
-                            //     }
-                            // });
+                            $('.checkrow').each(function(){
+                                let id = this.id.split("_");
+                                id = id[1];
+                                
+                                if(this.checked){
+                                    $('#tolovstatusform').append('<input type="hidden" name="ids[]" value="'+id+'">')
+                                }
+                            });
                         });
-                        $(document).on('click', '.checkrow', function(e){
-                            let status = 0;
-                            let id = this.id.split("_");
-                            id = id[1];
 
+                        $(document).on('click', '#deletebutton', function(e){
+
+                            $('.checkrow').each(function(){
+                                let id = this.id.split("_");
+                                id = id[1];
+                                
+                                if(this.checked){
+                                    $('#tolovstatusform').append('<input type="hidden" name="ids[]" value="'+id+'">')
+                                }
+                            });
+                            
+                        });
+
+                        $(document).on('click', '.checkrow', function(e){
+
+                            let status = 0;
                             $('.checkrow').each(function(e){
                                 if(this.checked){
                                     status++;
                                 }
                             });
 
-                            $('.checkrow').each(function(e){
-                                if(status > 1){
-                                    $('.add').removeAttr('href');
-                                    $('.delete').removeAttr('href');   
-                                }
-                            });
-
-                            $('.checkrow').each(function(e){
-                                let id = this.id.split("_");
-                                id = id[1];
-                                
-                                if(this.checked){
+                            if(status == 0){
+                                $('.checkrow').each(function(e){
+                                    let id = this.id.split("_");
+                                    id = id[1];
                                     $('.add_'+id).attr('href',"?a=tolovstatus&type=add&tranzak_id="+id);
-                                    $('.delete_'+id).attr('href',"?a=tolovstatus&type=delete&tranzak_id="+id);   
-                                }else{
-                                    ('.add').removeAttr('href');
-                                    $('.delete').removeAttr('href'); 
-                                }
-                                return 0;
-                            });
-
-                            if(this.checked){
-                                $('.add_'+id).attr('href',"?a=tolovstatus&type=add&tranzak_id="+id);
-                                $('.delete_'+id).attr('href',"?a=tolovstatus&type=delete&tranzak_id="+id);
-                            }else{
-                                $('.add_'+id).removeAttr('href');
-                                $('.delete_'+id).removeAttr('href');
+                                    $('.delete_'+id).attr('href',"?a=tolovstatus&type=delete&tranzak_id="+id);
+                                });
                             }
 
-
+                            if(status != 0){
+                                $('.checkrow').each(function(e){
+                                    $('.add').removeAttr('href');
+                                    $('.delete').removeAttr('href');
+                                });
+                            }
                         });
                     });
                 </script>

@@ -1,8 +1,31 @@
 <?php
     use options\Connection;
+    use options\Script;
+    use options\Ajax;
+
+    Script::setPage($_GET['a']);
 
     $db = new Connection();
-    $viden = $db->query("SELECT * FROM `qora_tolov_tarix`");
+    $ajax = new Ajax();
+    
+    
+    
+    if(isset($_REQUEST['add']) || isset($_REQUEST['delete'])){
+        $ids = implode(',', $_REQUEST['ids']);
+        $status = null;
+        if($_REQUEST['add']){ $status = 1;}
+        if($_REQUEST['delete']){ $status = 2;}
+        
+        $updates = $db->query("
+          UPDATE `kassa` 
+          SET `tasdiq_status` = '{$status}' 
+          WHERE `kassa`.`id` IN({$ids})
+        ");
+    }
+
+    $viden = $db->query("SELECT * FROM `kassa` WHERE sana = GETDATE() AND tasdiq_status=0 AND filial_kodi=100");
+
+
 ?>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -11,6 +34,13 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>To'lovlar</h1>
+            <?php
+                            echo "<pre>";
+                                print_r($ajax->getAjax());
+                                // echo $ids;
+                                // print_r(Ajax::requestSave());
+                            echo "</pre>";
+                        ?> 
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -31,11 +61,11 @@
             <div class="card">
               <div class="card-header d-flex justify-content-between bd-highlight mb-3">
                     <h3 class="card-title col-10">Bugungi qabul qilingan to'lovlar</h3>
-                    <form action="#" class="col-2" action="GET">
+                    <form action="#" class="col-2" action="GET" id="tolovstatusform">
                       <div class="btn-group container">
                               <input type="hidden" name="a" value="tolovstatus">
-                              <button type="submit" id="checkbutton" class="btn btn-success"><i class="fas fa-check"></i></button>
-                              <button type="submit" id="deletebutton" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                              <button type="submit" id="checkbutton" name="add" value="true" class="btn btn-success"><i class="fas fa-check"></i></button>
+                              <button type="submit" id="deletebutton" name="delete" value="true" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
                       </div>
                     </form>
               </div>
@@ -60,7 +90,7 @@
                     </thead>
                     <tbody>
                         <?php foreach($viden as $tolov):?>
-                        <tr>
+                        <tr for="check_<?=$tolov['id']?>">
                             <td>
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input checkrow" type="checkbox" id="check_<?=$tolov['id']?>">
@@ -69,15 +99,15 @@
                             </td>
                             <td><?=$tolov['id']?></td>
                             <td><?=$tolov['sana']?></td>
-                            <td><?=$tolov['tolov_summa']?></td>
+                            <td><?=$tolov['summa']?></td>
                             <td><?=$tolov['izox']?></td>
                             <td><?=$tolov['tolov_turi']?></td>
                             <td>
-                                <div class="btn-group">
-                                    <a class="btn btn-info btn-sm add_<?=$tolov['id']?> add" title="Kreditni yopish" >
+                                <div class="btn-group" style="display: ;">
+                                    <a href="?a=tolovstatus&type=add&tranzak_id=<?=$tolov['id']?>" class="btn btn-info btn-sm add_<?=$tolov['id']?> add" title="Kreditni yopish">
                                         <i class="fas fa-check"></i>
                                     </a>
-                                    <a class="btn btn-danger btn-sm delete_<?=$tolov['id']?> delete" title="Kreditni yopish" >
+                                    <a href="?a=tolovstatus&type=delete&tranzak_id=<?=$tolov['id']?>" class="btn btn-danger btn-sm delete_<?=$tolov['id']?> delete" title="Kreditni yopish" >
                                         <i class="far fa-trash-alt"></i>
                                     </a>
                                 </div>

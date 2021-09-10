@@ -1,6 +1,8 @@
 <?php
     use options\Connection;
+    use options\Script;
 
+    Script::setPage($_GET['a']);
     $db = new Connection();
     $clients = $db->query("SELECT * FROM `client`");
 ?>
