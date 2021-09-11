@@ -2,7 +2,7 @@
 include("../db_kassa.php");
     $con->autocommit(false);
     try {
-        $cl = $con->query("select * from client");
+        $cl = $con->query("select * from client where status=0");
         foreach ($cl as $value) {
             $res = $con->query("select * from muddati_o_tani WHERE client_id='{$value["id"]}' and status=0 ORDER BY id ASC LIMIT 1");
             $row = $res->fetch_object();

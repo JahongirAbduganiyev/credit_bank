@@ -63,14 +63,14 @@
             if ($g1 && $h1) {
                 $foiz = $clients_info[$i][3] - $clients_info[$i][2];
                 if ($foiz >= 0) {
-                    $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
-                                VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][2]}', '{$foiz}', 'Muddati otgan foizidan sondirilgan', 'buvayda')");
+                    $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kassa_id`, `kirim`, `chiqim`, `qoldiq`, `izox`) 
+                                VALUES ('{$clients_info[$i][0]}', 0, 0, '{$clients_info[$i][2]}', '{$foiz}', 'Muddati otgan foizidan sondirilgan')");
                     $clients_info[$i][2] = 0;
                     $clients_info[$i][3] = $foiz;
                 } else {
                     if ($foiz < 0) {
-                        $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
-                                VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][3]}', 0, 'Muddati otgan foizidan sondirilgan', 'buvayda')");
+                        $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kassa_id`, `kirim`, `chiqim`, `qoldiq`, `izox`) 
+                                VALUES ('{$clients_info[$i][0]}', 0, 0, '{$clients_info[$i][3]}', 0, 'Muddati otgan foizidan sondirilgan')");
                         $clients_info[$i][3] = 0;
                         $clients_info[$i][2] = abs($foiz);
                     }
@@ -78,14 +78,14 @@
 
                 $tani = $clients_info[$i][3] - $clients_info[$i][1];
                 if ($tani >= 0) {
-                    $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
-                                VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][1]}', '{$tani}', 'Muddati otgan tanidan sondirilgan', 'buvayda')");
+                    $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kassa_id`, `kirim`, `chiqim`, `qoldiq`, `izox`) 
+                                VALUES ('{$clients_info[$i][0]}', 0, 0, '{$clients_info[$i][1]}', '{$tani}', 'Muddati otgan tanidan sondirilgan')");
                     $clients_info[$i][1] = 0;
                     $clients_info[$i][3] = $tani;
                 } else {
                     if ($tani < 0) {
-                        $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) 
-                                VALUES ('{$clients_info[$i][0]}', 0, '{$clients_info[$i][3]}', 0, 'Muddati otgan tanidan sondirilgan', 'buvayda')");
+                        $sql = $con->query("INSERT INTO `depozit`(`client_id`, `kassa_id`, `kirim`, `chiqim`, `qoldiq`, `izox`) 
+                                VALUES ('{$clients_info[$i][0]}', 0, 0, '{$clients_info[$i][3]}', 0, 'Muddati otgan tanidan sondirilgan')");
                         $clients_info[$i][1] = 0;
                         $clients_info[$i][3] = $tani;
                         $clients_info[$i][3] = 0;
@@ -101,21 +101,19 @@
             $update1 = $con->query("UPDATE `muddati_o_foiz` SET status=1 WHERE client_id=" . $clients_info[$i][0]);
 
             if ($clients_info[$i][1] > 0) {
-                $insert = $con->query("INSERT INTO `muddati_o_tani`(`client_id`, `qarzdorlik`, `status`, `filial_nomi`)
+                $insert = $con->query("INSERT INTO `muddati_o_tani`(`client_id`, `qarzdorlik`, `status`)
                                              VALUES (
                                                 '{$clients_info[$i][0]}',
                                                 '{$clients_info[$i][1]}',
-                                                '0',
-                                                'buvayda'
+                                                '0'
                                              )");
             }
             if ($clients_info[$i][2] > 0) {
-                $insert1 = $con->query("INSERT INTO `muddati_o_foiz`(`client_id`, `qarzdorlik`, `status`, `filial_nomi`)
+                $insert1 = $con->query("INSERT INTO `muddati_o_foiz`(`client_id`, `qarzdorlik`, `status`)
                                              VALUES (
                                                 '{$clients_info[$i][0]}',
                                                 '{$clients_info[$i][2]}',
-                                                '0',
-                                                'buvayda'
+                                                '0'
                                              )");
             }
         }

@@ -11,6 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c122ce6b-122c-44c0-9dd7-5b5110b71bf7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/cron/kassa_null.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.babelrc.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.browserslistrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.bundlewatch.config.json" beforeDir="false" />
@@ -149,6 +150,7 @@
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cron/deposit_tekshir.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/deposit_tekshir.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/prasrochka_schot.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/prasrochka_schot.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.min.css" beforeDir="false" />
@@ -2403,7 +2405,7 @@
       <workItem from="1630402152807" duration="13342000" />
       <workItem from="1630523640019" duration="31154000" />
       <workItem from="1630651297321" duration="30817000" />
-      <workItem from="1631007908121" duration="41987000" />
+      <workItem from="1631007908121" duration="57525000" />
     </task>
     <servers />
   </component>
@@ -2431,6 +2433,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="568" y="226" key="#Notifications/0.0.1366.728@0.0.1366.728" timestamp="1630402766905" />
+    <state x="275" y="4" key="#Plugins" timestamp="1631334874637">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="4" key="#Plugins/0.0.1366.728@0.0.1366.728" timestamp="1631334874637" />
     <state x="275" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1630406471751">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -2447,10 +2453,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="105" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1630520930918" />
-    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1631012535970">
+    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1631271146782">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1631012535970" />
+    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1631271146782" />
     <state x="184" y="8" key="SettingsEditor" timestamp="1630518850626">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -2467,13 +2473,13 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="442" y="225" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1366.728@0.0.1366.728" timestamp="1630518991445" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1631013498541">
+    <state x="339" y="162" key="run.anything.popup" timestamp="1631293894071">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1631013498541" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1631092926247">
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1631293894071" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1631334914279">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1631092926247" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1631334914279" />
   </component>
 </project>
