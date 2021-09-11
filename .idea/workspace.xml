@@ -148,7 +148,7 @@
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_toastr.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/prasrochka.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/prasrochka.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.min.css" beforeDir="false" />
@@ -2403,7 +2403,7 @@
       <workItem from="1630402152807" duration="13342000" />
       <workItem from="1630523640019" duration="31154000" />
       <workItem from="1630651297321" duration="30817000" />
-      <workItem from="1631007908121" duration="58530000" />
+      <workItem from="1631007908121" duration="60931000" />
     </task>
     <servers />
   </component>
