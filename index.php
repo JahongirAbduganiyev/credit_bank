@@ -15,6 +15,7 @@ use options\Script;
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Dashboard</title>
 
+  <link rel="icon" type="image/png" sizes="16x16" href="dist/img/avatar4.png">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -218,6 +219,8 @@ use options\Script;
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="dist/js/pages/dashboard.js"></script> -->
+<!--IMS Script-->
+<script src="ims/myscript/myscript.js"></script>
 
 <script src="dist/js/jonny.js"></script>
 
