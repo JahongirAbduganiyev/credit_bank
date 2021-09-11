@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 09 2021 г., 14:36
+-- Время создания: Сен 10 2021 г., 14:56
 -- Версия сервера: 10.4.14-MariaDB
 -- Версия PHP: 7.4.9
 
@@ -142,13 +142,56 @@ INSERT INTO `credit_tani` (`id`, `client_id`, `tolov_sana`, `oylik_tani`, `sondi
 CREATE TABLE `depozit` (
   `id` int(11) NOT NULL,
   `client_id` int(255) NOT NULL,
-  `sana` datetime NOT NULL DEFAULT current_timestamp(),
-  `kirim` float NOT NULL,
-  `chiqim` float NOT NULL,
-  `qoldiq` float NOT NULL,
+  `kassa_id` int(2) NOT NULL,
+  `sana` date NOT NULL DEFAULT current_timestamp(),
+  `kirim` varchar(255) NOT NULL,
+  `chiqim` varchar(255) NOT NULL,
+  `qoldiq` varchar(255) NOT NULL,
   `izox` text NOT NULL,
   `filial_nomi` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `depozit`
+--
+
+INSERT INTO `depozit` (`id`, `client_id`, `kassa_id`, `sana`, `kirim`, `chiqim`, `qoldiq`, `izox`, `filial_nomi`) VALUES
+(1, 1, 0, '2021-09-07', '200000', '0', '200000', 'sfdfdf', 'buvayda'),
+(2, 2, 0, '2021-09-07', '100000', '0', '100000', 'sfdfdf', 'buvayda'),
+(3, 2, 0, '2021-09-07', '50000', '0', '150000', 'sfdfdf', 'buvayda'),
+(77, 3, 0, '2021-09-07', '0', '0', '0', 'sfdfdf', 'buvayda'),
+(272, 1, 0, '2021-09-10', '0', '50000', '150000', 'Muddati otgan foizidan sondirilgan', 'buvayda'),
+(273, 1, 0, '2021-09-10', '0', '150000', '0', 'Muddati otgan tanidan sondirilgan', 'buvayda'),
+(274, 2, 0, '2021-09-10', '0', '30000', '120000', 'Muddati otgan foizidan sondirilgan', 'buvayda'),
+(275, 2, 0, '2021-09-10', '0', '100000', '20000', 'Muddati otgan tanidan sondirilgan', 'buvayda');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `kassa`
+--
+
+CREATE TABLE `kassa` (
+  `id` int(11) NOT NULL,
+  `sana` datetime NOT NULL DEFAULT current_timestamp(),
+  `client_id` int(11) NOT NULL,
+  `summa` varchar(255) NOT NULL,
+  `tolov_turi` varchar(255) NOT NULL,
+  `kir_chiq_status` int(2) NOT NULL,
+  `tasdiq_status` int(2) NOT NULL,
+  `filial_kodi` varchar(255) NOT NULL,
+  `insert_user_id` int(11) NOT NULL,
+  `update_user_id` int(11) NOT NULL,
+  `izox` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `kassa`
+--
+
+INSERT INTO `kassa` (`id`, `sana`, `client_id`, `summa`, `tolov_turi`, `kir_chiq_status`, `tasdiq_status`, `filial_kodi`, `insert_user_id`, `update_user_id`, `izox`) VALUES
+(1, '2021-09-10 17:31:38', 1, '254000', 'naqd', 0, 0, '100', 1, 1, 'Oktabr'),
+(2, '2021-09-10 17:31:41', 1, '65000', 'naqd', 0, 0, '100', 1, 1, 'Avgust');
 
 -- --------------------------------------------------------
 
@@ -170,8 +213,9 @@ CREATE TABLE `muddati_o_foiz` (
 --
 
 INSERT INTO `muddati_o_foiz` (`id`, `client_id`, `sana`, `qarzdorlik`, `status`, `filial_nomi`) VALUES
-(1, 1, '2021-09-01', 50000, 0, 'buvayda'),
-(2, 2, '2021-09-01', 30000, 0, 'buvayda');
+(1, 1, '2021-09-01', 50000, 1, 'buvayda'),
+(2, 2, '2021-09-01', 30000, 1, 'buvayda'),
+(3, 3, '2021-09-01', 25000, 0, 'buvayda');
 
 -- --------------------------------------------------------
 
@@ -193,10 +237,12 @@ CREATE TABLE `muddati_o_tani` (
 --
 
 INSERT INTO `muddati_o_tani` (`id`, `client_id`, `sana`, `qarzdorlik`, `status`, `filial_nomi`) VALUES
-(1, 1, '2021-09-01', 100000, 0, 'buvayda'),
-(2, 1, '2021-09-03', 100000, 0, 'buvayda'),
-(3, 2, '2021-08-28', 100000, 0, 'buvayda'),
-(4, 3, '2021-08-28', 100000, 1, 'buvayda');
+(1, 1, '2021-09-01', 100000, 1, 'buvayda'),
+(2, 1, '2021-09-03', 100000, 1, 'buvayda'),
+(3, 2, '2021-08-28', 100000, 1, 'buvayda'),
+(4, 3, '2021-08-28', 100000, 1, 'buvayda'),
+(5, 3, '2021-09-01', 100000, 0, 'buvayda'),
+(20, 1, '2021-09-10', 50000, 0, 'buvayda');
 
 -- --------------------------------------------------------
 
@@ -207,6 +253,7 @@ INSERT INTO `muddati_o_tani` (`id`, `client_id`, `sana`, `qarzdorlik`, `status`,
 CREATE TABLE `prasrochka` (
   `id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
+  `kun` int(11) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -214,42 +261,10 @@ CREATE TABLE `prasrochka` (
 -- Дамп данных таблицы `prasrochka`
 --
 
-INSERT INTO `prasrochka` (`id`, `client_id`, `status`) VALUES
-(1, 1, '0.1'),
-(2, 2, '0.3'),
-(3, 3, '0.0');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `qora_tolov_tarix`
---
-
-CREATE TABLE `qora_tolov_tarix` (
-  `id` int(11) NOT NULL,
-  `sana` datetime NOT NULL DEFAULT current_timestamp(),
-  `tolov_summa` varchar(255) NOT NULL,
-  `tolov_turi` varchar(255) NOT NULL,
-  `izox` text NOT NULL,
-  `client_id` int(11) NOT NULL,
-  `filial_kodi` int(11) NOT NULL,
-  `status` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Дамп данных таблицы `qora_tolov_tarix`
---
-
-INSERT INTO `qora_tolov_tarix` (`id`, `sana`, `tolov_summa`, `tolov_turi`, `izox`, `client_id`, `filial_kodi`, `status`) VALUES
-(1, '2021-09-07 00:00:00', '25000000', 'naqd', 'Sentabr oyi uchun', 1, 100, 0),
-(2, '2021-09-07 00:00:00', '1500000', 'naqd', 'Oktabr', 1, 100, 0),
-(3, '2021-09-07 00:00:00', '25000', 'naqd', 'Oktabr', 1, 100, 0),
-(4, '2021-09-07 00:00:00', '1500000', 'naqd', 'Oktabra', 1, 100, 0),
-(5, '2021-09-07 00:00:00', '354000', 'naqd', 'Oktabr', 1, 100, 0),
-(6, '2021-09-07 00:00:00', '781000', 'naqd', 'Oktabr', 1, 100, 0),
-(7, '2021-09-07 00:00:00', '15200000', 'naqd', 'iyul', 1, 100, 0),
-(8, '0000-00-00 00:00:00', '2510000', 'naqd', 'salom', 1, 100, 0),
-(9, '0000-00-00 00:00:00', '660000', 'naqd', 'oylik tolov', 1, 100, 0);
+INSERT INTO `prasrochka` (`id`, `client_id`, `kun`, `status`) VALUES
+(1, 1, 0, '0'),
+(2, 2, 13, '0.5'),
+(3, 3, 9, '0.3');
 
 -- --------------------------------------------------------
 
@@ -274,21 +289,6 @@ INSERT INTO `shartnoma_info` (`id`, `client_id`, `summa`, `muddat`, `oldindan_to
 (1, 1, 3010000, '12', 0, 'buvayda'),
 (2, 2, 1300000, '12', 100000, 'buvayda'),
 (3, 3, 1200000, '12', 0, 'buvayda');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `tolov_tarix`
---
-
-CREATE TABLE `tolov_tarix` (
-  `id` int(11) NOT NULL,
-  `sana` datetime NOT NULL DEFAULT current_timestamp(),
-  `client_id` int(255) NOT NULL,
-  `summa` int(255) NOT NULL,
-  `tolov_turi` varchar(255) NOT NULL,
-  `izox` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Индексы сохранённых таблиц
@@ -319,6 +319,12 @@ ALTER TABLE `depozit`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `kassa`
+--
+ALTER TABLE `kassa`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `muddati_o_foiz`
 --
 ALTER TABLE `muddati_o_foiz`
@@ -337,21 +343,9 @@ ALTER TABLE `prasrochka`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `qora_tolov_tarix`
---
-ALTER TABLE `qora_tolov_tarix`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Индексы таблицы `shartnoma_info`
 --
 ALTER TABLE `shartnoma_info`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `tolov_tarix`
---
-ALTER TABLE `tolov_tarix`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -380,19 +374,25 @@ ALTER TABLE `credit_tani`
 -- AUTO_INCREMENT для таблицы `depozit`
 --
 ALTER TABLE `depozit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=276;
+
+--
+-- AUTO_INCREMENT для таблицы `kassa`
+--
+ALTER TABLE `kassa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `muddati_o_foiz`
 --
 ALTER TABLE `muddati_o_foiz`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `muddati_o_tani`
 --
 ALTER TABLE `muddati_o_tani`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT для таблицы `prasrochka`
@@ -401,22 +401,10 @@ ALTER TABLE `prasrochka`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT для таблицы `qora_tolov_tarix`
---
-ALTER TABLE `qora_tolov_tarix`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
 -- AUTO_INCREMENT для таблицы `shartnoma_info`
 --
 ALTER TABLE `shartnoma_info`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT для таблицы `tolov_tarix`
---
-ALTER TABLE `tolov_tarix`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

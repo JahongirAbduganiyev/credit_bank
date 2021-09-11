@@ -1,6 +1,5 @@
 
 <?php
-
     use options\Connection;
     use options\Ajax;
     use options\Script;
@@ -28,80 +27,49 @@
         $db->autocommit(false);
         try{
             $all_query_ok=true;
-            // $insert_depozit = $db->query("
-            //     INSERT INTO `depozit` (
-            //         `id`, 
-            //         `client_id`, 
-            //         `sana`, 
-            //         `kirim`, 
-            //         `chiqim`, 
-            //         `qoldiq`, 
-            //         `izox`, 
-            //         `filial_nomi`) 
-            //     VALUES (
-            //         NULL, 
-            //         '{$client_id}', 
-            //         current_timestamp(), 
-            //         '{$summa}',
-            //         '0', 
-            //         '{$summa}', 
-            //         'client to\'lov\r\n', 
-            //         'buvayda');
-            // ") ? null : $all_query_ok=false;
 
-            // $insert_tolov_tarix = $db->query("
-            //     INSERT INTO `tolov_tarix` (
-            //         `id`, 
-            //         `sana`, 
-            //         `client_id`, 
-            //         `summa`, 
-            //         `tolov_turi`, 
-            //         `izox`) 
-            //     VALUES (
-            //         NULL, 
-            //         current_timestamp(), 
-            //         '{$client_id}', 
-            //         '{$summa}', 
-            //         '{$turi}', 
-            //         '{$izoh}');
-            // ") ? null : $all_query_ok=false;
-            
             $insert_vviden = $db->query("
-                INSERT INTO `qora_tolov_tarix`(
+                INSERT INTO `kassa` (
                     `id`, 
                     `sana`, 
-                    `tolov_summa`, 
-                    `tolov_turi`, 
-                    `izox`, 
                     `client_id`, 
+                    `summa`, 
+                    `tolov_turi`, 
+                    `kir_chiq_status`, 
+                    `tasdiq_status`, 
                     `filial_kodi`, 
-                    `status`) 
+                    `insert_user_id`, 
+                    `update_user_id`, 
+                    `izox`) 
                 VALUES (
                     NULL, 
-                    'current_timestamp()', 
+                    current_timestamp(), 
+                    '{$client_id}', 
                     '{$summa}', 
                     '{$turi}', 
-                    '{$izoh}', 
-                    '{$client_id}',  
+                    '0', 
+                    '0', 
                     '100', 
-                    '0');
-            ") ? null : $all_query_ok=false;
+                    '1', 
+                    '1', 
+                    '{$izoh}');
+                ") ? null : $all_query_ok=false;
 
             if(!$all_query_ok){
                 throw new Exception("Malumotlar qabul qilishda xatolik ! Qaytda urining");
             }
+            
             $db->commit();
-
+            
         }catch(Exception $e){
             ?>
                 <script !src="">
                     alert("<?=$e->getMessage()?>");
                 </script>
             <?php
-        }   
+        }
 
         ?><script>window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
-
     }
 
 ?>
@@ -114,10 +82,10 @@
             <h1>Haridor:  <?=$client['fish']?></h1>
             <p>
                 <?php
-                    echo "<pre>";
+                    // echo "<pre>";
                         // print_r($ajax->getAjax());
                         // print_r(Ajax::requestSave());
-                    echo "</pre>";
+                    // echo "</pre>";
                 ?> 
             </p>
           </div>

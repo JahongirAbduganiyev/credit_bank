@@ -9,21 +9,42 @@
     $ajax = new Ajax();
     
     
-    
     if(isset($_REQUEST['add']) || isset($_REQUEST['delete'])){
-        $ids = implode(',', $_REQUEST['ids']);
+        $ids = implode(',', $_REQUEST['ids']) ?? null;
         $status = null;
-        if($_REQUEST['add']){ $status = 1;}
-        if($_REQUEST['delete']){ $status = 2;}
+        $add = $_REQUEST['add'] ?? null;
+        $delete = $_REQUEST['delete'] ?? null;
+        if($add){ $status = 1;}
+        if($delete){ $status = 2;}
+
+        $db->autocommit(false);
+        try{
+            $all_query_ok=true;
+
+            $updates = $db->query("
+              UPDATE `kassa` 
+              SET `tasdiq_status` = '{$status}' 
+              WHERE `kassa`.`id` IN({$ids})
+            ") ? null : $all_query_ok=false;;
+
+            if(!$all_query_ok){
+                throw new Exception("Malumotlar qabul qilishda xatolik ! Qaytda urining");
+            }
+            
+            $db->commit();
+
+        }catch(Exception $e){
+            ?>
+                <script !src="">
+                    alert("<?=$e->getMessage()?>");
+                </script>
+            <?php
+        }
         
-        $updates = $db->query("
-          UPDATE `kassa` 
-          SET `tasdiq_status` = '{$status}' 
-          WHERE `kassa`.`id` IN({$ids})
-        ");
+        ?><script>window.location.href = "index.php?a=tolovstatus";</script><?php
     }
 
-    $viden = $db->query("SELECT * FROM `kassa` WHERE sana = GETDATE() AND tasdiq_status=0 AND filial_kodi=100");
+    $viden = $db->query("SELECT * FROM `kassa` WHERE tasdiq_status=0 AND filial_kodi=100");
 
 
 ?>
@@ -35,12 +56,12 @@
           <div class="col-sm-6">
             <h1>To'lovlar</h1>
             <?php
-                            echo "<pre>";
-                                print_r($ajax->getAjax());
-                                // echo $ids;
-                                // print_r(Ajax::requestSave());
-                            echo "</pre>";
-                        ?> 
+                // echo "<pre>";
+                    // print_r($ajax->getAjax());
+                    // echo $ids;
+                    // print_r(Ajax::requestSave());
+                // echo "</pre>";
+            ?> 
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -64,8 +85,8 @@
                     <form action="#" class="col-2" action="GET" id="tolovstatusform">
                       <div class="btn-group container">
                               <input type="hidden" name="a" value="tolovstatus">
-                              <button type="submit" id="checkbutton" name="add" value="true" class="btn btn-success"><i class="fas fa-check"></i></button>
-                              <button type="submit" id="deletebutton" name="delete" value="true" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                              <button type="submit" id="checkbutton" name="add" disabled value="true" class="btn btn-success"><i class="fas fa-check"></i></button>
+                              <button type="submit" id="deletebutton" name="delete" disabled value="true" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
                       </div>
                     </form>
               </div>
@@ -104,10 +125,10 @@
                             <td><?=$tolov['tolov_turi']?></td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="?a=tolovstatus&type=add&tranzak_id=<?=$tolov['id']?>" class="btn btn-info btn-sm add_<?=$tolov['id']?> add" title="Kreditni yopish">
+                                    <a href="?a=tolovstatus&add=true&ids[]=<?=$tolov['id']?>" class="btn btn-info btn-sm add_<?=$tolov['id']?> add" title="Kreditni yopish">
                                         <i class="fas fa-check"></i>
                                     </a>
-                                    <a href="?a=tolovstatus&type=delete&tranzak_id=<?=$tolov['id']?>" class="btn btn-danger btn-sm delete_<?=$tolov['id']?> delete" title="Kreditni yopish" >
+                                    <a href="?a=tolovstatus&delete=true&ids[]=<?=$tolov['id']?>" class="btn btn-danger btn-sm delete_<?=$tolov['id']?> delete" title="Kreditni yopish" >
                                         <i class="far fa-trash-alt"></i>
                                     </a>
                                 </div>

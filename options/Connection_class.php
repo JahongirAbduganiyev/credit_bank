@@ -50,6 +50,10 @@
 			return $this->setArray($query);
         }
 
-    }
+        public function __destruct()
+        {
+            $this->db->close();
+        }
 
+    }
 ?>

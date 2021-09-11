@@ -79,6 +79,7 @@
                 <script type="text/javascript">
                     $(document).ready(function(){
                         $(document).on('click', '.checkall', function(e){
+
                             if(this.checked){
                                 $('.checkrow').each(function(e){
                                     this.checked = true
@@ -86,15 +87,21 @@
                                     $('.add').removeAttr('href');
                                     $('.delete').removeAttr('href');
                                 });
+
+                                $('#checkbutton').removeAttr('disabled');
+                                $('#deletebutton').removeAttr('disabled');
                             }else{
                                 $('.checkrow').each(function(e){
                                     this.checked = false
 
                                     let id = this.id.split("_");
                                     id = id[1];
-                                    $('.add_'+id).attr('href',"?a=tolovstatus&type=add&tranzak_id="+id);
-                                    $('.delete_'+id).attr('href',"?a=tolovstatus&type=delete&tranzak_id="+id);
+                                    $('.add_'+id).attr('href',"?a=tolovstatus&add=true&ids[]="+id);
+                                    $('.delete_'+id).attr('href',"?a=tolovstatus&delete=true&ids[]="+id);
                                 });
+
+                                $('#checkbutton').attr('disabled','true');
+                                $('#deletebutton').attr('disabled','true');
                             }
                         });
 
@@ -135,9 +142,12 @@
                                 $('.checkrow').each(function(e){
                                     let id = this.id.split("_");
                                     id = id[1];
-                                    $('.add_'+id).attr('href',"?a=tolovstatus&type=add&tranzak_id="+id);
-                                    $('.delete_'+id).attr('href',"?a=tolovstatus&type=delete&tranzak_id="+id);
+                                    $('.add_'+id).attr('href',"?a=tolovstatus&add=true&ids[]="+id);
+                                    $('.delete_'+id).attr('href',"?a=tolovstatus&delete=true&ids[]="+id);
                                 });
+
+                                $('#checkbutton').attr('disabled','true');
+                                $('#deletebutton').attr('disabled','true');
                             }
 
                             if(status != 0){
@@ -145,6 +155,9 @@
                                     $('.add').removeAttr('href');
                                     $('.delete').removeAttr('href');
                                 });
+
+                                $('#checkbutton').removeAttr('disabled');
+                                $('#deletebutton').removeAttr('disabled');
                             }
                         });
                     });
