@@ -116,7 +116,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
+                <table id="example1" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th style="width:10px;">
@@ -130,23 +130,41 @@
                             <th>Summasi</th>
                             <th>Izox</th>
                             <th>Turi</th>
-                            <th>status</th>
+                            <th style="width: 5px">status</th>
                             <th style="width: 25px;">Option</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($viden as $tolov):?>
                         <?php
-                              $wait = false;
-                              $seccuss = false;
-                              $delete = false;  
+                                
+                              $check = '';
+                              $fon = '';
+                              $button_add = '';
+                              $button_delete = '';
+                              $span = '';
                               switch($tolov['tasdiq_status']){
                                   case 0:  
+                                    $span = '<span class="badge badge-warning "><span class="fa fa-spinner"></span></span>';
+                                    break;
+                                  case 1:  
+                                    // $fon = 'background: #bdf5e6';
+                                    $check ='display:none';
+                                    $button_add = 'display:none';
+                                    $span = '<span class="badge badge-success "><span class="fa fa-check"></span></span>';
+                                    break;
+                                  case 2:
+                                    $fon = 'pointer-events: none; background: #f1f2f3';
+                                    $button_add = 'display:none';
+                                    $button_delete = 'display:none';
+                                    $check ='display:none';
+                                    $span = '<span class="badge badge-danger "><span class="fa fa-times"></span></span>';
+                                    break;
                               }
                         ?>
-                        <tr for="check_<?=$tolov['id']?>" style="background: red;">
+                        <tr for="check_<?=$tolov['id']?>" style="<?=$fon?>">
                             <td>
-                                <div class="custom-control custom-checkbox">
+                                <div class="custom-control custom-checkbox" style="<?=$check?>;">
                                     <input class="custom-control-input checkrow" type="checkbox"  id="check_<?=$tolov['id']?>">
                                     <label for="check_<?=$tolov['id']?>" class="custom-control-label"> </label>
                                 </div>
@@ -156,13 +174,13 @@
                             <td><?=$tolov['summa']?></td>
                             <td><?=$tolov['izox']?></td>
                             <td><?=$tolov['tolov_turi']?></td>
-                            <td><?=$tolov['tasdiq_status']?></td>
-                            <td>
+                            <td class="text-center"><?=$span?></td>
+                            <td class="text-right">
                                 <div class="btn-group">
-                                    <a href="?a=tolovstatus&add=true&ids[]=<?=$tolov['id']?>" class="btn btn-info btn-sm add_<?=$tolov['id']?> add" title="Kreditni yopish">
+                                    <a href="?a=tolovstatus&add=true&ids[]=<?=$tolov['id']?>" style="<?=$button_add?>" class="btn btn-info btn-sm add_<?=$tolov['id']?> add" title="Kreditni yopish">
                                         <i class="fas fa-check"></i>
                                     </a>
-                                    <a href="?a=tolovstatus&delete=true&ids[]=<?=$tolov['id']?>" class="btn btn-danger btn-sm delete_<?=$tolov['id']?> delete" title="Kreditni yopish" >
+                                    <a href="?a=tolovstatus&delete=true&ids[]=<?=$tolov['id']?>" style="<?=$button_delete?>" class="btn btn-danger btn-sm delete_<?=$tolov['id']?> delete" title="Kreditni yopish" >
                                         <i class="far fa-trash-alt"></i>
                                     </a>
                                 </div>

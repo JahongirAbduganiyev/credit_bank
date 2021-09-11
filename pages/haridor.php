@@ -17,7 +17,7 @@
     $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
     $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
     $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
-    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id}");
+    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} AND tasdiq_status=1");
 
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];
