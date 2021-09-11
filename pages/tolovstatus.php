@@ -21,11 +21,35 @@
         try{
             $all_query_ok=true;
 
-            $updates = $db->query("
+            $db->query("
               UPDATE `kassa` 
-              SET `tasdiq_status` = '{$status}' 
-              WHERE `kassa`.`id` IN({$ids})
-            ") ? null : $all_query_ok=false;;
+              SET 
+                `tasdiq_status` = '{$status}' 
+              WHERE 
+                `kassa`.`id` IN({$ids})
+            ") ? null : $all_query_ok=false;
+
+            // $db->query("
+            //   INSERT INTO depozit (
+            //     client_id, 
+            //     kassa_id, 
+            //     sana, 
+            //     kirim, 
+            //     chiqim, 
+            //     qoldiq, 
+            //     izox) 
+            //   SELECT 
+            //     kassa.client_id, 
+            //     kassa.id, 
+            //     kassa.sana, 
+            //     kassa.summa, 
+            //     0, 
+            //     0, 
+            //     'client tolov' 
+            //     FROM 
+            //     kassa 
+            //     WHERE kassa.id IN({$ids})
+            // ") ? null : $all_query_ok=false;
 
             if(!$all_query_ok){
                 throw new Exception("Malumotlar qabul qilishda xatolik ! Qaytda urining");
@@ -44,7 +68,7 @@
         ?><script>window.location.href = "index.php?a=tolovstatus";</script><?php
     }
 
-    $viden = $db->query("SELECT * FROM `kassa` WHERE tasdiq_status=0 AND filial_kodi=100");
+    $viden = $db->query("SELECT * FROM `kassa` WHERE filial_kodi=100");
 
 
 ?>
@@ -101,20 +125,29 @@
                                     <label for="allcheck" class="custom-control-label"> </label>
                                 </div>
                             </th>
-                            <th style="width:10px;">ID</th>
+                            <th style="width:10px;" class="sorting sorting_desc" aria-sort="descending">ID</th>
                             <th>Sana</th>
                             <th>Summasi</th>
                             <th>Izox</th>
                             <th>Turi</th>
+                            <th>status</th>
                             <th style="width: 25px;">Option</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($viden as $tolov):?>
-                        <tr for="check_<?=$tolov['id']?>">
+                        <?php
+                              $wait = false;
+                              $seccuss = false;
+                              $delete = false;  
+                              switch($tolov['tasdiq_status']){
+                                  case 0:  
+                              }
+                        ?>
+                        <tr for="check_<?=$tolov['id']?>" style="background: red;">
                             <td>
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input checkrow" type="checkbox" id="check_<?=$tolov['id']?>">
+                                    <input class="custom-control-input checkrow" type="checkbox"  id="check_<?=$tolov['id']?>">
                                     <label for="check_<?=$tolov['id']?>" class="custom-control-label"> </label>
                                 </div>
                             </td>
@@ -123,6 +156,7 @@
                             <td><?=$tolov['summa']?></td>
                             <td><?=$tolov['izox']?></td>
                             <td><?=$tolov['tolov_turi']?></td>
+                            <td><?=$tolov['tasdiq_status']?></td>
                             <td>
                                 <div class="btn-group">
                                     <a href="?a=tolovstatus&add=true&ids[]=<?=$tolov['id']?>" class="btn btn-info btn-sm add_<?=$tolov['id']?> add" title="Kreditni yopish">
@@ -149,6 +183,7 @@
                             <th>Summasi</th>
                             <th>Izox</th>
                             <th>Turi</th>
+                            <th>Status</th>
                             <th>Option</th>
                         </tr>
                     </tfoot>
