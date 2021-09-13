@@ -27,14 +27,14 @@
                 `izox`) 
             VALUES (
                 '{$sana}',
-                '01',
+                'avto',
                 '{$farq}',
                 'naqt',
                 '0',
                 '1',
                 '{$value['kodi']}',
-                '01',
-                '01',
+                'avto',
+                'avto',
                 'kassa qoldiq yani kunga otqazildi'
             )
         ") or die($con->error);
