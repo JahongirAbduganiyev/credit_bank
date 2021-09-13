@@ -112,13 +112,13 @@
                         <div class="card-body">
                         <div class="form-group">
                                 <label >Bugungi Yo'ldagi Summa</label>
-                                <input required readonly type="text" name="kutish_summa" id="kutish_summa" class="number-separator form-control border border-warning" value=" <?= KutishSumma(); ?>">                               
+                                <input  readonly type="text" name="kutish_summa" id="kutish_summa" class="number-separator form-control border border-warning" value=" <?= KutishSumma(); ?>">                               
                             </div>
                           
                             <div class="form-group">
                                 <label >Kassa Qoldiq</label>
                                 <input required readonly type="text" name="jami_summa" id="jami_summa" class="number-separator form-control border border-success" value="<?= JamiSumma(); ?>">
-                                <input required type="hidden" name="filial_nomi" value="">
+                              
                             </div>                            
                             <div class="form-check mb-lg-2">
                                 <input type="checkbox" class="form-check-input" id="toliq_kirim">
@@ -126,7 +126,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Boshqarmaga Kirim Qilish</label>
-                                <input required type="text" class="number-separator form-control" name="kirim_summa" id="bkirim_summa">
+                                <input  required type="text" class="form-control number-separator" name="kirim_summa" id="bkirim_summa" >
                             </div>   
                             <div class="form-group">
                                 <label>Izox</label>

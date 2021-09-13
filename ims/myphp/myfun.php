@@ -150,16 +150,17 @@ function InkassaInsert()
                                                 throw new Exception("Error Processing Request", 1);
                                             }  
                                             ?>
-                                                <script>
+                                                <script>                                                   
                                                     window.location="?a=boshqarma_inkassa";
                                                 </script>
-                                            <?php                   
+                                            <?php
+                                                                
                                      }
                                 else
                                 {
                                     ?>
                                         <script>
-                                            alert("Mablag'ingiz Yetarli Emas!")
+                                            alert("Mablag'ingiz Yetarli Emas!");
                                             window.location="?a=boshqarma_inkassa";
                                         </script>
                                     <?php
@@ -168,8 +169,7 @@ function InkassaInsert()
                 else
                     {
                             ?>
-                                <script>
-                                        // window.location="?a=boshqarma_inkassa";
+                                <script>                                        
                                         alert("Tasdiqlanmagan To'lov Bor!");
                                 </script>
                         <?php

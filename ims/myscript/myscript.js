@@ -25,7 +25,7 @@ $(document).ready(function(){
                     return '';
             }
         });
-    });
+    });``
     //End Number Format
     $(this).on("change",'#toliq_kirim',function(){
         var chex    =   $("#toliq_kirim:checked").length;
@@ -36,7 +36,8 @@ $(document).ready(function(){
         }
         else
         {
-            $("#bkirim_summa").val('');
+            $("#bkirim_summa").val(' ');
+           
         }
       });    
       //End Toliq Kirim
@@ -48,10 +49,7 @@ $(document).ready(function(){
         {
             alert("Mablag' Yetarli Emas!");            
            e.preventDefault(e);                
-        }
-        $("#bkirim_summa").val('');
-        
-    
+        }  
     });       
       //End Mablag' error
      
