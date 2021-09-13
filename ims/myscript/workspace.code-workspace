@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../asosiy_bank1"
+		}
+	],
+	"settings": {
+		"workbench.colorTheme": "Monokai",
+		"workbench.preferredDarkColorTheme": "Tokyo Night Storm",
+		"editor.fontSize": 16
+	}
+}

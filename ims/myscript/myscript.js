@@ -41,17 +41,18 @@ $(document).ready(function(){
       });    
       //End Toliq Kirim
       
-      
       $(this).on("click","#btntas",function(e){
-          var tjsum =   $("#jami_summa").val();
-          var bksum =   $("#bkirim_summa").val();
-          if(tjsum < bksum || bksum == 0)
-          {
-              alert("Mablag'ingiz Yetarli Emas!");
-              e.preventDefault(e);
-          }
-
-      }); 
+        var tjsum =   $("#jami_summa").val();
+        var bksum =   $("#bkirim_summa").val();
+        if(tjsum < bksum || bksum == 0)
+        {
+            alert("Mablag' Yetarli Emas!");            
+           e.preventDefault(e);                
+        }
+        $("#bkirim_summa").val('');
+        
+    
+    });       
       //End Mablag' error
      
 
