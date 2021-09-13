@@ -1,6 +1,5 @@
 
 <?php
-
     use options\Connection;
     use options\Ajax;
     use options\Script;
@@ -18,7 +17,7 @@
     $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
     $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
     $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
-    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id}");
+    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} AND tasdiq_status=1");
 
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];
@@ -28,80 +27,49 @@
         $db->autocommit(false);
         try{
             $all_query_ok=true;
-            // $insert_depozit = $db->query("
-            //     INSERT INTO `depozit` (
-            //         `id`, 
-            //         `client_id`, 
-            //         `sana`, 
-            //         `kirim`, 
-            //         `chiqim`, 
-            //         `qoldiq`, 
-            //         `izox`, 
-            //         `filial_nomi`) 
-            //     VALUES (
-            //         NULL, 
-            //         '{$client_id}', 
-            //         current_timestamp(), 
-            //         '{$summa}',
-            //         '0', 
-            //         '{$summa}', 
-            //         'client to\'lov\r\n', 
-            //         'buvayda');
-            // ") ? null : $all_query_ok=false;
 
-            // $insert_tolov_tarix = $db->query("
-            //     INSERT INTO `tolov_tarix` (
-            //         `id`, 
-            //         `sana`, 
-            //         `client_id`, 
-            //         `summa`, 
-            //         `tolov_turi`, 
-            //         `izox`) 
-            //     VALUES (
-            //         NULL, 
-            //         current_timestamp(), 
-            //         '{$client_id}', 
-            //         '{$summa}', 
-            //         '{$turi}', 
-            //         '{$izoh}');
-            // ") ? null : $all_query_ok=false;
-            
             $insert_vviden = $db->query("
-                INSERT INTO `qora_tolov_tarix`(
+                INSERT INTO `kassa` (
                     `id`, 
                     `sana`, 
-                    `tolov_summa`, 
-                    `tolov_turi`, 
-                    `izox`, 
                     `client_id`, 
+                    `summa`, 
+                    `tolov_turi`, 
+                    `kir_chiq_status`, 
+                    `tasdiq_status`, 
                     `filial_kodi`, 
-                    `status`) 
+                    `insert_user_id`, 
+                    `update_user_id`, 
+                    `izox`) 
                 VALUES (
                     NULL, 
-                    'current_timestamp()', 
+                    current_timestamp(), 
+                    '{$client_id}', 
                     '{$summa}', 
                     '{$turi}', 
-                    '{$izoh}', 
-                    '{$client_id}',  
+                    '0', 
+                    '0', 
                     '100', 
-                    '0');
-            ") ? null : $all_query_ok=false;
+                    '1', 
+                    '1', 
+                    '{$izoh}');
+                ") ? null : $all_query_ok=false;
 
             if(!$all_query_ok){
                 throw new Exception("Malumotlar qabul qilishda xatolik ! Qaytda urining");
             }
+            
             $db->commit();
-
+            
         }catch(Exception $e){
             ?>
                 <script !src="">
                     alert("<?=$e->getMessage()?>");
                 </script>
             <?php
-        }   
+        }
 
         ?><script>window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
-
     }
 
 ?>
@@ -114,10 +82,10 @@
             <h1>Haridor:  <?=$client['fish']?></h1>
             <p>
                 <?php
-                    echo "<pre>";
+                    // echo "<pre>";
                         // print_r($ajax->getAjax());
                         // print_r(Ajax::requestSave());
-                    echo "</pre>";
+                    // echo "</pre>";
                 ?> 
             </p>
           </div>
@@ -139,54 +107,104 @@
           <div class="col-md-8 ">
             
             <div class="card">
-                <div class="card-header d-flex justify-content-between bd-highlight mb-3">
-                    <h3 class="card-title col-10">
-                        Grafik
-                    </h3>
+                <div class="card-header p-2 d-flex justify-content-between bd-highlight mb-3">
+                    <ul class="nav nav-pills col-10">
+                        <li class="nav-item"><a class="nav-link active" href="#grafik" data-toggle="tab">Grafik</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#tolovtarixi" data-toggle="tab">To'lovlari</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                    </ul>
                     <button type="button" id="salom" class="btn btn-success btn-sm col-2" data-toggle="modal" data-target="#modal-default">
                         To'lov qilish
                     </button>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body p-0">
-                    <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Sana</th>
-                            <th>Oylik tani</th>
-                            <th>Oylik foiz</th>
-                            <th>Oylik to'lov</th>
-                            <th>To'landi</th>
-                            <th>Holati</th>
-                            <th style="width: 40px">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($client_credit as $row):?>
-                        <tr>
-                            <td><?=$row['id']?></td>
-                            <td><?=$row['tolov_sana']?></td>
-                            <td><?=$row['oylik_tani']?></td>
-                            <td><?=$client_foiz['kunlik_foiz']?></td>
-                            <td><?=($row['oylik_tani']+$client_foiz['kunlik_foiz'])?></td>
-                            <td><?=$row['sondirilgan_tani']?></td>
-                            <td>
-                                <div class="progress progress-xs">
-                                <div class="progress-bar progress-bar-danger" style="width: <?=($row['sondirilgan_tani']*100/$row['oylik_tani'])?>%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge bg-danger"><?=($row['sondirilgan_tani']*100/$row['oylik_tani'])?>%</span></td>
-                        </tr>  
-                        <?php endforeach;?>
-                    </tbody>
-                    </table>
-                </div>
-                <!-- /.card-body -->
+                </div><!-- /.card-header -->
+                <div class="card-body" style="padding: 0;">
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="grafik">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10px">#</th>
+                                        <th>Sana</th>
+                                        <th>Oylik tani</th>
+                                        <th>Oylik foiz</th>
+                                        <th>Oylik to'lov</th>
+                                        <th>To'landi</th>
+                                        <th>Holati</th>
+                                        <th style="width: 40px">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($client_credit as $row):?>
+                                    <tr>
+                                        <td><?=$row['id']?></td>
+                                        <td><?=$row['tolov_sana']?></td>
+                                        <td><?=$row['oylik_tani']?></td>
+                                        <td><?=$client_foiz['kunlik_foiz']?></td>
+                                        <td><?=($row['oylik_tani']+$client_foiz['kunlik_foiz'])?></td>
+                                        <td><?=$row['sondirilgan_tani']?></td>
+                                        <td>
+                                            <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-danger" style="width: <?=($row['sondirilgan_tani']*100/$row['oylik_tani'])?>%"></div>
+                                            </div>
+                                        </td>
+                                        <td><span class="badge bg-danger"><?=($row['sondirilgan_tani']*100/$row['oylik_tani'])?>%</span></td>
+                                    </tr>  
+                                    <?php endforeach;?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="tolovtarixi">
+                        <div class="card" style="margin: 0;">
+                            <div class="card-header">
+                                <h3 class="card-title">To'lovlar tarixi</h3>
+                            </div>
+                            <!-- ./card-header -->
+                            <div class="card-body">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Sana</th>
+                                            <th>Summa</th>
+                                            <th>Tolov turi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($tranzaksiya_history as $tranz):?>
+                                        <tr data-widget="expandable-table" aria-expanded="false">
+                                            <td><?=$tranz['id']?></td>
+                                            <td><?=$tranz['sana']?></td>
+                                            <td><?=$tranz['summa']?></td>
+                                            <td><?=$tranz['tolov_turi']?></td>
+                                        </tr>
+                                        <tr class="expandable-body">
+                                            <td colspan="5">
+                                                <p>
+                                                <?=$tranz['izox']?>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach;?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.tab-pane -->
+
+                    <div class="tab-pane" id="settings">
+                    settings
+                    </div>
+                    <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+              </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
             
-
           </div>
           <!--/.col (left) -->
           <!-- right column -->
@@ -229,43 +247,7 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">To'lovlar tarixi</h3>
-                    </div>
-                    <!-- ./card-header -->
-                    <div class="card-body">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Sana</th>
-                                    <th>Summa</th>
-                                    <th>Tolov turi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach($tranzaksiya_history as $tranz):?>
-                                <tr data-widget="expandable-table" aria-expanded="false">
-                                    <td><?=$tranz['id']?></td>
-                                    <td><?=$tranz['sana']?></td>
-                                    <td><?=$tranz['summa']?></td>
-                                    <td><?=$tranz['tolov_turi']?></td>
-                                </tr>
-                                <tr class="expandable-body">
-                                    <td colspan="5">
-                                        <p>
-                                           <?=$tranz['izox']?>
-                                        </p>
-                                    </td>
-                                </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
+                
             </div>
         </div>
         <!-- /.row -->

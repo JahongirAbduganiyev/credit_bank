@@ -63,6 +63,23 @@ use options\Script;
         <a href="index.php" class="nav-link">Home</a>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+              <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                  <i class="far fa-user"></i> Jahongir abduganiyev <i class="fas fa-angle-down"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item">
+                      <i class="fas fa-user-cog mr-2"></i> Profile
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item">
+                      <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                  </a>
+              </div>
+          </li>
+      </ul>
   </nav>
   <!-- /.navbar -->
 
@@ -198,9 +215,10 @@ use options\Script;
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
+      "order": [[ 1, 'desc' ]],
       "paging": true,
       "lengthChange": false,
       "searching": false,

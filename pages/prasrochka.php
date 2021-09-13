@@ -1,11 +1,22 @@
 <?php
     include("db_kassa.php");
 
+    $filial_kodi = 'buvayda';
+    $filial = array();
+    $filial_id = $con->query("SELECT * FROM `client` WHERE filial_nomi='{$filial_kodi}'");
+    $n = 0;
+    while ($row = $filial_id->fetch_array()){
+        $filial[$n] = $row['id'];
+        $n++;
+    }
+
     $pras = $con->query("select client_id from muddati_o_tani WHERE status=0 group by client_id");
     $clients_id = array();
     $i = 0;
     while ($r = $pras->fetch_array()){
-        $clients_id[$i] = $r['client_id'];
+        if ($filial[$i] == $r['client_id']){
+            $clients_id[$i] = $r['client_id'];
+        }
         $i++;
     }
 
