@@ -11,7 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c122ce6b-122c-44c0-9dd7-5b5110b71bf7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cron/next_prasrochka.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.babelrc.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.browserslistrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.bundlewatch.config.json" beforeDir="false" />
@@ -149,6 +148,7 @@
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_toastr.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/json_encode/client_insert.php" beforeDir="false" afterPath="$PROJECT_DIR$/json_encode/client_insert.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.min.css" beforeDir="false" />
@@ -2403,7 +2403,7 @@
       <workItem from="1630402152807" duration="13342000" />
       <workItem from="1630523640019" duration="31154000" />
       <workItem from="1630651297321" duration="30817000" />
-      <workItem from="1631007908121" duration="76534000" />
+      <workItem from="1631007908121" duration="78427000" />
     </task>
     <servers />
   </component>
