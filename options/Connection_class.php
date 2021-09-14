@@ -24,11 +24,7 @@
         }
 
         private function setArray($query){
-            
-            if($query->num_rows == 1){
-                return $query->fetch_assoc();
-            }
-
+        
             $array =[];
             $i = 0;
             while($row = $query->fetch_assoc()){
