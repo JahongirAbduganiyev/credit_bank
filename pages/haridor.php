@@ -14,10 +14,10 @@
     }
 
     $client_id = $_GET['client_id'];
-    $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
-    $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
+    $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id}");
+    $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id}");
     $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
-    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id}");
+    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} ORDER BY id DESC");
 
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];
@@ -71,6 +71,44 @@
 
         ?><script>window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
     }
+
+
+    if(isset($_REQUEST['delete'])){
+        $id = $_REQUEST['id'] ?? null;
+        $status = null;
+        $delete = $_REQUEST['delete'] ?? null;
+
+        if($delete){ $status = 2;}
+
+        $db->autocommit(false);
+        try{
+            $all_query_ok=true;
+
+            $db->query("
+              UPDATE `kassa` 
+              SET 
+                `tasdiq_status` = '{$status}' 
+              WHERE 
+                `kassa`.`id` IN({$id})
+            ") ? null : $all_query_ok=false;
+
+            if(!$all_query_ok){
+                throw new Exception("Malumotni o'chirishda xatolik ! Qaytda urining");
+            }
+            
+            $db->commit();
+
+        }catch(Exception $e){
+            ?>
+                <script !src="">
+                    alert("<?=$e->getMessage()?>");
+                </script>
+            <?php
+        }
+        
+        ?><script>window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
+    }
+
 
 ?>
 <div class="content-wrapper">
@@ -141,13 +179,13 @@
                                         <td><?=$row['oylik_tani']?></td>
                                         <td><?=$client_foiz[0]['kunlik_foiz']?></td>
                                         <td><?=($row['oylik_tani']+$client_foiz[0]['kunlik_foiz'])?></td>
-                                        <td><?=$row['sondirilgan_tani']?></td>
+                                        <td></td>
                                         <td>
                                             <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" style="width: <?=($row['sondirilgan_tani']*100/$row['oylik_tani'])?>%"></div>
+                                            <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
                                             </div>
                                         </td>
-                                        <td><span class="badge bg-danger"><?=($row['sondirilgan_tani']*100/$row['oylik_tani'])?>%</span></td>
+                                        <td><span class="badge bg-danger">50%</span></td>
                                     </tr>  
                                     <?php endforeach;?>
                                 </tbody>
@@ -160,8 +198,8 @@
                                 <h3 class="card-title">To'lovlar tarixi</h3>
                             </div>
                             <!-- ./card-header -->
-                            <div class="card-body">
-                                <table class="table table-bordered table-hover">
+                            <div class="card-body table-responsive pt-0" style="height: 600px;">
+                                <table class="table table-bordered table-hover table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -175,7 +213,7 @@
                                     <tbody>
                                         <?php foreach($tranzaksiya_history as $tranz):?>
                                         <tr data-widget="expandable-table" aria-expanded="false">
-                                            <td><?=$tranz['id']?></td>
+                                            <td style="width: 10px;"><?=$tranz['id']?></td>
                                             <td><?=$tranz['sana']?></td>
                                             <td><?=$tranz['summa']?></td>
                                             <td><?=$tranz['tolov_turi']?></td>
@@ -190,7 +228,7 @@
                                             </td>   
                                             <td class="text-center">
                                                 <?php if($tranz['tasdiq_status'] == '1'):?>
-                                                    <a href="#"><i class="fas fa-trash-alt"></i></a>
+                                                    <a href="?a=haridor&client_id=<?=$client_id?>&delete=true&id=<?=$tranz['id']?>"><i class="fas fa-trash-alt"></i></a>
                                                 <?php endif;?>
                                                     
                                             </td>
@@ -213,7 +251,7 @@
                     <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="settings">
-                    settings
+                        settings
                     </div>
                     <!-- /.tab-pane -->
                     </div>
@@ -273,7 +311,7 @@
     <!-- /.content -->
 </div>
 
-<!-- MODALLAR OYNASI -->
+ 
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">

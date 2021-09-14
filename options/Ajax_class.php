@@ -21,9 +21,9 @@
 
         private function setArray($query){
             
-            if($query->num_rows == 1){
-                return $query->fetch_assoc();
-            }
+            // if($query->num_rows == 1){
+            //     return $query->fetch_assoc();
+            // }
 
             $array =[];
             $i = 0;
@@ -43,7 +43,7 @@
 				return $query;
 			}
 
-			return $this->setArray($query);
+			echo json_encode($this->setArray($query));
         }
 
         public function getAjax(){
@@ -63,13 +63,13 @@
         }
 
         public function haridor(){
-            // $db = new \mysqli('localhost','root','','credit');
-            // $client_id = $_REQUEST['data'][1]['value'];
-            // $dbc = $db->query("SELECT * FROM client WHERE id = {$client_id}");
-            // // $res = $db->query("SELECT * FROM client WHERE id = {$client_id}");
-            // // echo json_encode($res);
-            // // print_r($_REQUEST['data'][1]['value']);
-            // print_r($dbc);
+            $db = new \mysqli('localhost','root','','credit');
+            $client_id = $_REQUEST['data'][1]['value'];
+            $dbc = $db->query("SELECT * FROM client WHERE id = {$client_id}");
+            // $res = $db->query("SELECT * FROM client WHERE id = {$client_id}");
+            // echo json_encode($res);
+            // print_r($_REQUEST['data'][1]['value']);
+            print_r($dbc);
 
             return $this->getAjax();
 
