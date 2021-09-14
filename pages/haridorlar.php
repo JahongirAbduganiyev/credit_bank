@@ -97,20 +97,45 @@
 
 <!-- MODALLAR OYNASI -->
 <div class="modal fade" id="modal-grafik">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Default Modal</h4>
+          
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>One fine body&hellip;</p>
+          <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Grafik jadvali</h3>
+                <button type="button" class="close btn btn-sm btn-default" id="print"><i class="fas fa-print"></i></button>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Sana</th>
+                      <th>Oylik tani</th>
+                      <th>Oylik foiz</th>
+                      <th>Oylik to'lovi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="credit_grafik"> 
+                          <!-- GRAFIK YOZILADI -->
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
         </div>
-        <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+        <div class="modal-footer justify-content-end">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Yopish</button>
+          
         </div>
       </div>
       <!-- /.modal-content -->

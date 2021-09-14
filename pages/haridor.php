@@ -256,7 +256,7 @@
                     <!-- /.tab-pane -->
                     </div>
                     <!-- /.tab-content -->
-              </div><!-- /.card-body -->
+                </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
             
