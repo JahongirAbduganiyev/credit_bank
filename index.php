@@ -1,10 +1,18 @@
-<?php 
-  include('options/autoload.php');
-  include('ims/myphp/myfun.php');
+<?php
+    ob_start();
+    session_start();
+    if (!isset($_SESSION['user_login'])) {
+        header('location:pages/logout.php');
+        ob_end_flush();
+    }
 
-use options\Ajax;
-use options\Script;
+    include("pages/session.php");
 
+    include('options/autoload.php');
+    include('ims/myphp/myfun.php');
+
+    use options\Ajax;
+    use options\Script;
 
 ?>
 
@@ -66,7 +74,7 @@ use options\Script;
     <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
               <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                  <i class="far fa-user"></i> Jahongir abduganiyev <i class="fas fa-angle-down"></i>
+                  <i class="far fa-user"></i> <?= $user_name ?> <i class="fas fa-angle-down"></i>
               </a>
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                   <div class="dropdown-divider"></div>
@@ -74,7 +82,7 @@ use options\Script;
                       <i class="fas fa-user-cog mr-2"></i> Profile
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
+                  <a href="pages/logout.php" class="dropdown-item">
                       <i class="fas fa-sign-out-alt mr-2"></i> Logout
                   </a>
               </div>

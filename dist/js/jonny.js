@@ -98,6 +98,7 @@ $(document).ready(function(){
                 }else {
                     alert("Ma'lumotlar bazaga saqlanmadi qaytadan urinib ko'ring!");
                     stopSpinner();
+                    $("#modal-info").modal('toggle');
                 }
             }
         })
