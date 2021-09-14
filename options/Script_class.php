@@ -66,7 +66,7 @@
                                     let foiz = obj.foiz;
                                     $('#credit_grafik').html('');
                                     credit.forEach(function(item,index){
-                                        $('#credit_grafik').append('<tr><td>'+(++index)+'</td><td>'+item.tolov_sana+'</td><td>'+item.oylik_tani+'</td><td>'+foiz.kunlik_foiz+'</td><td>'+(item.oylik_tani+foiz.kunlik_foiz)+'</td></tr>');
+                                        $('#credit_grafik').append('<tr><td>'+(++index)+'</td><td>'+item.tolov_sana+'</td><td>'+item.oylik_tani+' so`m</td><td>'+foiz.kunlik_foiz+' so`m</td><td>'+(parseInt(item.oylik_tani)+parseInt(foiz.kunlik_foiz))+' so`m</td></tr>');
                                     });
                                 }
                             });
