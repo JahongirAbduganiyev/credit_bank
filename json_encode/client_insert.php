@@ -84,18 +84,12 @@ if (isset($_POST["client_id"])) {
                     client_id,
                     tolov_sana,
                     oylik_tani,
-                    sondirilgan_tani,
-                    izox,
-                    filial_nomi,
                     status
                 )
                 VALUES (
                     '{$last_id}',
                     '{$t_sana}',
                     '{$tani_oy}',
-                    '0',
-                    '',
-                    '{$fil_nom}',
                     '{$status}'
                 )");
                 if($ress1){true;} else {throw new Exception("Error Processing Request", 1);}
@@ -107,26 +101,24 @@ if (isset($_POST["client_id"])) {
                 credit_foiz (
                     client_id,
                     kunlik_foiz,
-                    kun,
-                    status,
-                    filial_nomi
+                    kun
                 )
                 VALUES (
                     '{$last_id}',
                     '{$kunlik_foiz}',
-                    '0',
-                    '0',
-                    '{$fil_nom}'
+                    '0'
                 )");
             if($ress2){true;} else {throw new Exception("Error Processing Request", 1);}
 
             $ress3 = $con->query("INSERT INTO 
                 prasrochka (
                     client_id,
+                    kun,
                     status
                 )
                 VALUES (
                     '{$last_id}',
+                    '0',
                     '0.0'
                 )");
             if($ress3){true;} else {throw new Exception("Error Processing Request", 1);}

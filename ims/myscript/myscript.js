@@ -25,7 +25,7 @@ $(document).ready(function(){
                     return '';
             }
         });
-    });
+    });``
     //End Number Format
     $(this).on("change",'#toliq_kirim',function(){
         var chex    =   $("#toliq_kirim:checked").length;
@@ -36,22 +36,21 @@ $(document).ready(function(){
         }
         else
         {
-            $("#bkirim_summa").val('');
+            $("#bkirim_summa").val(' ');
+           
         }
       });    
       //End Toliq Kirim
       
-      
       $(this).on("click","#btntas",function(e){
-          var tjsum =   $("#jami_summa").val();
-          var bksum =   $("#bkirim_summa").val();
-          if(tjsum < bksum || bksum == 0)
-          {
-              alert("Mablag'ingiz Yetarli Emas!");
-              e.preventDefault(e);
-          }
-
-      }); 
+        var tjsum =   $("#jami_summa").val();
+        var bksum =   $("#bkirim_summa").val();
+        if(tjsum < bksum || bksum == 0)
+        {
+            alert("Mablag' Yetarli Emas!");            
+           e.preventDefault(e);                
+        }  
+    });       
       //End Mablag' error
      
 

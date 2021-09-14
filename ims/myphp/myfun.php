@@ -55,110 +55,134 @@ function JamiSumma()
 
     //Sana Qo'shilmadi
     global $con;
-    $res = $con->query("SELECT sum(summa) as jami From kassa Where tolov_turi='naqd' and kir_chiq_status=0 and tasdiq_status=1 and filial_kodi='100' ");
+    $res = $con->query("SELECT sum(summa) as jami From kassa Where tolov_turi='naqt' and kir_chiq_status=0 and tasdiq_status=1 and filial_kodi='100' ");
+    $kjami = 0;
     if($res->num_rows > 0)
     {
         $r1 = $res->fetch_array();
-        $kjami = $r1['jami'];
+        // $kjami = $r1['jami'];
+        $kjami= $r1['jami'] ?? 0;
     }
-    else{
-        $kjami = 0;
-    }
-
-    $res_1 = $con->query("SELECT sum(summa) as jami From kassa Where tolov_turi='naqd' and kir_chiq_status=1 and tasdiq_status in (0,1) and filial_kodi='100' ");
+    
+    $res_1 = $con->query("SELECT sum(summa) as chjami From kassa where kir_chiq_status=1 and tasdiq_status in (0,1)  and filial_kodi='100' ");
+    //$chjami=0;
     if($res_1->num_rows > 0)
     {
         $r2 = $res_1->fetch_array();
-        $chjami = $r2['jami'];
-    }
-    else{
-        $chjami = 0;
-    }
+        $chjami = $r2['chjami']??0;
+    }   
     return $kjami-$chjami;
 }
 function KutishSumma()
 {
     global $con;
-    $kres=$con->query("SELECT sum(summa) as kjami FROM kassa where  tolov_turi='naqd' and kir_chiq_status=1 and tasdiq_status=0 and filial_kodi='100' ");
-    if($kres->num_rows > 0)
+    $kres=$con->query("SELECT sum(summa) as kjami  FROM kassa where  tolov_turi='naqt' and kir_chiq_status=1 and tasdiq_status=0 and filial_kodi='100' ");
+//    $kjam = $kres;
+    $kjam=0;
+    if($kres->num_rows >0)
     {
-        $kj =   $kres->fetch_array();
-        $kjam   =   $kj["kjami"];
+        $kj =   $kres->fetch_array();      
+        $kjam = $kj['kjami'] ?? 0;
 
     }
-    else
-    {
-        $kjam = 0;
-    }
+
     return $kjam;
 }
 function InkassaInsert()
 {
-    global $con;
-    $con->autocommit(false);
-    
-	try {
-            if(isset($_POST['tasdiq']))
-            {
-                //$jsum   = str_replace(" ","",$_POST['jami_summa']);
-                $chsum  =   str_replace(" ","",$_POST['kirim_summa']);
-               // $qol    =   $jsum-$chsum;
-                $fcode  =   "100";
-                $izox   =   $_POST['izox'];
-                $re =   $con->query("INSERT INTO kassa(
-                    `client_id`,
-                    `summa`,
-                    `tolov_turi`,
-                    `kir_chiq_status`,
-                    `tasdiq_status`,
-                    `filial_kodi`,
-                    `insert_user_id`,
-                    `update_user_id`,
-                    `izox`
-                           ) 
-                    VALUES(
-                    '0',
-                    '{$chsum}',
-                    'naqd',
-                    '1',
-                    '0',
-                    '{$fcode}',
-                    '1',
-                    '1',
-                    '{$izox}'
+    global $con;   
+        try 
+        {
+                if(isset($_POST['tasdiq']))
+                {   
 
-                    ) ") or die($con->error);
-                if($re)
-                {
-                    true;           
-                    ?>
-                    <script>
-                       alert("Malumotlar Bazaga Kiritildi");
-                    </script>
-                    <?php
-                } 
-                else 
-                {
-                    throw new Exception("Error Processing Request", 1);
-                }  
-                ?>
-                <script>
-                     window.location="?a=boshqarma_inkassa";
-                </script>
-                <?php
-               
-            }
-         
+                    $ret    =      $con->query("SELECT count(*) as soni FROM kassa Where kir_chiq_status=0 and tasdiq_status=0 and filial_kodi='100' ");
+                    $ksoni  = 0;
+                    if($ret->num_rows > 0)
+                    {
+                        $ks = $ret->fetch_array();
+                        $ksoni  = $ks['soni'] ?? 0;
+                    }
+                    if($ksoni==0)
+                    {
+                                $jsum        =       str_replace(" ","",$_POST['jami_summa']);
+                                $chsum      =       str_replace(" ","",$_POST['kirim_summa']);                   
+                                $fcode      =          "100";
+                                $izox         =          $_POST['izox'];
 
-        $con->commit();   
-        mysqli_close($con);
-    }   
+                                    if($jsum >= $chsum  && $jsum!=0 && $chsum!=0)
+                                    {
+                                        $re =   $con->query("INSERT INTO kassa(
+                                            `client_id`,
+                                            `summa`,
+                                            `tolov_turi`,
+                                            `kir_chiq_status`,
+                                            `tasdiq_status`,
+                                            `filial_kodi`,
+                                            `insert_user_id`,
+                                            `update_user_id`,
+                                            `izox`
+                                                ) 
+                                            VALUES(
+                                            '0',
+                                            '{$chsum}',
+                                            'naqt',
+                                            '1',
+                                            '0',
+                                            '{$fcode}',
+                                            '1',
+                                            '1',
+                                            '{$izox}'            
+                                            ) ") or die($con->error);
 
-    catch(Exception $e) 
-    {
-        echo "Xatolik Sodir Bo'ldi";          
-        
-    }
+
+                                            if($re)
+                                            {
+                                                true;           
+                                                ?>
+                                                    <script>
+                                                        alert("Malumotlar Bazaga Kiritildi");
+                                                    </script>
+                                                <?php
+                                            } 
+                                            else 
+                                            {
+                                                throw new Exception("Error Processing Request", 1);
+                                            }  
+                                            ?>
+                                                <script>                                                   
+                                                    window.location="?a=boshqarma_inkassa";
+                                                </script>
+                                            <?php
+                                                                
+                                     }
+                                else
+                                {
+                                    ?>
+                                        <script>
+                                            alert("Mablag'ingiz Yetarli Emas!");
+                                            window.location="?a=boshqarma_inkassa";
+                                        </script>
+                                    <?php
+                                }
+                 }
+                else
+                    {
+                            ?>
+                                <script>                                        
+                                        alert("Tasdiqlanmagan To'lov Bor!");
+                                </script>
+                        <?php
+                    }
+                }    
+            $con->commit();   
+            mysqli_close($con);
+         }    
+        catch(Exception $e) 
+        {
+            echo "Xatolik Sodir Bo'ldi";          
+            
+        }
   
 }
 
