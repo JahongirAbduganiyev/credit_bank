@@ -17,7 +17,7 @@
     $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
     $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
     $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
-    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} AND tasdiq_status=1");
+    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id}");
 
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];
@@ -79,7 +79,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Haridor:  <?=$client['fish']?></h1>
+            <h1>Haridor:  <?=$client[0]['fish']?></h1>
             <p>
                 <?php
                     // echo "<pre>";
@@ -139,8 +139,8 @@
                                         <td><?=$row['id']?></td>
                                         <td><?=$row['tolov_sana']?></td>
                                         <td><?=$row['oylik_tani']?></td>
-                                        <td><?=$client_foiz['kunlik_foiz']?></td>
-                                        <td><?=($row['oylik_tani']+$client_foiz['kunlik_foiz'])?></td>
+                                        <td><?=$client_foiz[0]['kunlik_foiz']?></td>
+                                        <td><?=($row['oylik_tani']+$client_foiz[0]['kunlik_foiz'])?></td>
                                         <td><?=$row['sondirilgan_tani']?></td>
                                         <td>
                                             <div class="progress progress-xs">
@@ -168,6 +168,8 @@
                                             <th>Sana</th>
                                             <th>Summa</th>
                                             <th>Tolov turi</th>
+                                            <th style="width: 15px;">Status</th>
+                                            <th style="width: 15px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -177,6 +179,21 @@
                                             <td><?=$tranz['sana']?></td>
                                             <td><?=$tranz['summa']?></td>
                                             <td><?=$tranz['tolov_turi']?></td>
+                                            <td class="text-center">
+                                                <?php if($tranz['tasdiq_status'] == '1'):?>
+                                                    <span class="badge badge-success "><span class="fa fa-check"></span></span>
+                                                <?php elseif($tranz['tasdiq_status'] == '2'):?>
+                                                    <span class="badge badge-danger "><span class="fa fa-times"></span></span>
+                                                <?php elseif($tranz['tasdiq_status'] == '0'):?>
+                                                    <span class="badge badge-warning "><span class="fa fa-spinner"></span></span>
+                                                <?php endif;?>
+                                            </td>   
+                                            <td class="text-center">
+                                                <?php if($tranz['tasdiq_status'] == '1'):?>
+                                                    <a href="#"><i class="fas fa-trash-alt"></i></a>
+                                                <?php endif;?>
+                                                    
+                                            </td>
                                         </tr>
                                         <tr class="expandable-body">
                                             <td colspan="5">
@@ -217,22 +234,22 @@
                                 alt="User profile picture">
                         </div>
 
-                        <h3 class="profile-username text-center"><?=$client['fish']?></h3>
+                        <h3 class="profile-username text-center"><?=$client[0]['fish']?></h3>
 
-                        <p class="text-muted text-center"><?=$client['manzil']?></p>
-                        <p class="text-muted text-center"><b><?=$client['sana']?></b> kuni <b><?=$client['filial_nomi']?></b> filialdan tovar sotib olgan</p>
+                        <p class="text-muted text-center"><?=$client[0]['manzil']?></p>
+                        <p class="text-muted text-center"><b><?=$client[0]['sana']?></b> kuni <b><?=$client[0]['filial_nomi']?></b> filialdan tovar sotib olgan</p>
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Telefon</b> <a class="float-right"><?=$client['tel_nomer']?></a>
+                                <b>Telefon</b> <a class="float-right"><?=$client[0]['tel_nomer']?></a>
                             </li>
                             <li class="list-group-item">
-                                <b>Mo'ljal</b> <a class="float-right"><?=$client['moljal']?></a>
+                                <b>Mo'ljal</b> <a class="float-right"><?=$client[0]['moljal']?></a>
                             <li class="list-group-item">
-                                <b>Client ID</b> <a class="float-right"><?=$client['client_kodi']?></a>
+                                <b>Client ID</b> <a class="float-right"><?=$client[0]['client_kodi']?></a>
                             </li>
                             <li class="list-group-item">
-                                <b>Credit ID</b> <a class="float-right"><?=$client['credit_kodi']?></a>
+                                <b>Credit ID</b> <a class="float-right"><?=$client[0]['credit_kodi']?></a>
                             </li>
                         </ul>
 
