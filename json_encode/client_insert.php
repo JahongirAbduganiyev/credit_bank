@@ -101,11 +101,13 @@ if (isset($_POST["client_id"])) {
                 credit_foiz (
                     client_id,
                     kunlik_foiz,
-                    kun
+                    kun,
+                    status
                 )
                 VALUES (
                     '{$last_id}',
                     '{$kunlik_foiz}',
+                    '0',
                     '0'
                 )");
             if($ress2){true;} else {throw new Exception("Error Processing Request", 1);}

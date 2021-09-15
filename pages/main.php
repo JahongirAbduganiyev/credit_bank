@@ -1,3 +1,9 @@
+<?php
+    include("db_kassa.php");
+    $sql = $con->query("SELECT * FROM `client`");
+    $res = $sql->num_rows;
+?>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -26,12 +32,12 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3><?=$res?></h3>
 
-                            <p>New Orders</p>
+                            <p>Jami Clientlar soni</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+                            <i class="ion ion-person"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>

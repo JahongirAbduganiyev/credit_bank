@@ -6,8 +6,8 @@
 
     if (isset($_POST["sign_in"])){
 
-        $_SESSION['user_login'] = $_POST['login'];
-        $_SESSION['user_pass']  = $_POST['pass'];
+        $_SESSION['user_login'] = mysqli_real_escape_string($con, $_POST['login']);
+        $_SESSION['user_pass']  = mysqli_real_escape_string($con, $_POST['pass']);
         $log  = $_SESSION['user_login'];
         $pass = $_SESSION['user_pass'];
 
