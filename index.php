@@ -250,6 +250,7 @@
 <script src="ims/myscript/myscript.js"></script>
 
 <script src="dist/js/jonny.js"></script>
+<script src="dist/js/jonny1.js"></script>
 
 <?php 
     if(isset($_GET['a'])){

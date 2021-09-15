@@ -108,10 +108,10 @@
                                         <th><?= $value[13]?></th>
                                         <th>
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-info" title="Sms send">
+                                                <button type="button" id="fgg" class="btn btn-info" title="Sms send">
                                                     <i class="fas fa-clipboard-list"></i>
                                                 </button>
-                                                <a href="#" class="btn btn-info" title="Kreditni yopish">
+                                                <a href="?a=haridor&client_id=<?=$value['id']?>" class="btn btn-info" title="Profile">
                                                     <i class="fas fa-user-cog"></i>
                                                 </a>
                                             </div>
