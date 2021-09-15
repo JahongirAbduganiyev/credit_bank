@@ -110,8 +110,39 @@
           <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Grafik jadvali</h3>
-                <button type="button" class="close btn btn-sm btn-default" id="print"><i class="fas fa-print"></i></button>
+                <button type="button" class="close btn btn-sm btn-default" id="print"><i class="fas fa-print"></i> Print</button>
               </div>
+
+              <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-12">
+                          <div class="invoice p-3 mb-3">
+                              <div class="row invoice-info">
+                                  <div class="col-sm-6 invoice-col">
+                                  From
+                                  <address>
+                                      <strong>Admin, Inc.</strong><br>
+                                      795 Folsom Ave, Suite 600<br>
+                                      San Francisco, CA 94107<br>
+                                      Phone: (804) 123-5432<br>
+                                      Email: info@almasaeedstudio.com
+                                  </address>
+                                  </div>
+                                  
+                                  <div class="col-sm-6 invoice-col">
+                                  <b>Invoice #007612</b><br>
+                                  <br>
+                                  <b>Order ID:</b> 4F3S8J<br>
+                                  <b>Payment Due:</b> 2/22/2014<br>
+                                  <b>Account:</b> 968-34567
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </section>
               <!-- /.card-header -->
               <div class="card-body p-0">
                 <table class="table table-sm">
@@ -125,7 +156,7 @@
                     </tr>
                   </thead>
                   <tbody id="credit_grafik"> 
-                          <!-- GRAFIK YOZILADI -->
+                      <!-- GRAFIK YOZILADI -->
                   </tbody>
                 </table>
               </div>
