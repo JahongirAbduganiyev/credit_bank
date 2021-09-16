@@ -92,6 +92,7 @@
                             win.document.write('<table>');
                             win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
                             win.document.write('</table></body></html>');
+                            // win.document.write('</body></html>');
 
                             win.document.close(); 	// CLOSE THE CURRENT WINDOW.
 

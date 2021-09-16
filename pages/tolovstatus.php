@@ -37,6 +37,7 @@
                     ORDER BY id DESC 
                     LIMIT 1
                 ");
+                $qoldiq = $qoldiq[0]['qoldiq'] ?? 0;
 
                 $db->query("
                   INSERT INTO depozit (
@@ -53,7 +54,7 @@
                     kassa.sana, 
                     kassa.summa, 
                     0, 
-                    kassa.summa+{$qoldiq[0]['qoldiq']}, 
+                    kassa.summa+{$qoldiq}, 
                     'client tolov' 
                     FROM 
                     kassa 
