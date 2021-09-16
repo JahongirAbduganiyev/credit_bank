@@ -22,6 +22,8 @@
     // Bugungi holatga creditni yopilishi uchun.
     $tani_qoldiq = $db->query("SELECT SUM(oylik_tani) as qoldiq FROM `credit_tani` WHERE client_id = {$client_id} AND status = 0");
     $foiz_qoldiq = $db->query("SELECT (kunlik_foiz*kun) as qoldiq FROM `credit_foiz` WHERE client_id = {$client_id}");
+    $muddati_tani_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_tani WHERE client_id = {$client_id} AND status = 0");
+    $muddati_foiz_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_foiz WHERE client_id = {$client_id} AND status = 0");
 
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];
@@ -123,9 +125,12 @@
           <div class="col-sm-6">
             <h1>Haridor:  <?=$client[0]['fish']?></h1>
             <h5 class="mt-2">
-                Credit yopilishi <br>
-                Tani:  <b style="color:blue"><?=$tani_qoldiq[0]['qoldiq']?></b> so'm <br>
-                Foizi:  <b style="color:blue"><?=$foiz_qoldiq[0]['qoldiq']?></b> so'm <br>
+                Kredit yopilishi <span class="badge badge-success">bugungi holatga</span><br>
+                Tani:  <b style="color:blue"><?=$tani_qoldiq[0]['qoldiq'] ?? 0?></b> so'm <br>
+                Foizi:  <b style="color:blue"><?=$foiz_qoldiq[0]['qoldiq'] ?? 0?></b> so'm <br>
+                Tanidan o'tkan:  <b style="color:blue"><?=$muddati_tani_qoldiq[0]['qoldiq'] ?? 0?></b> so'm <br>
+                Foizidan o'tkan:  <b style="color:blue"><?=$muddati_foiz_qoldiq[0]['qoldiq'] ?? 0?></b> so'm <br>
+                Summa: <b style="color:blue"><?=$tani_qoldiq[0]['qoldiq']+$foiz_qoldiq[0]['qoldiq']+$muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq']?></b> so'm
             </h5>
             <p>
                 <?php
@@ -236,10 +241,14 @@
                                                 <?php endif;?>
                                             </td>   
                                             <td class="text-center">
-                                                <?php if($tranz['tasdiq_status'] == '1'):?>
+                                                <?php 
+                                                    $date = new DateTime($tranz['sana']);
+                                                    $date = $date->format('d-m-Y');
+                                                    $today = date('d-m-Y');
+                                                ?>
+                                                <?php if($tranz['tasdiq_status'] == '1' && $date == $today):?>
                                                     <a href="?a=haridor&client_id=<?=$client_id?>&delete=true&id=<?=$tranz['id']?>"><i class="fas fa-trash-alt"></i></a>
-                                                <?php endif;?>
-                                                    
+                                                <?php endif;?> 
                                             </td>
                                         </tr>
                                         <tr class="expandable-body">

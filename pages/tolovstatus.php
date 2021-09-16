@@ -29,27 +29,37 @@
                 `kassa`.`id` IN({$ids})
             ") ? null : $all_query_ok=false;
 
-            $db->query("
-              INSERT INTO depozit (
-                client_id, 
-                kassa_id, 
-                sana, 
-                kirim, 
-                chiqim, 
-                qoldiq, 
-                izox) 
-              SELECT 
-                kassa.client_id, 
-                kassa.id, 
-                kassa.sana, 
-                kassa.summa, 
-                0, 
-                0, 
-                'client tolov' 
-                FROM 
-                kassa 
-                WHERE kassa.id IN({$ids})
-            ") ? null : $all_query_ok=false;
+            foreach($_REQUEST['ids'] as $kassaid){
+                $qoldiq = $db->query("
+                    SELECT qoldiq FROM `depozit` 
+                    WHERE 
+                      client_id IN(SELECT client_id FROM `kassa` WHERE id IN({$kassaid})) 
+                    ORDER BY id DESC 
+                    LIMIT 1
+                ");
+
+                $db->query("
+                  INSERT INTO depozit (
+                    client_id, 
+                    kassa_id, 
+                    sana, 
+                    kirim, 
+                    chiqim, 
+                    qoldiq, 
+                    izox) 
+                  SELECT 
+                    kassa.client_id, 
+                    kassa.id, 
+                    kassa.sana, 
+                    kassa.summa, 
+                    0, 
+                    kassa.summa+{$qoldiq[0]['qoldiq']}, 
+                    'client tolov' 
+                    FROM 
+                    kassa 
+                    WHERE kassa.id IN({$kassaid})
+                ") ? null : $all_query_ok=false;
+            }
 
             if(!$all_query_ok){
                 throw new Exception("Malumotlar qabul qilishda xatolik ! Qaytda urining");
