@@ -19,6 +19,10 @@
     $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
     $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} ORDER BY id DESC");
 
+    // Bugungi holatga creditni yopilishi uchun.
+    $tani_qoldiq = $db->query("SELECT SUM(oylik_tani) as qoldiq FROM `credit_tani` WHERE client_id = {$client_id} AND status = 0");
+    $foiz_qoldiq = $db->query("SELECT (kunlik_foiz*kun) as qoldiq FROM `credit_foiz` WHERE client_id = {$client_id}");
+
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];
         $izoh = $_REQUEST['izoh'];
@@ -118,6 +122,11 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Haridor:  <?=$client[0]['fish']?></h1>
+            <h5 class="mt-2">
+                Credit yopilishi <br>
+                Tani:  <b style="color:blue"><?=$tani_qoldiq[0]['qoldiq']?></b> so'm <br>
+                Foizi:  <b style="color:blue"><?=$foiz_qoldiq[0]['qoldiq']?></b> so'm <br>
+            </h5>
             <p>
                 <?php
                     // echo "<pre>";
