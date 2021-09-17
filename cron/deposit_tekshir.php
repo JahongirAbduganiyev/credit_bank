@@ -48,9 +48,9 @@
         }
     }
 
-    echo '<pre>';
+    /*echo '<pre>';
     print_r($clients_info);
-    echo '</pre>';
+    echo '</pre>';*/
 
         for ($i = 0; $i < count($clients_info); $i++) {
 
@@ -119,7 +119,7 @@
         }
 
 
-    echo '<pre>';
+    /*echo '<pre>';
     print_r($clients_info);
-    echo '</pre>';
+    echo '</pre>';*/
 

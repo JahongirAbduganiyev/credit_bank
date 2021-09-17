@@ -7,9 +7,9 @@
     $sql = $con->query("SELECT * FROM `client` WHERE status=0");
     foreach ($sql as $value) {
         //id, client_id, tolov_sana, oylik_tani, status
-        $sql1 = $con->query("SELECT * FROM `credit_tani` WHERE status=0 and client_id='{$value["id"]}' ORDER BY client_id ASC LIMIT 1");
+        $sql1 = $con->query("SELECT * FROM `credit_tani` WHERE status=0 and client_id='{$value["id"]}' ORDER BY id ASC LIMIT 1");
         $res = $sql1->fetch_array();
-        //$arr[$i] = $res;
+        $arr[$i] = $res;
 
         $sqlf = $con->query("SELECT * FROM `credit_foiz` WHERE client_id='{$value["id"]}'");
         $resf = $sqlf->fetch_array();
@@ -52,6 +52,6 @@
         }
     }
 
-    /*echo "<pre>";
+    echo "<pre>";
     print_r($arr);
-    echo "</pre>";*/
+    echo "</pre>";

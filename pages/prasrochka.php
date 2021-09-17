@@ -1,7 +1,7 @@
 <?php
     include("db_kassa.php");
 
-    $filial_kodi = 'buvayda';
+    $filial_kodi = '100';
     $filial = array();
     $filial_id = $con->query("SELECT * FROM `client` WHERE filial_nomi='{$filial_kodi}'");
     $n = 0;
@@ -10,7 +10,7 @@
         $n++;
     }
 
-    $pras = $con->query("select client_id from muddati_o_tani WHERE status=0 group by client_id");
+    $pras = $con->query("select client_id from prasrochka");
     $clients_id = array();
     $i = 0;
     while ($r = $pras->fetch_array()){
@@ -47,7 +47,7 @@
     }
 
     /*echo '<pre>';
-    print_r($clients_info);
+    print_r($clients_id);
     echo '</pre>';*/
 
 
@@ -96,7 +96,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($clients_info as $value): ?>
+                                    <?php foreach ($clients_info as $value): if(($value[11]+$value[12])>0){ ?>
                                     <tr>
                                         <th><?= $value['client_kodi']?></th>
                                         <th><?= $value['credit_kodi']?></th>
@@ -117,7 +117,7 @@
                                             </div>
                                         </th>
                                     </tr>
-                                    <?php endforeach; ?>
+                                    <?php } endforeach; ?>
                                 </tbody>
                             </table>
                         </div>

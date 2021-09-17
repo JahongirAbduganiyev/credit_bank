@@ -11,7 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c122ce6b-122c-44c0-9dd7-5b5110b71bf7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dist/js/jonny1.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cron/main_cron.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.babelrc.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.browserslistrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.bundlewatch.config.json" beforeDir="false" />
@@ -149,12 +149,9 @@
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_toastr.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/kun_schot_foiz.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/kun_schot_foiz.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/prasrochka_schot.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/prasrochka_schot.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/json_encode/client_insert.php" beforeDir="false" afterPath="$PROJECT_DIR$/json_encode/client_insert.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/logincontrol.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/logincontrol.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/deposit_tekshir.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/deposit_tekshir.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/kassa_null.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/kassa_null.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/next_prasrochka.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/next_prasrochka.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/prasrochka.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/prasrochka.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
@@ -2411,7 +2408,8 @@
       <workItem from="1630523640019" duration="31154000" />
       <workItem from="1630651297321" duration="30817000" />
       <workItem from="1631007908121" duration="90415000" />
-      <workItem from="1631682746335" duration="3980000" />
+      <workItem from="1631682746335" duration="16428000" />
+      <workItem from="1631855977713" duration="586000" />
     </task>
     <servers />
   </component>
@@ -2459,10 +2457,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="463" y="105" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1630520930918" />
-    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1631611147960">
+    <state x="517" y="287" key="NewPhpFileDialog" timestamp="1631782877584">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1631611147960" />
+    <state x="517" y="287" key="NewPhpFileDialog/0.0.1366.728@0.0.1366.728" timestamp="1631782877584" />
     <state x="184" y="8" key="SettingsEditor" timestamp="1630518850626">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
