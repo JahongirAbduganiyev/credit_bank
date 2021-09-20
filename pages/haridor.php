@@ -238,7 +238,7 @@
         </div>
         
         <div class="row">
-            <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
                 <span class="info-box-icon bg-info"><i class="far fa-credit-card"></i></span>
 
@@ -248,7 +248,7 @@
                 </div>
                 </div>
             </div>
-            <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
                 <span class="info-box-icon bg-success"><i class="fas fa-percent"></i></span>
 
@@ -258,7 +258,7 @@
                 </div>
                 </div>
             </div>
-            <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
                 <span class="info-box-icon bg-danger"><i class="far fa-chart-bar"></i></span>
 
@@ -268,7 +268,7 @@
                 </div>
                 </div>
             </div>
-            <div class="col-xl-2 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
                 <span class="info-box-icon bg-danger"><i class="fas fa-chart-area"></i></span>
 
@@ -278,7 +278,7 @@
                 </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-8 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-8 col-lg-8 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
                 <span class="info-box-icon bg-primary"><i class="far fa-star"></i></span>
 
