@@ -1,11 +1,12 @@
 <?php
     use options\Connection;
     use options\Script;
+    use options\User;
 
     Script::setPage($_GET['a']);
 
     $db = new Connection();
-    $clients = $db->query("SELECT * FROM `client` WHERE filial_nomi='buvayda'");
+    $clients = $db->query("SELECT * FROM `client` WHERE filial_nomi='{$user->filial_kodi}'");
 ?>
 
 <div class="content-wrapper">
