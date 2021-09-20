@@ -7,11 +7,8 @@
     Script::setPage($_GET['a']);
 
     $db = new Connection();
-<<<<<<< HEAD
-    $clients = $db->query("SELECT * FROM `client` WHERE filial_nomi='100'");
-=======
+
     $clients = $db->query("SELECT * FROM `client` WHERE filial_nomi='{$user->filial_kodi}'");
->>>>>>> 01e7360fbc03b6dc12411886299c7b5db10b1cef
 ?>
 
 <div class="content-wrapper">

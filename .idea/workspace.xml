@@ -148,6 +148,7 @@
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_toastr.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/deposit_tekshir.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/deposit_tekshir.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/haridorlar.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/haridorlar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
@@ -2406,7 +2407,7 @@
       <workItem from="1631007908121" duration="90415000" />
       <workItem from="1631682746335" duration="16428000" />
       <workItem from="1631855977713" duration="4281000" />
-      <workItem from="1632113141871" duration="10714000" />
+      <workItem from="1632113141871" duration="14099000" />
     </task>
     <servers />
   </component>

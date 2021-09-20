@@ -16,15 +16,16 @@
         $i++;
     }
 
-    /*echo '<pre>';
+    echo '<pre>';
     print_r($clients_id);
-    echo '</pre>';*/
+    echo '</pre>';
+
 
     $clients_info = array();
     for ($k = 0; $k < count($clients_id); $k++){
 
         $foiz_sum = 0; $tani_sum = 0;
-        $info = $con->query("select client_id from depozit WHERE id=".$clients_id[$k]);
+        $info = $con->query("select client_id from depozit WHERE client_id=".$clients_id[$k]);
         while ($row = $info->fetch_array()){
             array_push($clients_info, $row);
         }
@@ -95,6 +96,9 @@
             }
         }
 
+echo '<pre>';
+print_r($clients_info);
+echo '</pre>';
 
         for ($i = 0; $i < count($clients_info); $i++) {
             $update = $con->query("UPDATE `muddati_o_tani` SET status=1 WHERE client_id=" . $clients_info[$i][0]);
@@ -119,7 +123,7 @@
         }
 
 
-    /*echo '<pre>';
+    echo '<pre>';
     print_r($clients_info);
-    echo '</pre>';*/
+    echo '</pre>';
 
