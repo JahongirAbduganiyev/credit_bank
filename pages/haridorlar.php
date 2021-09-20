@@ -2,6 +2,7 @@
     use options\Connection;
     use options\Script;
     use options\User;
+    $user = new User();
 
     Script::setPage($_GET['a']);
 
