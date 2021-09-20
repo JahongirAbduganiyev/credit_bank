@@ -28,10 +28,7 @@
     $muddati_tani_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_tani WHERE client_id = {$client_id} AND status = 0");
     $muddati_foiz_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_foiz WHERE client_id = {$client_id} AND status = 0");
 
-    $name = "OK";
     if(isset($_REQUEST['tolov']) && isset($_REQUEST['status'])){
-
-        $name = "KREDIT YOPISH";
 
         $summa = $_REQUEST['summa'];
         $izoh = $_REQUEST['izoh'];
