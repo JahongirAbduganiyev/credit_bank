@@ -3,9 +3,11 @@
     use options\Connection;
     use options\Ajax;
     use options\Script;
+    use options\User;
 
     $db = new Connection();
     $ajax = new Ajax();
+    $user = new User();
     
     Script::setPage($_GET['a']);
 
@@ -55,9 +57,9 @@
                     '{$turi}', 
                     '0', 
                     '0', 
-                    '100', 
-                    '1', 
-                    '1', 
+                    '{$user->filial_kodi}', 
+                    '{$user->user_id}', 
+                    '0', 
                     '{$izoh}');
                 ") ? null : $all_query_ok=false;
 
@@ -93,7 +95,8 @@
             $db->query("
               UPDATE `kassa` 
               SET 
-                `tasdiq_status` = '{$status}' 
+                `tasdiq_status` = '{$status}',
+                `update_user_id` = '{$user->user_id}',
               WHERE 
                 `kassa`.`id` IN({$id})
             ") ? null : $all_query_ok=false;
@@ -136,6 +139,9 @@
                 <?php
                     // echo "<pre>";
                         // print_r($ajax->getAjax());
+                        // print_r($user->user_name);
+                        // print_r($user->filial_kodi);
+                        // print_r($user->user_id);
                         // print_r(Ajax::requestSave());
                     // echo "</pre>";
                 ?> 
