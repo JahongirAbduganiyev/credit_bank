@@ -18,7 +18,7 @@
             }
         }
 
-        public function haridor(){
+        public static function haridor(){
             ?>
                 <script type="text/javascript">
                     $(document).ready(function(){
@@ -46,7 +46,7 @@
             <?php
         }
 
-        public function haridorlar(){
+        public static function haridorlar(){
             ?>
                 <script type="text/javascript">
                     $(document).ready(function(){
@@ -103,7 +103,7 @@
             <?php
         }
 
-        public function tolovstatus(){
+        public static function tolovstatus(){
             ?>
                 <script type="text/javascript">
                     $(document).ready(function(){
