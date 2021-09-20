@@ -32,7 +32,7 @@
             
         }
 
-        public function haridorlar(){
+        public static function haridorlar(){
             $db = new \mysqli('localhost','root','','credit');
             $client_id = $_REQUEST['data'];
             $dbc = $db->query("SELECT * FROM client WHERE id = {$client_id}");
