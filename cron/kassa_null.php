@@ -44,3 +44,4 @@
         //echo kassa_sum($con,'0', $value['kodi'])."<br>";
         //echo kassa_sum($con,'1', $value['kodi'])."<br>";
     }
+

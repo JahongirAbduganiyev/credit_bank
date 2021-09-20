@@ -45,6 +45,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
+
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -69,6 +70,7 @@
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="index.php" class="nav-link">Home</a>
+          <input type="hidden" id="fil_kod" value="<?=$filial_kodi?>">
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
@@ -250,7 +252,6 @@
 <script src="ims/myscript/myscript.js"></script>
 
 <script src="dist/js/jonny.js"></script>
-<script src="dist/js/jonny1.js"></script>
 
 <?php 
     if(isset($_GET['a'])){

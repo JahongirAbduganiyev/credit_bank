@@ -1,7 +1,7 @@
 <?php
     include("db_kassa.php");
 
-    $filial_kodi = '100';
+    //$filial_kodi = '100';
     $filial = array();
     $filial_id = $con->query("SELECT * FROM `client` WHERE filial_nomi='{$filial_kodi}'");
     $n = 0;

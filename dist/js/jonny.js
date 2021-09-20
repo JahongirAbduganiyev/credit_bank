@@ -37,7 +37,8 @@ $(document).ready(function(){
         startSpinner();
 
         var client_id = $("#client_id").html();
-
+        var fil_kod = $("#fil_kod").val();
+        //alert(fil_kod);
         $.ajax({
             url:"json_encode/client_tekshir.php",
             type:"POST",
@@ -62,7 +63,7 @@ $(document).ready(function(){
                         url:"json_encode/client_insert.php",
                         type:"POST",
                         datatype:"JSON",
-                        data:{'client_id':client_id},
+                        data:{'client_id':client_id,'fil_kod':fil_kod},
                         success:function(val){
                             var obj = JSON.parse(val);
                             if (obj.a){
@@ -83,11 +84,13 @@ $(document).ready(function(){
     $(document).on('click', '#insert_ok', function(){
         startSpinner1();
         var client_id = $("#client_id").html();
+        var fil_kod = $("#fil_kod").val();
+        //alert(fil_kod);
         $.ajax({
             url:"json_encode/client_insert.php",
             type:"POST",
             datatype:"JSON",
-            data:{'client_id':client_id},
+            data:{'client_id':client_id,'fil_kod':fil_kod},
             success:function(val){
                 var obj = JSON.parse(val);
                 if (obj.a){
