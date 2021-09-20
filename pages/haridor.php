@@ -19,7 +19,7 @@
     $client_id = $_GET['client_id'];
     $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id}");
     $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id}");
-    $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
+    $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='{$user->filial_kodi}'");
     $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} ORDER BY id DESC");
 
     // Bugungi holatga creditni yopilishi uchun.
