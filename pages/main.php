@@ -1,3 +1,28 @@
+<?php
+    include("db_kassa.php");
+    $sql = $con->query("SELECT * FROM `client` where filial_nomi='{$filial_kodi}'");
+    $res = $sql->num_rows;
+
+    $sql1 = $con->query("SELECT * FROM `client` where status=1 and filial_nomi='{$filial_kodi}'");
+    $res1 = $sql1->num_rows;
+
+    $sql2 = $con->query("SELECT sum(summa) as jami FROM `shartnoma_info` where filial_nomi='{$filial_kodi}'");
+    $res2 = $sql2->fetch_array();
+
+    $jami_sum = 0; $jami_tolov = 0;
+    foreach ($sql as $value){
+        $sql4 = $con->query("SELECT * FROM muddati_o_tani where status = 0 and client_id='{$value["id"]}'");
+        $res4 = $sql4->fetch_array();
+        $jami_sum += intval($res4['qarzdorlik']);
+
+        $sql5 = $con->query("SELECT * FROM depozit where client_id='{$value["id"]}'");
+        $res5 = $sql5->fetch_array();
+        $jami_tolov += intval($res5['kirim']);
+    }
+
+
+?>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -26,12 +51,12 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h4><?=$res?> <sub style="font-size: 20px">(<?=$res1?>)</sub></h4>
 
-                            <p>New Orders</p>
+                            <p>Mijozlar Soni</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-bag"></i>
+                            <i class="ion ion-person"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -41,12 +66,12 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                            <h4><?=number_format($res2["jami"], 0, ',', ' ')?></h4>
 
-                            <p>Bounce Rate</p>
+                            <p>Jami Kredit Summa</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="ion ion-cash"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -56,12 +81,12 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>44</h3>
+                            <h4><?=number_format($jami_tolov, 0, ',', ' ')?></h4>
 
-                            <p>User Registrations</p>
+                            <p>Qaytarilgan To'lovlar</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-person-add"></i>
+                            <i class="fa fa-undo-alt"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -71,12 +96,12 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>65</h3>
+                            <h4><?=number_format($jami_sum, 0, ',', ' ')?></h4>
 
-                            <p>Unique Visitors</p>
+                            <p>Muddati o'tgan To'lovlar</p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
+                            <i class="fa fa-stopwatch"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>

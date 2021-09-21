@@ -6,11 +6,11 @@ if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-function KassaSelect()
+function KassaSelect($filial_kodi)
 {
        global $con;
        
-       $res =   $con->query("SELECT * FROM kassa where filial_kodi=100 and kir_chiq_status=0");
+       $res =   $con->query("SELECT * FROM kassa where filial_kodi='{$filial_kodi}' and kir_chiq_status=0");
        $Arr1=[]; $i=0;
        if($res->num_rows > 0)
        {
@@ -28,11 +28,11 @@ function KassaSelect()
             return $Arr1;
        }
 }
-function BoshqarmaSelect()
+function BoshqarmaSelect($filial_kodi)
 {
        global $con;
        
-       $res =   $con->query("SELECT * FROM kassa where filial_kodi=100 and kir_chiq_status=1");
+       $res =   $con->query("SELECT * FROM kassa where filial_kodi=100 and kir_chiq_status=1 and filial_kodi='{$filial_kodi}'");
        $Arr1=[]; $i=0;
        if($res->num_rows > 0)
        {
@@ -50,12 +50,12 @@ function BoshqarmaSelect()
             return $Arr1;
        }
 }
-function JamiSumma()
+function JamiSumma($filial_kodi)
 {
 
     //Sana Qo'shilmadi
     global $con;
-    $res = $con->query("SELECT sum(summa) as jami From kassa Where tolov_turi='naqt' and kir_chiq_status=0 and tasdiq_status=1 and filial_kodi='100' ");
+    $res = $con->query("SELECT sum(summa) as jami From kassa Where tolov_turi='naqt' and kir_chiq_status=0 and tasdiq_status=1 and filial_kodi='{$filial_kodi}' ");
     $kjami = 0;
     if($res->num_rows > 0)
     {
@@ -64,7 +64,7 @@ function JamiSumma()
         $kjami= $r1['jami'] ?? 0;
     }
     
-    $res_1 = $con->query("SELECT sum(summa) as chjami From kassa where kir_chiq_status=1 and tasdiq_status in (0,1)  and filial_kodi='100' ");
+    $res_1 = $con->query("SELECT sum(summa) as chjami From kassa where kir_chiq_status=1 and tasdiq_status in (0,1)  and filial_kodi='{$filial_kodi}' ");
     //$chjami=0;
     if($res_1->num_rows > 0)
     {
@@ -73,10 +73,10 @@ function JamiSumma()
     }   
     return $kjami-$chjami;
 }
-function KutishSumma()
+function KutishSumma($filial_kodi)
 {
     global $con;
-    $kres=$con->query("SELECT sum(summa) as kjami  FROM kassa where  tolov_turi='naqt' and kir_chiq_status=1 and tasdiq_status=0 and filial_kodi='100' ");
+    $kres=$con->query("SELECT sum(summa) as kjami  FROM kassa where  tolov_turi='naqt' and kir_chiq_status=1 and tasdiq_status=0 and filial_kodi='{$filial_kodi}' ");
 //    $kjam = $kres;
     $kjam=0;
     if($kres->num_rows >0)
@@ -88,7 +88,7 @@ function KutishSumma()
 
     return $kjam;
 }
-function InkassaInsert()
+function InkassaInsert($filial_kodi)
 {
     global $con;   
         try 
@@ -96,7 +96,7 @@ function InkassaInsert()
                 if(isset($_POST['tasdiq']))
                 {   
 
-                    $ret    =      $con->query("SELECT count(*) as soni FROM kassa Where kir_chiq_status=0 and tasdiq_status=0 and filial_kodi='100' ");
+                    $ret    =      $con->query("SELECT count(*) as soni FROM kassa Where kir_chiq_status=0 and tasdiq_status=0 and filial_kodi='{$filial_kodi}' ");
                     $ksoni  = 0;
                     if($ret->num_rows > 0)
                     {
@@ -107,9 +107,9 @@ function InkassaInsert()
                     {
                                 $jsum        =       str_replace(" ","",$_POST['jami_summa']);
                                 $chsum      =       str_replace(" ","",$_POST['kirim_summa']);                   
-                                $fcode      =          "100";
+                                //$fcode      =          "100";
                                 $izox         =          $_POST['izox'];
-                                $insert_user_id = $_POST["user_id"];
+                                $insert_user_id = $_POST["insert_user_id"];
 
                                     if($jsum >= $chsum  && $jsum!=0 && $chsum!=0)
                                     {
@@ -130,8 +130,8 @@ function InkassaInsert()
                                             'naqt',
                                             '1',
                                             '0',
-                                            '{$fcode}',
-                                            {$insert_user_id},
+                                            '{$filial_kodi}',
+                                            '{$insert_user_id}',
                                             '0',
                                             '{$izox}'            
                                             ) ") or die($con->error);

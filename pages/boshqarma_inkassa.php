@@ -28,7 +28,7 @@
                             <h3 class="card-title">Boshqarmaga Inkassa</h3>
                         </div>
                         <div class="card-body"> 
-                            <table id="example7" class="table table-hover table-bordered">
+                           <table id="example1" class="table table-bordered table-striped text-center" style="font-size: 14px;">
                                     <thead>
                                     <tr class="text-center">
                                         <th>№</th>                                        
@@ -37,11 +37,11 @@
                                         <th>ID</th>    
                                         <th>Summa</th>    
                                         <th>Filiali</th>                                                                                                           
-                                        <th colspan="2">Status</th>
+                                        <th >Status</th>
                                     </tr>
                                     </thead>
                                     <tbody class="text-center" >                                    
-                                    <?php   $row1 = BoshqarmaSelect();?>
+                                    <?php   $row1 = BoshqarmaSelect($filial_kodi);?>
                                     <?php $a=1; ?>
                                     <?php foreach($row1 as $r1):?>
                                             <tr style="text-align:center;" id="qat<?=$r1['id']?>">
@@ -68,21 +68,21 @@
                         <div class="card-header">
                             <h3 class="card-title">Bugungi Kassa</h3>
                         </div>
-                        <div class="card-body"> 
-                        <table id="example7" class="table table-hover table-bordered">
+                        <div class="card-body">
+                            <table id="example7" class="table table-bordered table-striped text-center dataTable">
                                     <thead>
-                                    <tr class="text-center">
-                                        <th>№</th>
-                                        <th>Kodi</th>
-                                        <th>Sana</th>
-                                        <th>User_ID</th>    
-                                        <th>Summa</th>    
-                                        <th>Filiali</th>                                                                                                           
-                                        <th colspan="2">Status</th>
-                                    </tr>
+                                        <tr class="text-center">
+                                            <th>№</th>
+                                            <th>Kodi</th>
+                                            <th>Sana</th>
+                                            <th>User_ID</th>
+                                            <th>Summa</th>
+                                            <th>Filiali</th>
+                                            <th>Status</th>
+                                        </tr>
                                     </thead>
                                     <tbody class="text-center" >                                    
-                                    <?php   $row1 = KassaSelect();?>
+                                    <?php   $row1 = KassaSelect($filial_kodi);?>
                                     <?php $a=1; ?>
                                     <?php foreach($row1 as $r1):?>
                                         <tr style="text-align:center;" id="qat<?=$r1['id']?>">
@@ -112,12 +112,12 @@
                         <div class="card-body">
                         <div class="form-group">
                                 <label >Bugungi Yo'ldagi Summa</label>
-                                <input  readonly type="text" name="kutish_summa" id="kutish_summa" class="number-separator form-control border border-warning" value=" <?= KutishSumma(); ?>">                               
+                                <input  readonly type="text" name="kutish_summa" id="kutish_summa" class="number-separator form-control border border-warning" value=" <?= number_format(KutishSumma($filial_kodi),0,'.',' '); ?>">
                             </div>
                           
                             <div class="form-group">
                                 <label >Kassa Qoldiq</label>
-                                <input required readonly type="text" name="jami_summa" id="jami_summa" class="number-separator form-control border border-success" value="<?= JamiSumma(); ?>">
+                                <input required readonly type="text" name="jami_summa" id="jami_summa" class="number-separator form-control border border-success" value="<?= number_format(JamiSumma($filial_kodi),0,'.',' ') ?>">
                               
                             </div>                            
                             <div class="form-check mb-lg-2">
@@ -142,7 +142,7 @@
                         </div>
                     </form>                  
                     </div>
-                    <?php InkassaInsert(); ?>
+                    <?php InkassaInsert($filial_kodi); ?>
                 </div>
                 <!-- ./col -->
             </div>

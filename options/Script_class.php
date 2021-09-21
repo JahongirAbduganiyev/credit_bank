@@ -18,7 +18,7 @@
             }
         }
 
-        public function haridor(){
+        public static function haridor(){
             ?>
                 <script type="text/javascript">
                     $(document).ready(function(){
@@ -46,35 +46,64 @@
             <?php
         }
 
-        public function haridorlar(){
-
-            echo "haridorlar";
+        public static function haridorlar(){
             ?>
                 <script type="text/javascript">
-                    // $(document).ready(function(){
-                    //     $(document).on('click', '#tolovButton', function(e){
-                    //         e.preventDefault;
-                    //         const form = $('#tolov').serializeArray();
-                    //         // form.forEach(element => {
-                    //             // console.log(JSON.stringify(form));
-                    //         // });
-                    //         $.ajax({
-                    //             url:"#",
-                    //             type:"POST",
-                    //             datatype:"JSON",
-                    //             data:{'data':form, 'type': 'ajax'},
-                    //             success:function(val){
-                    //                 var obj = JSON.parse(val);
-                    //                 console.log(obj);
-                    //             }
-                    //         })
-                    //     });
-                    // });
+                    $(document).ready(function(){
+                        $(document).on('click', 'button[name=client]', function(e){
+                            e.preventDefault;
+
+                            $.ajax({
+                                url:"options/Ajax_class.php",
+                                type:"POST",
+                                datatype:"JSON",
+                                data:{'data':this.value, 'type': 'ajax','page': 'haridorlar'},
+                                success:function(val){
+                                    let obj = JSON.parse(val);
+                                    
+                                    $('.modal-title').html(obj.client.fish);
+                                    let credit = obj.credit;
+                                    let foiz = obj.foiz;
+                                    $('#credit_grafik').html('');
+                                    credit.forEach(function(item,index){
+                                        $('#credit_grafik').append('<tr><td>'+(++index)+'</td><td>'+item.tolov_sana+'</td><td>'+item.oylik_tani+' so`m</td><td>'+foiz.kunlik_foiz+' so`m</td><td>'+(parseInt(item.oylik_tani)+parseInt(foiz.kunlik_foiz))+' so`m</td></tr>');
+                                    });
+                                }
+                            });
+                        });
+
+                        $(document).on('click','#print', function (){
+                            var sTable = document.getElementById('credit_grafik').innerHTML;
+
+                            var style = "<style>";
+                            style = style + "table {width: 100%;font: 24px Calibri;}";
+                            style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+                            style = style + "padding: 2px 3px;text-align: center;}";
+                            style = style + "</style>";
+
+                            // CREATE A WINDOW OBJECT.
+                            var win = window.open('', '', 'height=800,width=1000');
+
+                            win.document.write('<html><head>');
+                            win.document.write('<title>Profile</title>');   // <title> FOR PDF HEADER.
+                            win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+                            win.document.write('</head>');
+                            win.document.write('<body>');
+                            win.document.write('<table>');
+                            win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+                            win.document.write('</table></body></html>');
+                            // win.document.write('</body></html>');
+
+                            win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+                            win.print();    // PRINT THE CONTENTS.
+                        });
+                    });
                 </script>
             <?php
         }
 
-        public function tolovstatus(){
+        public static function tolovstatus(){
             ?>
                 <script type="text/javascript">
                     $(document).ready(function(){

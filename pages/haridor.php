@@ -3,9 +3,12 @@
     use options\Connection;
     use options\Ajax;
     use options\Script;
+    use options\User;
+    use options\Money;
 
     $db = new Connection();
     $ajax = new Ajax();
+    $user = new User();
     
     Script::setPage($_GET['a']);
 
@@ -14,10 +17,96 @@
     }
 
     $client_id = $_GET['client_id'];
-    $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
-    $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id} AND filial_nomi='buvayda'");
-    $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
-    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} AND tasdiq_status=1");
+    $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id}");
+    $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id}");
+    $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='{$user->filial_kodi}'");
+    $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} ORDER BY id DESC");
+
+    // Bugungi holatga creditni yopilishi uchun.
+    $tani_qoldiq = $db->query("SELECT SUM(oylik_tani) as qoldiq FROM `credit_tani` WHERE client_id = {$client_id} AND status = 0");
+    $foiz_qoldiq = $db->query("SELECT (kunlik_foiz*kun) as qoldiq FROM `credit_foiz` WHERE client_id = {$client_id}");
+    $muddati_tani_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_tani WHERE client_id = {$client_id} AND status = 0");
+    $muddati_foiz_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_foiz WHERE client_id = {$client_id} AND status = 0");
+
+    if(isset($_REQUEST['tolov']) && isset($_REQUEST['status'])){
+
+        $summa = $_REQUEST['summa'];
+        $izoh = $_REQUEST['izoh'];
+        $izoh = 'KREDIT YOPILDI: '.$izoh;
+        $turi = $_REQUEST['turi'];
+
+        $db->autocommit(false);
+        try{
+            $all_query_ok=true;
+
+            $insert_kredit_yopish = $db->query("
+                INSERT INTO `kassa` (
+                    `id`, 
+                    `sana`, 
+                    `client_id`, 
+                    `summa`, 
+                    `tolov_turi`, 
+                    `kir_chiq_status`, 
+                    `tasdiq_status`, 
+                    `filial_kodi`, 
+                    `insert_user_id`, 
+                    `update_user_id`, 
+                    `izox`) 
+                VALUES (
+                    NULL, 
+                    current_timestamp(), 
+                    '{$client_id}', 
+                    '{$summa}', 
+                    '{$turi}', 
+                    '0', 
+                    '2', 
+                    '{$user->filial_kodi}', 
+                    '{$user->user_id}', 
+                    '0', 
+                    '{$izoh}');
+                ") ? null : $all_query_ok=false;
+
+                $db->query("
+                    UPDATE `credit_tani`
+                        SET `status` = '1' 
+                        WHERE `credit_tani`.`client_id` = {$client_id};
+                ") ? null : $all_query_ok=false;
+                
+                $db->query("
+                    UPDATE `credit_foiz` 
+                        SET `kun` = '0' 
+                        WHERE `credit_foiz`.`client_id` = {$client_id};
+                ") ? null : $all_query_ok=false;
+
+                $db->query("
+                    UPDATE `muddati_o_foiz` 
+                        SET `status` = '1' 
+                        WHERE `muddati_o_foiz`.`client_id` = {$client_id};
+                ") ? null : $all_query_ok=false;
+
+                $db->query("
+                    UPDATE `muddati_o_tani` 
+                        SET `status` = '1' 
+                        WHERE `muddati_o_tani`.`client_id` = {$client_id};
+                ") ? null : $all_query_ok=false;
+
+
+            if(!$all_query_ok){
+                throw new Exception("Kreditni yopishda xatolik ! Qaytda urining");
+            }
+            
+            $db->commit();
+            
+        }catch(Exception $e){
+            ?>
+                <script !src="">
+                    alert("<?=$e->getMessage()?>");
+                </script>
+            <?php
+        }
+
+        ?><script> window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
+    }
 
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];
@@ -49,9 +138,9 @@
                     '{$turi}', 
                     '0', 
                     '0', 
-                    '100', 
-                    '1', 
-                    '1', 
+                    '{$user->filial_kodi}', 
+                    '{$user->user_id}', 
+                    '0', 
                     '{$izoh}');
                 ") ? null : $all_query_ok=false;
 
@@ -63,14 +152,53 @@
             
         }catch(Exception $e){
             ?>
-                <script !src="">
+                 <script !src="">
                     alert("<?=$e->getMessage()?>");
                 </script>
             <?php
         }
 
+        ?><script> window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
+    }
+
+
+    if(isset($_REQUEST['delete'])){
+        $id = $_REQUEST['id'] ?? null;
+        $status = null;
+        $delete = $_REQUEST['delete'] ?? null;
+
+        if($delete){ $status = 2;}
+
+        $db->autocommit(false);
+        try{
+            $all_query_ok=true;
+
+            $db->query("
+              UPDATE `kassa` 
+              SET 
+                `tasdiq_status` = '{$status}',
+                `update_user_id` = '{$user->user_id}',
+              WHERE 
+                `kassa`.`id` IN({$id})
+            ") ? null : $all_query_ok=false;
+
+            if(!$all_query_ok){
+                throw new Exception("Malumotni o'chirishda xatolik ! Qaytda urining");
+            }
+            
+            $db->commit();
+
+        }catch(Exception $e){
+            ?>
+                <script !src="">
+                    alert("<?=$e->getMessage()?>");
+                </script>
+            <?php
+        }
+        
         ?><script>window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
     }
+
 
 ?>
 <div class="content-wrapper">
@@ -79,13 +207,25 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Haridor:  <?=$client['fish']?></h1>
+            <h1>Haridor:  <?=$client[0]['fish']?></h1>
+            <h5 class="mt-2 d-none">
+                Kredit yopilishi <span class="badge badge-success">bugungi holatga</span><br>
+                Tani:  <b style="color:blue"><?=$tani_qoldiq[0]['qoldiq'] ?? 0?></b> so'm <br>
+                Foizi:  <b style="color:blue"><?=$foiz_qoldiq[0]['qoldiq'] ?? 0?></b> so'm <br>
+                Tanidan o'tkan:  <b style="color:blue"><?=$muddati_tani_qoldiq[0]['qoldiq'] ?? 0?></b> so'm <br>
+                Foizidan o'tkan:  <b style="color:blue"><?=$muddati_foiz_qoldiq[0]['qoldiq'] ?? 0?></b> so'm <br>
+                Summa: <b style="color:blue"><?=$tani_qoldiq[0]['qoldiq']+$foiz_qoldiq[0]['qoldiq']+$muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq']?></b> so'm
+            </h5>
             <p>
                 <?php
-                    // echo "<pre>";
+                    echo "<pre>";
                         // print_r($ajax->getAjax());
+                        // print_r($user->user_name);
+                        // print_r($user->filial_kodi);
+                        // print_r($user->user_id);
                         // print_r(Ajax::requestSave());
-                    // echo "</pre>";
+                        // print_r($name);
+                    echo "</pre>";
                 ?> 
             </p>
           </div>
@@ -95,6 +235,62 @@
               <li class="breadcrumb-item active">Haridor</li>
             </ol>
           </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="info-box">
+                <span class="info-box-icon bg-info"><i class="far fa-credit-card"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Kredit tani</span>
+                    <span class="info-box-number"><?=Money::convert($tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="info-box">
+                <span class="info-box-icon bg-success"><i class="fas fa-percent"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Foiz summasi</span>
+                    <span class="info-box-number"><?=Money::convert($foiz_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="info-box">
+                <span class="info-box-icon bg-danger"><i class="far fa-chart-bar"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Tanidan o'tkan</span>
+                    <span class="info-box-number"><?=Money::convert($muddati_tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="info-box">
+                <span class="info-box-icon bg-danger"><i class="fas fa-chart-area"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Foizidan o'tkan</span>
+                    <span class="info-box-number"><?=Money::convert($muddati_foiz_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                </div>
+                </div>
+            </div>
+            <div class="col-xl-8 col-lg-8 col-md-6 col-sm-6 col-12">
+                <div class="info-box">
+                <span class="info-box-icon bg-primary"><i class="far fa-star"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Ummumiy summa</span>
+                    <?php
+                        $sum = $tani_qoldiq[0]['qoldiq']+$foiz_qoldiq[0]['qoldiq']+$muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq'];
+                    ?>
+                    <span class="info-box-number"><?=Money::convert($sum, 'UZS')?></span>
+                </div>
+                </div>
+            </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -139,15 +335,15 @@
                                         <td><?=$row['id']?></td>
                                         <td><?=$row['tolov_sana']?></td>
                                         <td><?=$row['oylik_tani']?></td>
-                                        <td><?=$client_foiz['kunlik_foiz']?></td>
-                                        <td><?=($row['oylik_tani']+$client_foiz['kunlik_foiz'])?></td>
-                                        <td><?=$row['sondirilgan_tani']?></td>
+                                        <td><?=$client_foiz[0]['kunlik_foiz']?></td>
+                                        <td><?=($row['oylik_tani']+$client_foiz[0]['kunlik_foiz'])?></td>
+                                        <td></td>
                                         <td>
                                             <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" style="width: <?=($row['sondirilgan_tani']*100/$row['oylik_tani'])?>%"></div>
+                                            <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
                                             </div>
                                         </td>
-                                        <td><span class="badge bg-danger"><?=($row['sondirilgan_tani']*100/$row['oylik_tani'])?>%</span></td>
+                                        <td><span class="badge bg-danger">50%</span></td>
                                     </tr>  
                                     <?php endforeach;?>
                                 </tbody>
@@ -160,23 +356,44 @@
                                 <h3 class="card-title">To'lovlar tarixi</h3>
                             </div>
                             <!-- ./card-header -->
-                            <div class="card-body">
-                                <table class="table table-bordered table-hover">
+                            <div class="card-body table-responsive pt-0" style="height: 600px;">
+                                <table class="table table-bordered table-hover table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Sana</th>
                                             <th>Summa</th>
                                             <th>Tolov turi</th>
+                                            <th style="width: 15px;">Status</th>
+                                            <th style="width: 15px;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach($tranzaksiya_history as $tranz):?>
                                         <tr data-widget="expandable-table" aria-expanded="false">
-                                            <td><?=$tranz['id']?></td>
+                                            <td style="width: 10px;"><?=$tranz['id']?></td>
                                             <td><?=$tranz['sana']?></td>
                                             <td><?=$tranz['summa']?></td>
                                             <td><?=$tranz['tolov_turi']?></td>
+                                            <td class="text-center">
+                                                <?php if($tranz['tasdiq_status'] == '1'):?>
+                                                    <span class="badge badge-success "><span class="fa fa-check"></span></span>
+                                                <?php elseif($tranz['tasdiq_status'] == '2'):?>
+                                                    <span class="badge badge-danger "><span class="fa fa-times"></span></span>
+                                                <?php elseif($tranz['tasdiq_status'] == '0'):?>
+                                                    <span class="badge badge-warning "><span class="fa fa-spinner"></span></span>
+                                                <?php endif;?>
+                                            </td>   
+                                            <td class="text-center">
+                                                <?php 
+                                                    $date = new DateTime($tranz['sana']);
+                                                    $date = $date->format('d-m-Y');
+                                                    $today = date('d-m-Y');
+                                                ?>
+                                                <?php if($tranz['tasdiq_status'] == '1' && $date == $today):?>
+                                                    <a href="?a=haridor&client_id=<?=$client_id?>&delete=true&id=<?=$tranz['id']?>"><i class="fas fa-trash-alt"></i></a>
+                                                <?php endif;?> 
+                                            </td>
                                         </tr>
                                         <tr class="expandable-body">
                                             <td colspan="5">
@@ -196,12 +413,12 @@
                     <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="settings">
-                    settings
+                        settings
                     </div>
                     <!-- /.tab-pane -->
                     </div>
                     <!-- /.tab-content -->
-              </div><!-- /.card-body -->
+                </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
             
@@ -217,22 +434,22 @@
                                 alt="User profile picture">
                         </div>
 
-                        <h3 class="profile-username text-center"><?=$client['fish']?></h3>
+                        <h3 class="profile-username text-center"><?=$client[0]['fish']?></h3>
 
-                        <p class="text-muted text-center"><?=$client['manzil']?></p>
-                        <p class="text-muted text-center"><b><?=$client['sana']?></b> kuni <b><?=$client['filial_nomi']?></b> filialdan tovar sotib olgan</p>
+                        <p class="text-muted text-center"><?=$client[0]['manzil']?></p>
+                        <p class="text-muted text-center"><b><?=$client[0]['sana']?></b> kuni <b><?=$client[0]['filial_nomi']?></b> filialdan tovar sotib olgan</p>
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Telefon</b> <a class="float-right"><?=$client['tel_nomer']?></a>
+                                <b>Telefon</b> <a class="float-right"><?=$client[0]['tel_nomer']?></a>
                             </li>
                             <li class="list-group-item">
-                                <b>Mo'ljal</b> <a class="float-right"><?=$client['moljal']?></a>
+                                <b>Mo'ljal</b> <a class="float-right"><?=$client[0]['moljal']?></a>
                             <li class="list-group-item">
-                                <b>Client ID</b> <a class="float-right"><?=$client['client_kodi']?></a>
+                                <b>Client ID</b> <a class="float-right"><?=$client[0]['client_kodi']?></a>
                             </li>
                             <li class="list-group-item">
-                                <b>Credit ID</b> <a class="float-right"><?=$client['credit_kodi']?></a>
+                                <b>Credit ID</b> <a class="float-right"><?=$client[0]['credit_kodi']?></a>
                             </li>
                         </ul>
 
@@ -256,7 +473,7 @@
     <!-- /.content -->
 </div>
 
-<!-- MODALLAR OYNASI -->
+ 
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">

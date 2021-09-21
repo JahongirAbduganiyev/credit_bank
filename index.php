@@ -1,10 +1,18 @@
-<?php 
-  include('options/autoload.php');
-  include('ims/myphp/myfun.php');
+<?php
+    ob_start();
+    session_start();
+    if (!isset($_SESSION['user_login'])) {
+        header('location:pages/logout.php');
+        ob_end_flush();
+    }
 
-use options\Ajax;
-use options\Script;
+    include("pages/session.php");
 
+    include('options/autoload.php');
+    include('ims/myphp/myfun.php');
+
+    use options\Ajax;
+    use options\Script;
 
 ?>
 
@@ -39,6 +47,7 @@ use options\Script;
   <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
+
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -63,12 +72,13 @@ use options\Script;
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="index.php" class="nav-link">Home</a>
+          <input type="hidden" id="fil_kod" value="<?=$filial_kodi?>">
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
           <li class="nav-item dropdown">
               <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                  <i class="far fa-user"></i> Jahongir abduganiyev <i class="fas fa-angle-down"></i>
+                  <i class="far fa-user"></i> <?= $user_name ?> <i class="fas fa-angle-down"></i>
               </a>
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                   <div class="dropdown-divider"></div>
@@ -76,7 +86,7 @@ use options\Script;
                       <i class="fas fa-user-cog mr-2"></i> Profile
                   </a>
                   <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
+                  <a href="pages/logout.php" class="dropdown-item">
                       <i class="fas fa-sign-out-alt mr-2"></i> Logout
                   </a>
               </div>
@@ -228,6 +238,15 @@ use options\Script;
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      $("#example7").DataTable({
+          "responsive": true, "lengthChange": false, "autoWidth": false,
+          "buttons": ["copy", "csv", "excel", "pdf", "print"],
+      }).buttons().container().appendTo('#example7_wrapper .col-md-6:eq(0)');
+      $("#example8").DataTable({
+          "responsive": true, "lengthChange": false, "autoWidth": false,
+          "buttons": ["copy", "csv", "excel", "pdf", "print"],
+      }).buttons().container().appendTo('#example8_wrapper .col-md-6:eq(0)');
+    
     $('#example2').DataTable({
       "order": [[ 1, 'desc' ]],
       "paging": true,

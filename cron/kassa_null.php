@@ -9,11 +9,12 @@
 
     $sana = Date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s")." +1 Day")); // 2013-03-31
     $bugun = date("Y-m-d");
-    echo $sana;
+    //echo $sana;
     $sql = $con->query("select * from filiallar");
     foreach ($sql as $value){
         $farq = kassa_sum($con,'0', $value['kodi'],$bugun) - kassa_sum($con,'1', $value['kodi'],$bugun);
-        $sql1 = $con->query("
+        if($farq){
+            $sql1 = $con->query("
             INSERT INTO `kassa`(
                 `sana`,
                 `client_id`, 
@@ -35,10 +36,12 @@
                 '{$value['kodi']}',
                 'avto',
                 'avto',
-                'kassa qoldiq yani kunga otqazildi'
+                'kassa qoldiq yangi kunga otqazildi'
             )
         ") or die($con->error);
+        }
 
         //echo kassa_sum($con,'0', $value['kodi'])."<br>";
         //echo kassa_sum($con,'1', $value['kodi'])."<br>";
     }
+

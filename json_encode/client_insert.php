@@ -1,7 +1,6 @@
 <?php
 include("../db_sotuv.php");
 include("../db_kassa.php");
-
 if (isset($_POST["client_id"])) {
 
     $res1 = $con1->query("SELECT * FROM `haridor_malumoti` left JOIN shartnoma_savdo ON haridor_malumoti.h_id=shartnoma_savdo.har_id left JOIN shartnoma_jami ON haridor_malumoti.h_id=shartnoma_jami.H_ID where haridor_malumoti.anketa_nomer=".$_POST["client_id"]);
@@ -21,8 +20,7 @@ if (isset($_POST["client_id"])) {
     $sh_muddat = $r->muddati;
     $oldindan_tolov = $r->oylik_maoshi;
 
-
-    $fil_nom = "buvayda";
+    $fil_nom = $_POST["fil_kod"];
     $status = 0;
 
     $con->autocommit(false);
@@ -84,18 +82,12 @@ if (isset($_POST["client_id"])) {
                     client_id,
                     tolov_sana,
                     oylik_tani,
-                    sondirilgan_tani,
-                    izox,
-                    filial_nomi,
                     status
                 )
                 VALUES (
                     '{$last_id}',
                     '{$t_sana}',
                     '{$tani_oy}',
-                    '0',
-                    '',
-                    '{$fil_nom}',
                     '{$status}'
                 )");
                 if($ress1){true;} else {throw new Exception("Error Processing Request", 1);}
@@ -108,25 +100,25 @@ if (isset($_POST["client_id"])) {
                     client_id,
                     kunlik_foiz,
                     kun,
-                    status,
-                    filial_nomi
+                    status
                 )
                 VALUES (
                     '{$last_id}',
                     '{$kunlik_foiz}',
                     '0',
-                    '0',
-                    '{$fil_nom}'
+                    '0'
                 )");
             if($ress2){true;} else {throw new Exception("Error Processing Request", 1);}
 
             $ress3 = $con->query("INSERT INTO 
                 prasrochka (
                     client_id,
+                    kun,
                     status
                 )
                 VALUES (
                     '{$last_id}',
+                    '0',
                     '0.0'
                 )");
             if($ress3){true;} else {throw new Exception("Error Processing Request", 1);}

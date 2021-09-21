@@ -1,10 +1,14 @@
 <?php
     use options\Connection;
     use options\Script;
+    use options\User;
+    $user = new User();
 
     Script::setPage($_GET['a']);
+
     $db = new Connection();
-    $clients = $db->query("SELECT * FROM `client` WHERE filial_nomi='buvayda'");
+
+    $clients = $db->query("SELECT * FROM `client` WHERE filial_nomi='{$user->filial_kodi}'");
 ?>
 
 <div class="content-wrapper">
@@ -57,7 +61,7 @@
                             <td><?=$client['tel_nomer']?></td>
                             <td>
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-info" title="Grafik ko'rish">
+                                    <button type="button" class="btn btn-info" name="client" value="<?=$client['id']?>" title="Grafik ko'rish" data-toggle="modal" data-target="#modal-grafik">
                                         <i class="fas fa-clipboard-list"></i>
                                     </button>
                                     <a href="?a=haridor&client_id=<?=$client['id']?>" class="btn btn-info" title="Kreditni yopish">
@@ -92,3 +96,84 @@
     </section>
     <!-- /.content -->
 </div>
+
+
+<!-- MODALLAR OYNASI -->
+<div class="modal fade" id="modal-grafik">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Default Modal</h4>
+          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Grafik jadvali</h3>
+                <button type="button" class="close btn btn-sm btn-default" id="print"><i class="fas fa-print"></i> Print</button>
+              </div>
+
+              <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-12">
+                          <div class="invoice p-3 mb-3">
+                              <div class="row invoice-info">
+                                  <div class="col-sm-6 invoice-col">
+                                  From
+                                  <address>
+                                      <strong>Admin, Inc.</strong><br>
+                                      795 Folsom Ave, Suite 600<br>
+                                      San Francisco, CA 94107<br>
+                                      Phone: (804) 123-5432<br>
+                                      Email: info@almasaeedstudio.com
+                                  </address>
+                                  </div>
+                                  
+                                  <div class="col-sm-6 invoice-col">
+                                  <b>Invoice #007612</b><br>
+                                  <br>
+                                  <b>Order ID:</b> 4F3S8J<br>
+                                  <b>Payment Due:</b> 2/22/2014<br>
+                                  <b>Account:</b> 968-34567
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+              </section>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Sana</th>
+                      <th>Oylik tani</th>
+                      <th>Oylik foiz</th>
+                      <th>Oylik to'lovi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="credit_grafik"> 
+                      <!-- GRAFIK YOZILADI -->
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <div class="modal-footer justify-content-end">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Yopish</button>
+          
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->

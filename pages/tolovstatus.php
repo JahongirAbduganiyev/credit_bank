@@ -29,27 +29,38 @@
                 `kassa`.`id` IN({$ids})
             ") ? null : $all_query_ok=false;
 
-            // $db->query("
-            //   INSERT INTO depozit (
-            //     client_id, 
-            //     kassa_id, 
-            //     sana, 
-            //     kirim, 
-            //     chiqim, 
-            //     qoldiq, 
-            //     izox) 
-            //   SELECT 
-            //     kassa.client_id, 
-            //     kassa.id, 
-            //     kassa.sana, 
-            //     kassa.summa, 
-            //     0, 
-            //     0, 
-            //     'client tolov' 
-            //     FROM 
-            //     kassa 
-            //     WHERE kassa.id IN({$ids})
-            // ") ? null : $all_query_ok=false;
+            foreach($_REQUEST['ids'] as $kassaid){
+                $qoldiq = $db->query("
+                    SELECT qoldiq FROM `depozit` 
+                    WHERE 
+                      client_id IN(SELECT client_id FROM `kassa` WHERE id IN({$kassaid})) 
+                    ORDER BY id DESC 
+                    LIMIT 1
+                ");
+                $qoldiq = $qoldiq[0]['qoldiq'] ?? 0;
+
+                $db->query("
+                  INSERT INTO depozit (
+                    client_id, 
+                    kassa_id, 
+                    sana, 
+                    kirim, 
+                    chiqim, 
+                    qoldiq, 
+                    izox) 
+                  SELECT 
+                    kassa.client_id, 
+                    kassa.id, 
+                    kassa.sana, 
+                    kassa.summa, 
+                    0, 
+                    kassa.summa+{$qoldiq}, 
+                    'client tolov' 
+                    FROM 
+                    kassa 
+                    WHERE kassa.id IN({$kassaid})
+                ") ? null : $all_query_ok=false;
+            }
 
             if(!$all_query_ok){
                 throw new Exception("Malumotlar qabul qilishda xatolik ! Qaytda urining");
@@ -68,8 +79,8 @@
         ?><script>window.location.href = "index.php?a=tolovstatus";</script><?php
     }
 
-    $viden = $db->query("SELECT * FROM `kassa` WHERE tasdiq_status=0 AND filial_kodi=100");
-
+    // $viden = $db->query("SELECT * FROM `kassa` WHERE tasdiq_status=0 AND filial_kodi=100");
+    $viden = $db->query("SELECT `kassa`.*, `client`.fish as fish FROM `kassa` LEFT JOIN `client` on `kassa`.client_id = `client`.id WHERE `kassa`.tasdiq_status=0 AND `kassa`.filial_kodi=100");
 
 ?>
 <div class="content-wrapper">
@@ -127,6 +138,7 @@
                             </th>
                             <th style="width:10px;" class="sorting sorting_desc" aria-sort="descending">ID</th>
                             <th>Sana</th>
+                            <th>Xaridor</th>
                             <th>Summasi</th>
                             <th>Izox</th>
                             <th>Turi</th>
@@ -152,8 +164,9 @@
                                 </div>
                             </td>
                             <td><?=$tolov['id']?></td>
-                            <td><?=$tolov['sana']?></td>
-                            <td><?=$tolov['summa']?></td>
+                            <td style="width: 100px;"><?=$tolov['sana']?></td>
+                            <td><?=$tolov['fish']?></td>
+                            <td style="width: 100px;"><?=$tolov['summa']?></td>
                             <td><?=$tolov['izox']?></td>
                             <td><?=$tolov['tolov_turi']?></td>
                             <td class="text-center"><?=$span?></td>
@@ -180,10 +193,11 @@
                             </th>
                             <th>ID</th>
                             <th>Sana</th>
+                            <th>Xaridor</th>
                             <th>Summasi</th>
                             <th>Izox</th>
                             <th>Turi</th>
-                            <th>Status</th>
+                            <th>status</th>
                             <th>Option</th>
                         </tr>
                     </tfoot>
