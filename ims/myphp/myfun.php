@@ -109,6 +109,7 @@ function InkassaInsert()
                                 $chsum      =       str_replace(" ","",$_POST['kirim_summa']);                   
                                 $fcode      =          "100";
                                 $izox         =          $_POST['izox'];
+                                $insert_user_id = $_POST["user_id"];
 
                                     if($jsum >= $chsum  && $jsum!=0 && $chsum!=0)
                                     {
@@ -130,8 +131,8 @@ function InkassaInsert()
                                             '1',
                                             '0',
                                             '{$fcode}',
-                                            '1',
-                                            '1',
+                                            {$insert_user_id},
+                                            '0',
                                             '{$izox}'            
                                             ) ") or die($con->error);
 

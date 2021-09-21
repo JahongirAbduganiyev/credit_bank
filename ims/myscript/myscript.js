@@ -25,7 +25,7 @@ $(document).ready(function(){
                     return '';
             }
         });
-    });``
+    });
     //End Number Format
     $(this).on("change",'#toliq_kirim',function(){
         var chex    =   $("#toliq_kirim:checked").length;
@@ -44,11 +44,15 @@ $(document).ready(function(){
       
       $(this).on("click","#btntas",function(e){
         var tjsum =   $("#jami_summa").val();
+        var trim_tjsum = tjsum.replaceAll(/\s/g,'');
         var bksum =   $("#bkirim_summa").val();
-        if(tjsum < bksum || bksum == 0)
+        var trim_bksum = bksum.replaceAll(/\s/g,'');
+        var a = parseInt(trim_tjsum) < parseInt(trim_bksum);
+        if(a == true || bksum=='0' || bksum=='')
         {
-            alert("Mablag' Yetarli Emas!");            
-           e.preventDefault(e);                
+           alert("Mablag' Yetarli Emas!");
+           e.preventDefault(e);
+           //window.location.href="?a=boshqarma_inkassa";
         }  
     });       
       //End Mablag' error

@@ -127,7 +127,8 @@
                             <div class="form-group">
                                 <label>Boshqarmaga Kirim Qilish</label>
                                 <input  required type="text" class="form-control number-separator" name="kirim_summa" id="bkirim_summa" >
-                            </div>   
+                                <input type="hidden" name="insert_user_id" value="<?=$user_id;?>">
+                            </div>
                             <div class="form-group">
                                 <label>Izox</label>
                                 <textarea required type="text" class="form-control" name="izox" id="izox"></textarea>

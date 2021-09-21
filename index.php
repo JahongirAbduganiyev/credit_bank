@@ -36,6 +36,8 @@ use options\Script;
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -175,6 +177,8 @@ use options\Script;
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
+<!--Select 2-->
+<script src="plugins/select2/js/select2.full.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- ChartJS -->
@@ -213,7 +217,14 @@ use options\Script;
 
 <script>
   $(function () {
-    $("#example1").DataTable({
+      $('.select2').select2();
+
+      //Initialize Select2 Elements
+      $('.select2bs4').select2({
+          theme: 'bootstrap4'
+      });
+
+      $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');

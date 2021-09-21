@@ -11,18 +11,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c122ce6b-122c-44c0-9dd7-5b5110b71bf7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ims/sql/bosh_kassa.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ims/sql/credit.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/plugins/login.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/credit.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/credit.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db_kassa.php" beforeDir="false" afterPath="$PROJECT_DIR$/db_kassa.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ims/myphp/myfun.php" beforeDir="false" afterPath="$PROJECT_DIR$/ims/myphp/myfun.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gitproyekt/ims/myphp/myfun.php" beforeDir="false" afterPath="$PROJECT_DIR$/../gitproyekt/ims/myphp/myfun.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gitproyekt/ims/myscript/myscript.js" beforeDir="false" afterPath="$PROJECT_DIR$/../gitproyekt/ims/myscript/myscript.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gitproyekt/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/../gitproyekt/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gitproyekt/pages/krim.php" beforeDir="false" afterPath="$PROJECT_DIR$/../gitproyekt/pages/krim.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gitproyekt/pages/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/../gitproyekt/pages/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../gitproyekt/pages/workspace.code-workspace" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ims/myscript/myscript.js" beforeDir="false" afterPath="$PROJECT_DIR$/ims/myscript/myscript.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/boshqarma_inkassa.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/boshqarma_inkassa.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../gitproyekt/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../gitproyekt/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +40,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../gitproyekt" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="ProjectId" id="1xUClNVTDYNl7qzYKC5PDcE38Fw" />
@@ -58,11 +57,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gitproyekt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\OpenServer\domains\creditbank\ims\sql" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\OSPanel\domains\creditbank\cron" />
       <recent name="D:\OSPanel\domains\creditbank\dist\js" />
@@ -87,7 +90,12 @@
       <workItem from="1631007908121" duration="67130000" />
       <workItem from="1631507761451" duration="28000" />
       <workItem from="1631507817795" duration="1074000" />
-      <workItem from="1631596580306" duration="15228000" />
+      <workItem from="1631596580306" duration="16956000" />
+      <workItem from="1631681928867" duration="22114000" />
+      <workItem from="1631763492215" duration="12116000" />
+      <workItem from="1631791326662" duration="2052000" />
+      <workItem from="1632199922629" duration="49000" />
+      <workItem from="1632200113205" duration="236000" />
     </task>
     <servers />
   </component>
@@ -119,10 +127,11 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="4" key="#Plugins/0.0.1366.728@0.0.1366.728" timestamp="1631334874637" />
-    <state x="275" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1630406471751">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="387" y="32" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1631692730499">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="275" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1630406471751" />
+    <state x="387" y="32" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1631692730499" />
     <state x="413" y="110" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1630404448040">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -131,11 +140,11 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="DiffContextDialog/0.0.1366.728@0.0.1366.728" timestamp="1630403068750" />
-    <state x="651" y="151" key="FileChooserDialogImpl" timestamp="1631596595941">
+    <state x="651" y="151" key="FileChooserDialogImpl" timestamp="1632199943132">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="463" y="105" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1630520930918" />
-    <state x="651" y="151" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1631596595941" />
+    <state x="651" y="151" key="FileChooserDialogImpl/0.0.1920.1050@0.0.1920.1050" timestamp="1632199943132" />
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1631517750244">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -156,10 +165,11 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="442" y="225" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1366.728@0.0.1366.728" timestamp="1630518991445" />
-    <state x="339" y="162" key="run.anything.popup" timestamp="1631293894071">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="476" y="234" key="run.anything.popup" timestamp="1631683806259">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1631293894071" />
+    <state x="476" y="234" key="run.anything.popup/0.0.1920.1050@0.0.1920.1050" timestamp="1631683806259" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1631334914279">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
