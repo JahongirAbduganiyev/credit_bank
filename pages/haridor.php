@@ -59,7 +59,7 @@
                     '{$summa}', 
                     '{$turi}', 
                     '0', 
-                    '2', 
+                    '1', 
                     '{$user->filial_kodi}', 
                     '{$user->user_id}', 
                     '0', 
@@ -90,6 +90,12 @@
                         WHERE `muddati_o_tani`.`client_id` = {$client_id};
                 ") ? null : $all_query_ok=false;
 
+                $db->query("
+                    UPDATE `client` 
+                        SET `status` = '1' 
+                        WHERE `client`.`id` = {$client_id};
+                ") ? null : $all_query_ok=false;
+
 
             if(!$all_query_ok){
                 throw new Exception("Kreditni yopishda xatolik ! Qaytda urining");
@@ -106,6 +112,8 @@
         }
 
         ?><script> window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
+
+        return 0;
     }
 
     if(isset($_REQUEST['tolov'])){
@@ -159,6 +167,8 @@
         }
 
         ?><script> window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
+        
+        return 0;
     }
 
 
@@ -197,6 +207,8 @@
         }
         
         ?><script>window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
+
+        return 0;
     }
 
 
@@ -307,7 +319,7 @@
                     <ul class="nav nav-pills col-10">
                         <li class="nav-item"><a class="nav-link active" href="#grafik" data-toggle="tab">Grafik</a></li>
                         <li class="nav-item"><a class="nav-link" href="#tolovtarixi" data-toggle="tab">To'lovlari</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Kreditlari</a></li>
                     </ul>
                     <button type="button" id="salom" class="btn btn-success btn-sm col-2" data-toggle="modal" data-target="#modal-default">
                         To'lov qilish
@@ -413,7 +425,7 @@
                     <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="settings">
-                        settings
+                        Kreditlari
                     </div>
                     <!-- /.tab-pane -->
                     </div>
