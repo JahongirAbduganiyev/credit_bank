@@ -7,6 +7,7 @@
     Script::setPage($_GET['a']);
 
     $db = new Connection();
+
     $clients = $db->query("SELECT * FROM `client` WHERE filial_nomi='{$user->filial_kodi}'");
 ?>
 

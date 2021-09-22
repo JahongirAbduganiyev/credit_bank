@@ -80,7 +80,7 @@
               </a>
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                   <div class="dropdown-divider"></div>
-                  <a href="#" class="dropdown-item">
+                  <a href="#" data-toggle="modal" data-target="#modal-sm" class="dropdown-item">
                       <i class="fas fa-user-cog mr-2"></i> Profile
                   </a>
                   <div class="dropdown-divider"></div>
@@ -168,6 +168,44 @@
       <b>Version</b> 1.0
     </div>
   </footer>
+
+    <div class="modal fade" id="modal-sm">
+        <div class="modal-dialog modal-sm">
+            <form method="post" action="pages/change_pass.php">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Profile</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">User name</label>
+                                <input type="text" name="user_name" readonly value="<?=$user_name?>" required="required" class="form-control" id="exampleInputEmail1" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Eski parolni kiriting!</label>
+                                <input type="text" name="eski_pass" required="required" class="form-control" id="exampleInputEmail1" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Yangi parolni kiriting!</label>
+                                <input type="password" name="yangi_pass" required="required" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" name="change_pass" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
