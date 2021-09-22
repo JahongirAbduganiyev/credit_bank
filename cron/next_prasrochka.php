@@ -42,12 +42,13 @@
                     throw new Exception("Error Processing Request", 1);
                 }
                 $con->commit();
+                $fp1 = fopen('test.txt', 'a');
+                fwrite($fp1, 'Next Prasrochka cron file ishladi! => '.date("l jS \of F Y h:i:s A")."\n");
+                fclose($fp1);
             }catch (Exception $e){
-                ?>
-                <script !src="">
-                    alert("Xatolik yuz berdi qaytadan urunib ko'ring!");
-                </script>
-                <?php
+                $fp2 = fopen('test.txt', 'a');
+                fwrite($fp2, 'Next Prasrochka cron file ishlamadi! => '.date("l jS \of F Y h:i:s A")."\n");
+                fclose($fp2);
             }
         }
     }

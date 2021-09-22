@@ -11,7 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c122ce6b-122c-44c0-9dd7-5b5110b71bf7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pages/change_pass.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cron/test.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.babelrc.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.browserslistrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.bundlewatch.config.json" beforeDir="false" />
@@ -149,7 +149,13 @@
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_toastr.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/deposit_tekshir.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/deposit_tekshir.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/kassa_null.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/kassa_null.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/kun_schot_foiz.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/kun_schot_foiz.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/main_cron.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/main_cron.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/next_prasrochka.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/next_prasrochka.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/prasrochka_schot.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/prasrochka_schot.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/main.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.min.css" beforeDir="false" />
@@ -2408,7 +2414,7 @@
       <workItem from="1631007908121" duration="90415000" />
       <workItem from="1631682746335" duration="16428000" />
       <workItem from="1631855977713" duration="4281000" />
-      <workItem from="1632113141871" duration="19502000" />
+      <workItem from="1632113141871" duration="27481000" />
     </task>
     <servers />
   </component>

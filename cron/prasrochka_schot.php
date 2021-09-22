@@ -21,20 +21,17 @@ include("../db_kassa.php");
                 if ($client_id == "") continue;
 
                 $res1 = $con->query("UPDATE `prasrochka` SET `kun`='{$farq_kun}', `status`='{$status}' WHERE id=" . $client_id);
-                if ($res1) {
-                    true;
-                } else {
-                    throw new Exception("Error Processing Request", 1);
-                }
+                if (!$res1) throw new Exception("Error Processing Request", 1);
             }
         }
         $con->commit();
+        $fp1 = fopen('test.txt', 'a');
+        fwrite($fp1, 'Prasrochka schot cron file ishladi! => '.date("l jS \of F Y h:i:s A")."\n");
+        fclose($fp1);
     }catch (Exception $e){
-        ?>
-        <script !src="">
-            alert("Xatolik yuz berdi qaytadan urunib ko'ring!");
-        </script>
-        <?php
+        $fp2 = fopen('test.txt', 'a');
+        fwrite($fp2, 'Prasrochka schot cron file ishlamadi! => '.date("l jS \of F Y h:i:s A")."\n");
+        fclose($fp2);
     }
 
     function round_up($value, $places)

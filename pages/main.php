@@ -6,8 +6,9 @@
     $sql1 = $con->query("SELECT * FROM `client` where status=1 and filial_nomi='{$filial_kodi}'");
     $res1 = $sql1->num_rows;
 
-    $sql2 = $con->query("SELECT sum(summa) as jami FROM `shartnoma_info` where filial_nomi='{$filial_kodi}'");
+    $sql2 = $con->query("SELECT sum(summa) as jami, sum(oldindan_tolov) as o_jami FROM `shartnoma_info` where filial_nomi='{$filial_kodi}'");
     $res2 = $sql2->fetch_array();
+    $k_jami = $res2['jami'] - $res2['o_jami'];
 
     $jami_sum = 0; $jami_tolov = 0;
     foreach ($sql as $value){
@@ -66,7 +67,7 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h4><?=number_format($res2["jami"], 0, ',', ' ')?></h4>
+                            <h4><?=number_format($k_jami, 0, ',', ' ')?></h4>
 
                             <p>Jami Kredit Summa</p>
                         </div>
