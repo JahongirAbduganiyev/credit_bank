@@ -54,7 +54,8 @@ $(document).ready(function(){
                     if(info.credit_status == 0){
                         izox = "to'liq yopilmagan";
                     }
-                    $("#modal_text").html("("+info.client_kodi+")-raqamli klientning ("+info.credit_kodi+")-tartibli "+izox+" krediti mavjud! (YES) tugmasini bossangiz ushbu klient raqamiga (02)-tartibli kredit shakillantiriladi! Rad etish uchun (NO) tugmasini bosing!")
+                    var c_number = parseInt(info.credit_kodi)+1;
+                    $("#modal_text").html("("+info.client_kodi+")-raqamli klientning ("+info.credit_kodi+")-tartibli "+izox+" krediti mavjud! (YES) tugmasini bossangiz ushbu klient raqamiga (0"+c_number+")-tartibli kredit shakillantiriladi! Rad etish uchun (NO) tugmasini bosing!")
                     $("#modal-info").modal('toggle');
                     stopSpinner();
                 }

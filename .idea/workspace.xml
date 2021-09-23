@@ -13,6 +13,7 @@
     <list default="true" id="c122ce6b-122c-44c0-9dd7-5b5110b71bf7" name="Default Changelist" comment="">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/ims/sql/bosh_kassa.sql" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/ims/sql/credit.sql" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/plugins/login.php" afterDir="false" />
@@ -28,6 +29,8 @@
 =======
       <change afterPath="$PROJECT_DIR$/pages/change_pass.php" afterDir="false" />
 >>>>>>> b3bc0f6a5718fe388b91784e3ba6458683302864
+=======
+>>>>>>> 64ec6f8beeb7330b2a1110797429b8462c401190
       <change beforePath="$PROJECT_DIR$/../.babelrc.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.browserslistrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.bundlewatch.config.json" beforeDir="false" />
@@ -165,7 +168,8 @@
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_toastr.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cron/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cron/test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/tolovstatus.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tolovstatus.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.min.css" beforeDir="false" />
@@ -2397,10 +2401,14 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
 <<<<<<< HEAD
     <property name="nodejs_package_manager_path" value="npm" />
 =======
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../api" />
+>>>>>>> 64ec6f8beeb7330b2a1110797429b8462c401190
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
 >>>>>>> b3bc0f6a5718fe388b91784e3ba6458683302864
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
@@ -2446,11 +2454,15 @@
       <workItem from="1631682746335" duration="16428000" />
       <workItem from="1631855977713" duration="4281000" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <workItem from="1632113141871" duration="14099000" />
 >>>>>>> 8b2f12fa2e2bd2fb907033162f0dfd38f5b4523a
 =======
       <workItem from="1632113141871" duration="19502000" />
 >>>>>>> b3bc0f6a5718fe388b91784e3ba6458683302864
+=======
+      <workItem from="1632113141871" duration="32248000" />
+>>>>>>> 64ec6f8beeb7330b2a1110797429b8462c401190
     </task>
     <servers />
   </component>
@@ -2499,6 +2511,7 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="92" y="92" width="1182" height="544" key="DiffContextDialog/0.0.1366.728@0.0.1366.728" timestamp="1630403068750" />
+<<<<<<< HEAD
     <state x="651" y="151" key="FileChooserDialogImpl" timestamp="1632199943132">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -2511,6 +2524,12 @@
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1631782877584">
 >>>>>>> 8b2f12fa2e2bd2fb907033162f0dfd38f5b4523a
 =======
+=======
+    <state x="463" y="105" key="FileChooserDialogImpl" timestamp="1632309783902">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="105" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1632309783902" />
+>>>>>>> 64ec6f8beeb7330b2a1110797429b8462c401190
     <state x="517" y="287" key="NewPhpFileDialog" timestamp="1632203863273">
 >>>>>>> b3bc0f6a5718fe388b91784e3ba6458683302864
       <screen x="0" y="0" width="1366" height="728" />
