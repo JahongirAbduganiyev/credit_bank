@@ -17,6 +17,7 @@
     }
 
     $client_id = $_GET['client_id'];
+    $shartnoma_info = $db->query("SELECT * FROM `shartnoma_info` WHERE `client_id`='{$client_id}'");
     $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id}");
     $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id}");
     $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='{$user->filial_kodi}'");
@@ -230,14 +231,14 @@
             </h5>
             <p>
                 <?php
-                    echo "<pre>";
+                    // echo "<pre>";
                         // print_r($ajax->getAjax());
                         // print_r($user->user_name);
                         // print_r($user->filial_kodi);
                         // print_r($user->user_id);
                         // print_r(Ajax::requestSave());
                         // print_r($name);
-                    echo "</pre>";
+                    // echo "</pre>";
                 ?> 
             </p>
           </div>
@@ -248,14 +249,26 @@
             </ol>
           </div>
         </div>
-        
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-info"><i class="far fa-credit-card"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Kredit summasi</span>
+                        <span class="info-box-number"><?=Money::convert($shartnoma_info[0]['summa'], 'UZS') ?? 0?></span>
+                        <span class="info-box-number">Boshlang'ich to'lov:   <?=Money::convert($shartnoma_info[0]['oldindan_tolov'], 'UZS') ?? 0?></span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
                 <span class="info-box-icon bg-info"><i class="far fa-credit-card"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Kredit summasi</span>
+                    <span class="info-box-text">Tanidan qoldiq</span>
                     <span class="info-box-number"><?=Money::convert($tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
                 </div>
                 </div>
@@ -343,7 +356,7 @@
                 <div class="card-body" style="padding: 0;">
                     <div class="tab-content">
                         <div class="active tab-pane" id="grafik">
-                            <table class="table table-sm d">
+                            <table class="table table-sm d-none">
                                 <thead>
                                     <tr>
                                         <th style="width: 30px">#</th>
