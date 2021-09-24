@@ -47,8 +47,10 @@
                         <tr>
                             <th style="width: 10px;">ID</th>
                             <th>Haridor</th>
+                            <th>Klient kodi</th>
                             <th>Pasport</th>
                             <th>Telefon</th>
+                            <th>Kredit kodi</th>
                             <th style="width: 100px;">Sozlash</th>
                         </tr>
                     </thead>
@@ -59,6 +61,8 @@
                             <td><?=$client['fish']?></td>
                             <td><?=$client['p_nomer']?></td>
                             <td><?=$client['tel_nomer']?></td>
+                            <td><?=$client['client_kodi']?></td>
+                            <td><?=$client['credit_kodi']?></td>
                             <td>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-info" name="client" value="<?=$client['id']?>" title="Grafik ko'rish" data-toggle="modal" data-target="#modal-grafik">
@@ -77,8 +81,10 @@
                         <tr>
                         <th>ID</th>
                             <th>Haridor</th>
+                            <th>Klient kodi</th>
                             <th>Pasport</th>
                             <th>Telefon</th>
+                            <th>Kredit kodi</th>
                             <th>Sozlash</th>
                         </tr>
                     </tfoot>
