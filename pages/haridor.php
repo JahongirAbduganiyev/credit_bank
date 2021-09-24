@@ -331,12 +331,12 @@
                             <table class="table table-sm">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10px">#</th>
+                                        <th style="width: 30px">#</th>
                                         <th>Sana</th>
                                         <th>Oylik tani</th>
                                         <th>Oylik foiz</th>
                                         <th>Oylik to'lov</th>
-                                        <th>To'landi</th>
+                                        <th style="width: 60px;">To'landi</th>
                                         <th>Holati</th>
                                         <th style="width: 40px">Status</th>
                                     </tr>
@@ -354,8 +354,8 @@
                                         $sum = $row['oylik_tani']+($client_foiz[0]['kunlik_foiz']*30);
                                     ?>
                                     <tr>
-                                        <td><?=$row['id']?></td>
-                                        <td><?=$row['tolov_sana']?></td>
+                                        <td class="text-center"><?=$row['id']?></td>
+                                        <td ><?=$row['tolov_sana']?></td>
                                         <td><?=$row['oylik_tani']?></td>
                                         <td><?=($client_foiz[0]['kunlik_foiz']*30)?></td>
                                         <td><?=($row['oylik_tani']+($client_foiz[0]['kunlik_foiz']*30))?></td>
