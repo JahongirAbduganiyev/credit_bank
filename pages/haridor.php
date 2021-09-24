@@ -260,7 +260,7 @@
                 </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
                 <span class="info-box-icon bg-success"><i class="fas fa-percent"></i></span>
 
@@ -270,32 +270,32 @@
                 </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
-                <span class="info-box-icon bg-danger"><i class="far fa-chart-bar"></i></span>
+                    <span class="info-box-icon bg-danger"><i class="far fa-chart-bar"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Tanidan o'tkan</span>
-                    <span class="info-box-number"><?=Money::convert($muddati_tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
-                </div>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Tanidan o'tkan</span>
+                        <span class="info-box-number"><?=Money::convert($muddati_tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                    </div>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Foizidan o'tkan</span>
+                        <span class="info-box-number"><?=Money::convert($muddati_foiz_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                    </div>
+                    <span class="info-box-icon bg-danger"><i class="fas fa-chart-area"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Prasrochka</span>
+                        <span class="info-box-number"><?=Money::convert(($muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq']), 'UZS') ?? 0?></span>
+                    </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                <div class="info-box">
-                <span class="info-box-icon bg-danger"><i class="fas fa-chart-area"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Foizidan o'tkan</span>
-                    <span class="info-box-number"><?=Money::convert($muddati_foiz_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
-                </div>
-                </div>
-            </div>
-            <div class="col-xl-8 col-lg-8 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
                 <span class="info-box-icon bg-primary"><i class="far fa-star"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Ummumiy summa</span>
+                    <span class="info-box-text">Yopilish summasi</span>
                     <?php
                         $sum = $tani_qoldiq[0]['qoldiq']+$foiz_qoldiq[0]['qoldiq']+$muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq'];
                     ?>
