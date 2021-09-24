@@ -23,8 +23,8 @@
     $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} ORDER BY id DESC");
 
     // Bugungi holatga creditni yopilishi uchun.
-    $tani_qoldiq = $db->query("SELECT SUM(oylik_tani) as qoldiq FROM `credit_tani` WHERE client_id = {$client_id} AND status = 0");
-    $foiz_qoldiq = $db->query("SELECT (kunlik_foiz*kun) as qoldiq FROM `credit_foiz` WHERE client_id = {$client_id}");
+    $tani_qoldiq = $db->query("SELECT SUM(oylik_tani) as qoldiq, oylik_tani FROM `credit_tani` WHERE client_id = {$client_id} AND status = 0");
+    $foiz_qoldiq = $db->query("SELECT (kunlik_foiz*kun) as qoldiq, kunlik_foiz FROM `credit_foiz` WHERE client_id = {$client_id}");
     $muddati_tani_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_tani WHERE client_id = {$client_id} AND status = 0");
     $muddati_foiz_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_foiz WHERE client_id = {$client_id} AND status = 0");
 
@@ -255,7 +255,7 @@
                 <span class="info-box-icon bg-info"><i class="far fa-credit-card"></i></span>
 
                 <div class="info-box-content">
-                    <span class="info-box-text">Kredit tani</span>
+                    <span class="info-box-text">Kredit summasi</span>
                     <span class="info-box-number"><?=Money::convert($tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
                 </div>
                 </div>
@@ -272,35 +272,50 @@
             </div>
             <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-danger"><i class="fas fa-money-bill-alt"></i></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Tanidan o'tkan</span>
-                        <span class="info-box-number"><?=Money::convert($muddati_tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
-                    </div>
-                    <div class="info-box-content">
-                        <span class="info-box-text">Foizidan o'tkan</span>
-                        <span class="info-box-number"><?=Money::convert($muddati_foiz_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
-                    </div>
                     <span class="info-box-icon bg-danger"><i class="fas fa-money-bill-wave"></i></span>
 
                     <div class="info-box-content">
                         <span class="info-box-text">Prasrochka</span>
                         <span class="info-box-number"><?=Money::convert(($muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq']), 'UZS') ?? 0?></span>
                     </div>
+
+                    <!-- <span class="info-box-icon bg-danger "><i class="fas fa-money-bill-alt"></i></i></span> -->
+
+                    <div class="info-box-content" style="font-size: 14px;">
+                        <span class="info-box-text">Tanidan o'tkan</span>
+                        <span class="info-box-text">Foizidan o'tkan</span>
+                        <span class="info-box-number"><?php //=Money::convert($muddati_tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                    </div>
+                    <div class="info-box-content">
+                        <!-- <span class="info-box-text">Foizidan o'tkan</span> -->
+                        <span class="info-box-number"><?=Money::convert($muddati_tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                        <span class="info-box-number"><?=Money::convert($muddati_foiz_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                    </div>
+                    
                 </div>
             </div>
-            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6 col-12">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
-                <span class="info-box-icon bg-primary"><i class="fas fa-dollar-sign"></i></i></span>
+                    <span class="info-box-icon bg-danger"><i class="fas fa-dollar-sign"></i></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Yopilish summasi</span>
-                    <?php
-                        $sum = $tani_qoldiq[0]['qoldiq']+$foiz_qoldiq[0]['qoldiq']+$muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq'];
-                    ?>
-                    <span class="info-box-number"><?=Money::convert($sum, 'UZS')?></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Oylik to'lov</span>
+                        
+                        <span class="info-box-number"><?=Money::convert(($tani_qoldiq[0]['oylik_tani']+($foiz_qoldiq[0]['kunlik_foiz']*30)), 'UZS')?></span>
+                    </div>
                 </div>
+            </div>
+            <div class="col-xl-8 col-lg-8 col-md-6 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-primary"><i class="fas fa-dollar-sign"></i></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Yopilish summasi</span>
+                        <?php
+                            $sum = $tani_qoldiq[0]['qoldiq']+$foiz_qoldiq[0]['qoldiq']+$muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq'];
+                        ?>
+                        <span class="info-box-number"><?=Money::convert($sum, 'UZS')?></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -328,7 +343,7 @@
                 <div class="card-body" style="padding: 0;">
                     <div class="tab-content">
                         <div class="active tab-pane" id="grafik">
-                            <table class="table table-sm">
+                            <table class="table table-sm d">
                                 <thead>
                                     <tr>
                                         <th style="width: 30px">#</th>
@@ -336,9 +351,9 @@
                                         <th>Oylik tani</th>
                                         <th>Oylik foiz</th>
                                         <th>Oylik to'lov</th>
-                                        <th style="width: 60px;">To'landi</th>
-                                        <th>Holati</th>
-                                        <th style="width: 40px">Status</th>
+                                        <th style="width: 60px;" class="text-center">To'landi</th>
+                                        <!-- <th>Holati</th>
+                                        <th style="width: 40px">Status</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -359,19 +374,19 @@
                                         <td><?=$row['oylik_tani']?></td>
                                         <td><?=($client_foiz[0]['kunlik_foiz']*30)?></td>
                                         <td><?=($row['oylik_tani']+($client_foiz[0]['kunlik_foiz']*30))?></td>
-                                        <td>
+                                        <td class="text-center">
                                             <?php
                                                 if($row['status'] == 1){
                                                     echo '<span class="badge bg-success">OK</span>';
                                                 }
                                             ?>
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <div class="progress progress-xs">
                                                 <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
                                             </div>
                                         </td>
-                                        <td><span class="badge bg-danger">50%</span></td>
+                                        <td><span class="badge bg-danger">50%</span></td> -->
                                     </tr>  
                                     <?php endforeach;?>
                                     <tr>
@@ -381,14 +396,14 @@
                                         <td><?=$foiz?></td>
                                         <td><?=$sum?></td>
                                         <td></td>
-                                        <td>
-                                            <!-- <div class="progress progress-xs">
+                                        <!-- <td>
+                                            <div class="progress progress-xs">
                                             <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
-                                            </div> -->
+                                            </div>
                                         </td>
                                         <td>
-                                            <!-- <span class="badge bg-danger">50%</span> -->
-                                        </td>
+                                            <span class="badge bg-danger">50%</span>
+                                        </td> -->
                                     </tr>  
                                 </tbody>
                             </table>
