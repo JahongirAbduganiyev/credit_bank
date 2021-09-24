@@ -342,22 +342,54 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php  
+                                        $tani = 0;
+                                        $foiz = 0;
+                                        $sum = 0;
+                                    ?>
                                     <?php foreach($client_credit as $row):?>
+                                    <?php
+                                        $tani += $row['oylik_tani'];
+                                        $foiz += $client_foiz[0]['kunlik_foiz']*30;
+                                        $sum = $row['oylik_tani']+($client_foiz[0]['kunlik_foiz']*30);
+                                    ?>
                                     <tr>
                                         <td><?=$row['id']?></td>
                                         <td><?=$row['tolov_sana']?></td>
                                         <td><?=$row['oylik_tani']?></td>
-                                        <td><?=$client_foiz[0]['kunlik_foiz']?></td>
-                                        <td><?=($row['oylik_tani']+$client_foiz[0]['kunlik_foiz'])?></td>
-                                        <td></td>
+                                        <td><?=($client_foiz[0]['kunlik_foiz']*30)?></td>
+                                        <td><?=($row['oylik_tani']+($client_foiz[0]['kunlik_foiz']*30))?></td>
+                                        <td>
+                                            <?php
+                                                if($row['status'] == 1){
+                                                    echo '<span class="badge bg-success">OK</span>';
+                                                }
+                                            ?>
+                                        </td>
                                         <td>
                                             <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
+                                                <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
                                             </div>
                                         </td>
                                         <td><span class="badge bg-danger">50%</span></td>
                                     </tr>  
                                     <?php endforeach;?>
+                                    <tr>
+                                        <td rowspan="0"></td>
+                                        <td><b>Umumiy</b></td>
+                                        <td><?=$tani?></td>
+                                        <td><?=$foiz?></td>
+                                        <td><?=$sum?></td>
+                                        <td></td>
+                                        <td>
+                                            <!-- <div class="progress progress-xs">
+                                            <div class="progress-bar progress-bar-danger" style="width: 50%"></div>
+                                            </div> -->
+                                        </td>
+                                        <td>
+                                            <!-- <span class="badge bg-danger">50%</span> -->
+                                        </td>
+                                    </tr>  
                                 </tbody>
                             </table>
                         </div>
