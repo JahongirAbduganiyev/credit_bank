@@ -272,7 +272,7 @@
             </div>
             <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-danger"><i class="far fa-chart-bar"></i></span>
+                    <span class="info-box-icon bg-danger"><i class="fas fa-money-bill-alt"></i></i></span>
 
                     <div class="info-box-content">
                         <span class="info-box-text">Tanidan o'tkan</span>
@@ -282,7 +282,7 @@
                         <span class="info-box-text">Foizidan o'tkan</span>
                         <span class="info-box-number"><?=Money::convert($muddati_foiz_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
                     </div>
-                    <span class="info-box-icon bg-danger"><i class="fas fa-chart-area"></i></span>
+                    <span class="info-box-icon bg-danger"><i class="fas fa-money-bill-wave"></i></span>
 
                     <div class="info-box-content">
                         <span class="info-box-text">Prasrochka</span>
@@ -292,7 +292,7 @@
             </div>
             <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
-                <span class="info-box-icon bg-primary"><i class="far fa-star"></i></span>
+                <span class="info-box-icon bg-primary"><i class="fas fa-dollar-sign"></i></i></span>
 
                 <div class="info-box-content">
                     <span class="info-box-text">Yopilish summasi</span>
