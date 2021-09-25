@@ -2,11 +2,13 @@
     use options\Connection;
     use options\Script;
     use options\Ajax;
+    use options\User;
 
     Script::setPage($_GET['a']);
 
     $db = new Connection();
     $ajax = new Ajax();
+    $user = new User();
     
     
     if(isset($_REQUEST['add']) || isset($_REQUEST['delete'])){
@@ -80,7 +82,7 @@
     }
 
     // $viden = $db->query("SELECT * FROM `kassa` WHERE tasdiq_status=0 AND filial_kodi=100");
-    $viden = $db->query("SELECT `kassa`.*, `client`.fish as fish FROM `kassa` LEFT JOIN `client` on `kassa`.client_id = `client`.id WHERE `kassa`.tasdiq_status=0 AND `kassa`.filial_kodi=100");
+    $viden = $db->query("SELECT `kassa`.*, `client`.fish as fish FROM `kassa` LEFT JOIN `client` on `kassa`.client_id = `client`.id WHERE `kassa`.tasdiq_status=0 AND `kassa`.filial_kodi='{$user->filial_kodi}'");
 
 ?>
 <div class="content-wrapper">
