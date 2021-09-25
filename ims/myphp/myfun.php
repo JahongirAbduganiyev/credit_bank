@@ -1,6 +1,6 @@
 <?php
 //  Database Connection
-$con = mysqli_connect("localhost", "root", "root", "credit");
+$con = mysqli_connect("localhost", "root", "", "credit");
 mysqli_set_charset($con, "utf8");
 if (mysqli_connect_errno()) {
     echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -55,7 +55,7 @@ function JamiSumma($filial_kodi)
 
     //Sana Qo'shilmadi
     global $con;
-    $res = $con->query("SELECT sum(summa) as jami From kassa Where tolov_turi='naqt' and kir_chiq_status=0 and tasdiq_status=1 and filial_kodi='{$filial_kodi}' ");
+    $res = $con->query("SELECT sum(summa) as jami From kassa Where tolov_turi='naqd' and kir_chiq_status=0 and tasdiq_status=1 and filial_kodi='{$filial_kodi}' ");
     $kjami = 0;
     if($res->num_rows > 0)
     {
@@ -76,7 +76,7 @@ function JamiSumma($filial_kodi)
 function KutishSumma($filial_kodi)
 {
     global $con;
-    $kres=$con->query("SELECT sum(summa) as kjami  FROM kassa where  tolov_turi='naqt' and kir_chiq_status=1 and tasdiq_status=0 and filial_kodi='{$filial_kodi}' ");
+    $kres=$con->query("SELECT sum(summa) as kjami  FROM kassa where  tolov_turi='naqd' and kir_chiq_status=1 and tasdiq_status=0 and filial_kodi='{$filial_kodi}' ");
 //    $kjam = $kres;
     $kjam=0;
     if($kres->num_rows >0)
@@ -127,7 +127,7 @@ function InkassaInsert($filial_kodi)
                                             VALUES(
                                             '0',
                                             '{$chsum}',
-                                            'naqt',
+                                            'naqd',
                                             '1',
                                             '0',
                                             '{$filial_kodi}',
