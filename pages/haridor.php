@@ -459,7 +459,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <!-- <a href="?a=haridorlar" class="btn btn-info btn-sm"><i class="fas fa-print"></i></a> -->
-                                                <form action="#">
+                                                <form action="exelphp\exelphp.php">
                                                     <input type="hidden" name="x_r" value="0">
                                                     <input type="hidden" name="anketa" value="0">
                                                     <input type="hidden" name="kassir" value="<?=$user->user_name?>">
