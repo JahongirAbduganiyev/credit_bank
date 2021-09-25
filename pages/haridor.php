@@ -437,6 +437,7 @@
                                             <th>Summa</th>
                                             <th>Tolov turi</th>
                                             <th style="width: 15px;">Status</th>
+                                            <th style="width: 15px;">Pechat</th>
                                             <th style="width: 15px;"></th>
                                         </tr>
                                     </thead>
@@ -455,6 +456,18 @@
                                                 <?php elseif($tranz['tasdiq_status'] == '0'):?>
                                                     <span class="badge badge-warning "><span class="fa fa-spinner"></span></span>
                                                 <?php endif;?>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="?a=haridorlar" class="btn btn-info btn-sm"><i class="fas fa-print"></i></a>
+                                                <form action="#">
+                                                    <input type="text" name="x_r" value="0">
+                                                    <input type="text" name="anketa" value="0">
+                                                    <input type="text" name="kassir" value="<?=$user->user_name?>">
+                                                    <input type="text" name="tolov_summa" value="<?=$tranz['summa']?>">
+                                                    <input type="text" name="mijoz_fish" value="<?=$client[0]['fish']?>">
+                                                    <input type="text" name="tolov_turi" value="<?=$tranz['tolov_turi']?>">
+                                                    <button class="btn btn-info btn-sm"><i class="fas fa-print"></i></button>
+                                                </form>
                                             </td>   
                                             <td class="text-center">
                                                 <?php 
