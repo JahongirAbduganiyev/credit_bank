@@ -46,7 +46,7 @@ if ($anketa == "") {
 	//$frm_link = "http://kassir.codejiay.group/buvayda/view_mijoz.php?mijoz_id=72875";
 	
 	// After getting all the data, now pass all the value to generate QR code.
-	QRcode::png(utf8_encode($frm_link), $filename, $errorCorrectionLevel, $matrixPointSize, 2);
+	QRcode::png(utf8_encode($gitfrm_link), $filename, $errorCorrectionLevel, $matrixPointSize, 2);
 
 
 
