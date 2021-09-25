@@ -22,25 +22,20 @@
             ?>
                 <script type="text/javascript">
                     $(document).ready(function(){
-                        // $(document).on('click', '#tolovButton', function(e){
-                        //     e.preventDefault;
-                        //     const form = $('#tolov').serializeArray();
-                        //     // form.forEach(element => {
-                        //         // console.log(JSON.stringify(form));
-                        //     // });
-                        //     $.ajax({
-                        //         url:"options/Ajax_class.php",
-                        //         type:"POST",
-                        //         datatype:"JSON",
-                        //         data:{'data':form, 'type': 'ajax','page': 'haridor'},
-                        //         success:function(val){
-                        //             // var obj = JSON.parse(val);
-                        //             // let k = (obj.data[0]);
-                        //             // console.log(k.value);
-                        //             console.log(val);
-                        //         }
-                        //     })
-                        // });
+                        $(document).on('submit', '#kivitansiya', function(e){
+                            e.preventDefault;
+                            // const form = $(this).serializeArray();
+                            
+                            // $.ajax({
+                            //     url:$(this).attr('action'),
+                            //     type:"POST",
+                            //     // datatype:"JSON",
+                            //     data:{'data':form, 'type': 'ajax','page': 'haridor'},
+                            //     success:function(val){
+                                    
+                            //     }
+                            // })
+                        });
                     });
                 </script>
             <?php

@@ -459,14 +459,14 @@
                                             </td>
                                             <td class="text-center">
                                                 <!-- <a href="?a=haridorlar" class="btn btn-info btn-sm"><i class="fas fa-print"></i></a> -->
-                                                <form action="exelphp\exelphp.php">
-                                                    <input type="hidden" name="x_r" value="0">
-                                                    <input type="hidden" name="anketa" value="0">
-                                                    <input type="hidden" name="kassir" value="<?=$user->user_name?>">
+                                                <form action="plugins\exelphp\excelphp.php" id="kivitansiya">
+                                                    <!-- <input type="hidden" name="x_r" value="0"> -->
+                                                    <input type="hidden" name="anketa" value="<?=$client[0]['client_kodi']?>">
+                                                    <!-- <input type="hidden" name="kassir" value="<?php //$user->user_name?>"> -->
                                                     <input type="hidden" name="tolov_summa" value="<?=$tranz['summa']?>">
                                                     <input type="hidden" name="mijoz_fish" value="<?=$client[0]['fish']?>">
                                                     <input type="hidden" name="tolov_turi" value="<?=$tranz['tolov_turi']?>">
-                                                    <button class="btn btn-info btn-sm"><i class="fas fa-print"></i></button>
+                                                    <button class="btn btn-info btn-sm" id=""><i class="fas fa-print"></i></button>
                                                 </form>
                                             </td>   
                                             <td class="text-center">
