@@ -462,6 +462,7 @@
                                                 <form action="plugins\exelphp\excelphp.php" id="kivitansiya">
                                                     <!-- <input type="hidden" name="x_r" value="0"> -->
                                                     <input type="hidden" name="anketa" value="<?=$client[0]['client_kodi']?>">
+                                                    <input type="hidden" name="filial_kodi" value="<?=$user->filial_kodi?>">
                                                     <!-- <input type="hidden" name="kassir" value="<?php //$user->user_name?>"> -->
                                                     <input type="hidden" name="tolov_summa" value="<?=$tranz['summa']?>">
                                                     <input type="hidden" name="mijoz_fish" value="<?=$client[0]['fish']?>">

@@ -3,6 +3,7 @@
 include 'PHPExcel/IOFactory.php';
 // $x_r         = $_GET["x_r"].",";
 $anketa      = $_GET["anketa"];
+$filial_kodi      = $_GET["filial_kodi"];
 // $kassir      = $_GET["kassir"];
 $t_summa     = $_GET["tolov_summa"];
 $tolov_summa = filter_var($t_summa, FILTER_SANITIZE_NUMBER_INT);
@@ -59,8 +60,9 @@ $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', $mijoz_fish);
 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H5', $t_summa);
 // $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H2', $kassir);
 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C9', $anketa);
+// $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I1', $filial_kodi);
 // $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C11', $x_r);
-$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H14', $tolov_turi);
+$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H12', $tolov_turi);
 
 $objDrawing = new PHPExcel_Worksheet_Drawing();  
 $signature = $set_qr_code_path.basename($filename);      
