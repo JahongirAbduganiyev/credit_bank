@@ -458,14 +458,14 @@
                                                 <?php endif;?>
                                             </td>
                                             <td class="text-center">
-                                                <a href="?a=haridorlar" class="btn btn-info btn-sm"><i class="fas fa-print"></i></a>
+                                                <!-- <a href="?a=haridorlar" class="btn btn-info btn-sm"><i class="fas fa-print"></i></a> -->
                                                 <form action="#">
-                                                    <input type="text" name="x_r" value="0">
-                                                    <input type="text" name="anketa" value="0">
-                                                    <input type="text" name="kassir" value="<?=$user->user_name?>">
-                                                    <input type="text" name="tolov_summa" value="<?=$tranz['summa']?>">
-                                                    <input type="text" name="mijoz_fish" value="<?=$client[0]['fish']?>">
-                                                    <input type="text" name="tolov_turi" value="<?=$tranz['tolov_turi']?>">
+                                                    <input type="hidden" name="x_r" value="0">
+                                                    <input type="hidden" name="anketa" value="0">
+                                                    <input type="hidden" name="kassir" value="<?=$user->user_name?>">
+                                                    <input type="hidden" name="tolov_summa" value="<?=$tranz['summa']?>">
+                                                    <input type="hidden" name="mijoz_fish" value="<?=$client[0]['fish']?>">
+                                                    <input type="hidden" name="tolov_turi" value="<?=$tranz['tolov_turi']?>">
                                                     <button class="btn btn-info btn-sm"><i class="fas fa-print"></i></button>
                                                 </form>
                                             </td>   
