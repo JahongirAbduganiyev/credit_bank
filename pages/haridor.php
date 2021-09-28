@@ -601,6 +601,7 @@
                                     <select class="form-control" name="turi">
                                         <option value="naqd">Naqd</option>
                                         <option value="plastik">Plastik</option>
+                                        <option value="hisob_raqam">Hisob raqam</option>
                                     </select>
                                 </div>
                             </div>
