@@ -22,13 +22,14 @@
     $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id}");
     $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='{$user->filial_kodi}'");
     $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} ORDER BY id DESC");
+    $depozit = $db->query("SELECT qoldiq FROM `depozit` WHERE `client_id` = {$client_id} GROUP BY id DESC limit 1");
 
     // Bugungi holatga creditni yopilishi uchun.
     $tani_qoldiq = $db->query("SELECT SUM(oylik_tani) as qoldiq, oylik_tani FROM `credit_tani` WHERE client_id = {$client_id} AND status = 0");
     $foiz_qoldiq = $db->query("SELECT (kunlik_foiz*kun) as qoldiq, kunlik_foiz FROM `credit_foiz` WHERE client_id = {$client_id}");
     $muddati_tani_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_tani WHERE client_id = {$client_id} AND status = 0");
     $muddati_foiz_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_foiz WHERE client_id = {$client_id} AND status = 0");
-
+    
     if(isset($_REQUEST['tolov']) && isset($_REQUEST['status'])){
 
         $summa = $_REQUEST['summa'];
@@ -250,7 +251,7 @@
           </div>
         </div>
         <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-info"><i class="far fa-credit-card"></i></span>
 
@@ -258,6 +259,40 @@
                         <span class="info-box-text">Kredit summasi</span>
                         <span class="info-box-number"><?=Money::convert($shartnoma_info[0]['summa'], 'UZS') ?? 0?></span>
                         <span class="info-box-number">Boshlang'ich to'lov:   <?=Money::convert($shartnoma_info[0]['oldindan_tolov'], 'UZS') ?? 0?></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-success"><i class="far fa-credit-card"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Depozit</span>
+                        <span class="info-box-number"><?=Money::convert($depozit[0]['qoldiq'], 'UZS') ?? 0?></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-primary"><i class="fas fa-dollar-sign"></i></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Yopilish summasi</span>
+                        <?php
+                            $sum = $tani_qoldiq[0]['qoldiq']+$foiz_qoldiq[0]['qoldiq']+$muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq'];
+                        ?>
+                        <span class="info-box-number"><?=Money::convert($sum, 'UZS')?></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-danger"><i class="fas fa-dollar-sign"></i></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Oylik to'lov</span>
+                        
+                        <span class="info-box-number"><?=Money::convert(($tani_qoldiq[0]['oylik_tani']+($foiz_qoldiq[0]['kunlik_foiz']*30)), 'UZS')?></span>
                     </div>
                 </div>
             </div>
@@ -273,6 +308,7 @@
                 </div>
                 </div>
             </div>
+            
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="info-box">
                 <span class="info-box-icon bg-success"><i class="fas fa-percent"></i></span>
@@ -305,30 +341,6 @@
                         <span class="info-box-number"><?=Money::convert($muddati_foiz_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
                     </div>
                     
-                </div>
-            </div>
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-danger"><i class="fas fa-dollar-sign"></i></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Oylik to'lov</span>
-                        
-                        <span class="info-box-number"><?=Money::convert(($tani_qoldiq[0]['oylik_tani']+($foiz_qoldiq[0]['kunlik_foiz']*30)), 'UZS')?></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-8 col-lg-8 col-md-6 col-sm-6 col-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-primary"><i class="fas fa-dollar-sign"></i></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Yopilish summasi</span>
-                        <?php
-                            $sum = $tani_qoldiq[0]['qoldiq']+$foiz_qoldiq[0]['qoldiq']+$muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq'];
-                        ?>
-                        <span class="info-box-number"><?=Money::convert($sum, 'UZS')?></span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -601,6 +613,7 @@
                                     <select class="form-control" name="turi">
                                         <option value="naqd">Naqd</option>
                                         <option value="plastik">Plastik</option>
+                                        <option value="hisob_raqam">Hisob raqam</option>
                                     </select>
                                 </div>
                             </div>
