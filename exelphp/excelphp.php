@@ -66,11 +66,11 @@ $objDrawing->setHeight(64);
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());  //save
 
 $objDrawing = new PHPExcel_Worksheet_Drawing();
-$signature = $set_qr_code_path.basename($filename);      
+$signature = $set_qr_code_path.basename($filename);
 $objDrawing->setPath($signature);  
 $objDrawing->setOffsetX(2);                     //setOffsetX works properly  
 $objDrawing->setOffsetY(3);                     //setOffsetY works properly  
-$objDrawing->setCoordinates('F19');             //set image to cell 
+$objDrawing->setCoordinates('E16');             //set image to cell
 $objDrawing->setWidth(64);    
 $objDrawing->setHeight(64);   
 $objDrawing->setWorksheet($objPHPExcel->getActiveSheet());  //save

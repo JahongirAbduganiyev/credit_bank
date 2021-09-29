@@ -3,7 +3,7 @@ include("../db_sotuv.php");
 include("../db_kassa.php");
 if (isset($_POST["client_id"])) {
 
-    $res1 = $con1->query("SELECT * FROM `haridor_malumoti` left JOIN shartnoma_savdo ON haridor_malumoti.h_id=shartnoma_savdo.har_id left JOIN shartnoma_jami ON haridor_malumoti.h_id=shartnoma_jami.H_ID where haridor_malumoti.anketa_nomer=".$_POST["client_id"]);
+    $res1 = $con1->query("SELECT * FROM `haridor_malumoti` left JOIN shartnoma_savdo ON haridor_malumoti.h_id=shartnoma_savdo.har_id left JOIN shartnoma_jami ON haridor_malumoti.h_id=shartnoma_jami.H_ID where haridor_malumoti.bekor=0 and haridor_malumoti.anketa_nomer=".$_POST["client_id"]);
     $r    = $res1->fetch_object();
 
     $sana = $r->sanasi;
