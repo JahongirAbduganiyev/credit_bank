@@ -10,7 +10,7 @@ function KassaSelect($filial_kodi)
 {
        global $con;
        
-       $res =   $con->query("SELECT * FROM kassa where filial_kodi='{$filial_kodi}' and kir_chiq_status=0");
+       $res =   $con->query("SELECT * FROM kassa where tolov_turi='naqd' and filial_kodi='{$filial_kodi}' and kir_chiq_status=0");
        $Arr1=[]; $i=0;
        if($res->num_rows > 0)
        {
@@ -32,7 +32,7 @@ function BoshqarmaSelect($filial_kodi)
 {
        global $con;
        
-       $res =   $con->query("SELECT * FROM kassa where filial_kodi=100 and kir_chiq_status=1 and filial_kodi='{$filial_kodi}'");
+       $res =   $con->query("SELECT * FROM kassa where tolov_turi='naqd' and kir_chiq_status=1 and filial_kodi='{$filial_kodi}'");
        $Arr1=[]; $i=0;
        if($res->num_rows > 0)
        {
@@ -64,7 +64,7 @@ function JamiSumma($filial_kodi)
         $kjami= $r1['jami'] ?? 0;
     }
     
-    $res_1 = $con->query("SELECT sum(summa) as chjami From kassa where kir_chiq_status=1 and tasdiq_status in (0,1)  and filial_kodi='{$filial_kodi}' ");
+    $res_1 = $con->query("SELECT sum(summa) as chjami From kassa where kir_chiq_status=1 and tolov_turi='naqd' and tasdiq_status in (0,1)  and filial_kodi='{$filial_kodi}' ");
     //$chjami=0;
     if($res_1->num_rows > 0)
     {

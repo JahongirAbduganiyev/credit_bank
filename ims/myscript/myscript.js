@@ -1,4 +1,4 @@
-$(document).ready(function(){
+    $(document).ready(function(){
     
     $('.number-separator').on('keyup click change paste input mouseover', function (event) {
         $(this).val(function (index, value) {

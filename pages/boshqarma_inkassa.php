@@ -117,7 +117,7 @@
                           
                             <div class="form-group">
                                 <label >Kassa Qoldiq</label>
-                                <input required readonly type="text" name="jami_summa" id="jami_summa" class="number-separator form-control border border-success" value="<?= number_format(JamiSumma($filial_kodi),0,'.',' ') ?>">
+                                <input required readonly type="text" name="jami_summa" id="jami_summa" class="number-separator form-control border border-success" value="<?= number_format(JamiSumma($filial_kodi),0,'.',' '); ?>">
                               
                             </div>                            
                             <div class="form-check mb-lg-2">
