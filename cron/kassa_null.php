@@ -32,7 +32,7 @@
                     '{$sana}',
                     'avto',
                     '{$farq}',
-                    'naqt',
+                    'naqd',
                     '0',
                     '1',
                     '{$value['kodi']}',

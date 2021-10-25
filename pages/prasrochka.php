@@ -10,14 +10,18 @@
         $n++;
     }
 
+    /*echo "<pre>";
+    print_r($filial);
+    echo "</pre>";*/
+
     $pras = $con->query("select client_id from prasrochka");
     $clients_id = array();
     $i = 0;
     while ($r = $pras->fetch_array()){
         if ($filial[$i] == $r['client_id']){
             $clients_id[$i] = $r['client_id'];
+            $i++;
         }
-        $i++;
     }
 
     $clients_info = array();

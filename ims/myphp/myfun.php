@@ -9,8 +9,8 @@ if (mysqli_connect_errno()) {
 function KassaSelect($filial_kodi)
 {
        global $con;
-       
-       $res =   $con->query("SELECT * FROM kassa where tolov_turi='naqd' and filial_kodi='{$filial_kodi}' and kir_chiq_status=0");
+       $today = date("Y-m-d");
+       $res =   $con->query("SELECT * FROM kassa where DATE(sana) = '{$today}' and tolov_turi='naqd' and filial_kodi='{$filial_kodi}' and kir_chiq_status=0");
        $Arr1=[]; $i=0;
        if($res->num_rows > 0)
        {

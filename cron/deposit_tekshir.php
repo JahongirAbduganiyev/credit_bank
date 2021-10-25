@@ -49,6 +49,16 @@
                 $qoldiq = $row['qoldiq'];
                 array_push($clients_info[$k], $qoldiq);
             }
+
+            $info11 = $con->query("select * from muddati_o_tani WHERE status=0 and client_id='{$clients_id[$k]}' ORDER BY id DESC LIMIT 1");
+            $row11 = $info11->fetch_array();
+            $sana_tani = $row11['sana'];
+            array_push($clients_info[$k], $sana_tani);
+
+            $info12 = $con->query("select * from muddati_o_foiz WHERE status=0 and client_id='{$clients_id[$k]}' ORDER BY id DESC LIMIT 1");
+            $row12 = $info12->fetch_array();
+            $sana_foiz = $row12['sana'];
+            array_push($clients_info[$k], $sana_foiz);
         }
 
         echo '<pre>';
@@ -112,18 +122,20 @@
             if (!$update1) throw new Exception($con->error, 1);
 
             if ($clients_info[$i][1] > 0) {
-                $insert = $con->query("INSERT INTO `muddati_o_tani`(`client_id`, `qarzdorlik`, `status`)
+                $insert = $con->query("INSERT INTO `muddati_o_tani`(`client_id`, `sana`, `qarzdorlik`, `status`)
                                                      VALUES (
                                                         '{$clients_info[$i][0]}',
+                                                        '{$sana_tani}',
                                                         '{$clients_info[$i][1]}',
                                                         '0'
                                                      )");
                 if (!$insert) throw new Exception($con->error, 1);
             }
             if ($clients_info[$i][2] > 0) {
-                $insert1 = $con->query("INSERT INTO `muddati_o_foiz`(`client_id`, `qarzdorlik`, `status`)
+                $insert1 = $con->query("INSERT INTO `muddati_o_foiz`(`client_id`, `sana`, `qarzdorlik`, `status`)
                                                      VALUES (
                                                         '{$clients_info[$i][0]}',
+                                                        '{$sana_foiz}',
                                                         '{$clients_info[$i][2]}',
                                                         '0'
                                                      )");

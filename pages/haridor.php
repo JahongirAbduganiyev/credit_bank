@@ -408,7 +408,7 @@
                                             </td>
                                         </tr>
                                         <tr class="expandable-body">
-                                            <td colspan="5">
+                                            <td colspan="6">
                                                 <p>
                                                 <?=$tranz['izox']?>
                                                 </p>

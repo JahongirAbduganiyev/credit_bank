@@ -82,7 +82,7 @@
     }
 
     // $viden = $db->query("SELECT * FROM `kassa` WHERE tasdiq_status=0 AND filial_kodi=100");
-    $viden = $db->query("SELECT `kassa`.*, `client`.fish as fish FROM `kassa` LEFT JOIN `client` on `kassa`.client_id = `client`.id WHERE `kassa`.tasdiq_status=0 AND `kassa`.filial_kodi='{$user->filial_kodi}'");
+    $viden = $db->query("SELECT `kassa`.*, `client`.fish as fish FROM `kassa` LEFT JOIN `client` on `kassa`.client_id = `client`.id WHERE `kassa`.tasdiq_status='0' AND `kassa`.`kir_chiq_status` = '0' AND `kassa`.filial_kodi='{$user->filial_kodi}'");
 
 ?>
 <div class="content-wrapper">

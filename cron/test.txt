@@ -2,3 +2,72 @@ Deposit tekshir cron file ishladi! => Saturday 23rd of October 2021 02:27:29 PM
 Next Prasrochka cron file ishladi! => Saturday 23rd of October 2021 02:29:53 PM
 Next Prasrochka cron file ishladi! => Saturday 23rd of October 2021 02:29:53 PM
 Deposit tekshir cron file ishladi! => Saturday 23rd of October 2021 02:30:22 PM
+Deposit tekshir cron file ishladi! => Sunday 24th of October 2021 02:39:59 PM
+Deposit tekshir cron file ishladi! => Sunday 24th of October 2021 02:43:12 PM
+Kassa null cron file ishladi! => Sunday 24th of October 2021 02:43:12 PM
+Kun schot foiz cron file ishladi! => Sunday 24th of October 2021 02:43:12 PM
+Prasrochka schot cron file ishladi! => Sunday 24th of October 2021 02:43:12 PM
+Deposit tekshir cron file ishladi! => Saturday 23rd of October 2021 02:43:25 PM
+Kassa null cron file ishladi! => Saturday 23rd of October 2021 02:43:25 PM
+Kun schot foiz cron file ishladi! => Saturday 23rd of October 2021 02:43:25 PM
+Prasrochka schot cron file ishladi! => Saturday 23rd of October 2021 02:43:25 PM
+Deposit tekshir cron file ishladi! => Saturday 23rd of October 2021 02:44:10 PM
+Kassa null cron file ishladi! => Saturday 23rd of October 2021 02:44:11 PM
+Kun schot foiz cron file ishladi! => Saturday 23rd of October 2021 02:44:11 PM
+Prasrochka schot cron file ishladi! => Saturday 23rd of October 2021 02:44:11 PM
+Next Prasrochka cron file ishladi! => Sunday 24th of October 2021 08:24:34 AM
+Next Prasrochka cron file ishladi! => Sunday 24th of October 2021 08:24:34 AM
+Next Prasrochka cron file ishladi! => Sunday 24th of October 2021 08:24:34 AM
+Next Prasrochka cron file ishladi! => Sunday 24th of October 2021 08:24:34 AM
+Next Prasrochka cron file ishladi! => Sunday 24th of October 2021 08:24:34 AM
+Deposit tekshir cron file ishladi! => Sunday 24th of October 2021 08:24:34 AM
+Kassa null cron file ishladi! => Sunday 24th of October 2021 08:24:34 AM
+Kun schot foiz cron file ishladi! => Sunday 24th of October 2021 08:24:34 AM
+Prasrochka schot cron file ishladi! => Sunday 24th of October 2021 08:24:35 AM
+Deposit tekshir cron file ishladi! => Monday 25th of October 2021 08:25:21 AM
+Kassa null cron file ishladi! => Monday 25th of October 2021 08:25:21 AM
+Kun schot foiz cron file ishladi! => Monday 25th of October 2021 08:25:21 AM
+Prasrochka schot cron file ishladi! => Monday 25th of October 2021 08:25:22 AM
+Deposit tekshir cron file ishladi! => Tuesday 26th of October 2021 08:40:07 AM
+Kassa null cron file ishladi! => Tuesday 26th of October 2021 08:40:07 AM
+Kun schot foiz cron file ishladi! => Tuesday 26th of October 2021 08:40:07 AM
+Prasrochka schot cron file ishladi! => Tuesday 26th of October 2021 08:40:07 AM
+Prasrochka schot cron file ishladi! => Tuesday 26th of October 2021 08:45:03 AM
+Prasrochka schot cron file ishladi! => Tuesday 26th of October 2021 08:45:41 AM
+Prasrochka schot cron file ishladi! => Tuesday 26th of October 2021 08:46:32 AM
+Deposit tekshir cron file ishladi! => Wednesday 27th of October 2021 08:49:32 AM
+Kassa null cron file ishladi! => Wednesday 27th of October 2021 08:49:32 AM
+Kun schot foiz cron file ishladi! => Wednesday 27th of October 2021 08:49:32 AM
+Prasrochka schot cron file ishladi! => Wednesday 27th of October 2021 08:49:32 AM
+Prasrochka schot cron file ishladi! => Wednesday 27th of October 2021 01:09:55 PM
+Deposit tekshir cron file ishladi! => Wednesday 27th of October 2021 01:10:23 PM
+Deposit tekshir cron file ishladi! => Wednesday 27th of October 2021 01:26:55 PM
+Deposit tekshir cron file ishladi! => Wednesday 27th of October 2021 01:27:17 PM
+Deposit tekshir cron file ishladi! => Wednesday 27th of October 2021 01:27:43 PM
+Deposit tekshir cron file ishladi! => Wednesday 27th of October 2021 01:32:19 PM
+Exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`qarzdorlik`, `status`)
+                                                     VA' at line 1 in D:\OSPanel\domains\creditbank\cron\deposit_tekshir.php:127
+Stack trace:
+#0 {main}Exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`qarzdorlik`, `status`)
+                                                     VA' at line 1 in D:\OSPanel\domains\creditbank\cron\deposit_tekshir.php:127
+Stack trace:
+#0 {main}Deposit tekshir cron file ishladi! => Wednesday 27th of October 2021 01:34:38 PM
+Exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`qarzdorlik`, `status`)
+                                                     VA' at line 1 in D:\OSPanel\domains\creditbank\cron\deposit_tekshir.php:132
+Stack trace:
+#0 {main}Exception: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`qarzdorlik`, `status`)
+                                                     VA' at line 1 in D:\OSPanel\domains\creditbank\cron\deposit_tekshir.php:132
+Stack trace:
+#0 {main}Next Prasrochka cron file ishladi! => Sunday 24th of October 2021 01:40:13 PM
+Next Prasrochka cron file ishladi! => Sunday 24th of October 2021 01:40:13 PM
+Next Prasrochka cron file ishladi! => Sunday 24th of October 2021 01:40:13 PM
+Next Prasrochka cron file ishladi! => Sunday 24th of October 2021 01:40:13 PM
+Next Prasrochka cron file ishladi! => Sunday 24th of October 2021 01:40:13 PM
+Deposit tekshir cron file ishladi! => Sunday 24th of October 2021 01:40:13 PM
+Kassa null cron file ishladi! => Sunday 24th of October 2021 01:40:13 PM
+Kun schot foiz cron file ishladi! => Sunday 24th of October 2021 01:40:13 PM
+Prasrochka schot cron file ishladi! => Sunday 24th of October 2021 01:40:14 PM
+Deposit tekshir cron file ishladi! => Monday 25th of October 2021 01:41:50 PM
+Kassa null cron file ishladi! => Monday 25th of October 2021 01:41:50 PM
+Kun schot foiz cron file ishladi! => Monday 25th of October 2021 01:41:50 PM
+Prasrochka schot cron file ishladi! => Monday 25th of October 2021 01:41:50 PM
