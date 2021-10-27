@@ -15,7 +15,7 @@ if (isset($_POST["client_id"])) {
     $moljal = htmlspecialchars(addslashes($r->moljal));
     $tel = $r->telefon_raqami;
     $client_kodi = $r->anketa_nomer;
-    $credit_kodi = '01';
+    $credit_kodi = "0".$r->kafil_summa;
     $sh_summa = $r->jami_savdo;
     $sh_muddat = $r->muddati;
     $oldindan_tolov = $r->oylik_maoshi;

@@ -13,13 +13,13 @@ if (isset($_POST["client_kodi"])) {
         $sh_summa = $r->jami_savdo;
         $sh_muddat = $r->muddati;
         $oldindan_tolov = $r->oylik_maoshi;*/
-        $credit_kodi = '01';
+        //$credit_kodi = '01';
         $table = "";
         while ($r = mysqli_fetch_object($res1)){
             $table = "
                 <tr id=".$r->id.">
                     <th id='client_id'>" . $r->anketa_nomer . "</th>
-                    <th>" . $credit_kodi . "</th>
+                    <th>0" . $r->kafil_summa . "</th>
                     <th>" . $r->fish . "</th>
                     <th>" . $r->sanasi . "</th>
                     <th>" . number_format($r->jami_savdo, 2, ',', ' ') . "</th>
