@@ -50,12 +50,12 @@
                 array_push($clients_info[$k], $qoldiq);
             }
 
-            $info11 = $con->query("select * from muddati_o_tani WHERE status=0 and client_id='{$clients_id[$k]}' ORDER BY id DESC LIMIT 1");
+            $info11 = $con->query("select * from muddati_o_tani WHERE status=0 and client_id='{$clients_id[$k]}' ORDER BY id ASC LIMIT 1");
             $row11 = $info11->fetch_array();
             $sana_tani = $row11['sana'];
             array_push($clients_info[$k], $sana_tani);
 
-            $info12 = $con->query("select * from muddati_o_foiz WHERE status=0 and client_id='{$clients_id[$k]}' ORDER BY id DESC LIMIT 1");
+            $info12 = $con->query("select * from muddati_o_foiz WHERE status=0 and client_id='{$clients_id[$k]}' ORDER BY id ASC LIMIT 1");
             $row12 = $info12->fetch_array();
             $sana_foiz = $row12['sana'];
             array_push($clients_info[$k], $sana_foiz);
@@ -125,7 +125,7 @@
                 $insert = $con->query("INSERT INTO `muddati_o_tani`(`client_id`, `sana`, `qarzdorlik`, `status`)
                                                      VALUES (
                                                         '{$clients_info[$i][0]}',
-                                                        '{$sana_tani}',
+                                                        '{$clients_info[$i][4]}',
                                                         '{$clients_info[$i][1]}',
                                                         '0'
                                                      )");
@@ -135,7 +135,7 @@
                 $insert1 = $con->query("INSERT INTO `muddati_o_foiz`(`client_id`, `sana`, `qarzdorlik`, `status`)
                                                      VALUES (
                                                         '{$clients_info[$i][0]}',
-                                                        '{$sana_foiz}',
+                                                        '{$clients_info[$i][5]}',
                                                         '{$clients_info[$i][2]}',
                                                         '0'
                                                      )");
