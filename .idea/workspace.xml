@@ -148,12 +148,7 @@
       <change beforePath="$PROJECT_DIR$/../build/scss/plugins/_toastr.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../composer.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cron/kassa_null.php" beforeDir="false" afterPath="$PROJECT_DIR$/cron/kassa_null.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/jonny.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/js/jonny.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/json_encode/client_insert.php" beforeDir="false" afterPath="$PROJECT_DIR$/json_encode/client_insert.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/prasrochka.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/prasrochka.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/haridorlar.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/haridorlar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.css.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../dist/css/adminlte.min.css" beforeDir="false" />
@@ -2411,7 +2406,7 @@
       <workItem from="1631007908121" duration="90415000" />
       <workItem from="1631682746335" duration="16428000" />
       <workItem from="1631855977713" duration="4281000" />
-      <workItem from="1632113141871" duration="8974000" />
+      <workItem from="1632113141871" duration="10714000" />
     </task>
     <servers />
   </component>

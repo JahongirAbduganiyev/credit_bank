@@ -5,7 +5,7 @@
     Script::setPage($_GET['a']);
 
     $db = new Connection();
-    $clients = $db->query("SELECT * FROM `client` WHERE filial_nomi='buvayda'");
+    $clients = $db->query("SELECT * FROM `client` WHERE filial_nomi='100'");
 ?>
 
 <div class="content-wrapper">
