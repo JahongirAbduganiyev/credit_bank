@@ -4,6 +4,7 @@
     use options\Ajax;
     use options\Script;
     use options\User;
+    use options\Money;
 
     $db = new Connection();
     $ajax = new Ajax();
@@ -18,7 +19,7 @@
     $client_id = $_GET['client_id'];
     $client_credit = $db->query("SELECT * FROM credit_tani WHERE client_id = {$client_id}");
     $client_foiz = $db->query("SELECT * FROM credit_foiz WHERE client_id = {$client_id}");
-    $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='buvayda'");
+    $client = $db->query("SELECT * FROM client WHERE id = {$client_id} AND filial_nomi='{$user->filial_kodi}'");
     $tranzaksiya_history = $db->query("SELECT * FROM `kassa` WHERE client_id = {$client_id} ORDER BY id DESC");
 
     // Bugungi holatga creditni yopilishi uchun.
@@ -26,6 +27,86 @@
     $foiz_qoldiq = $db->query("SELECT (kunlik_foiz*kun) as qoldiq FROM `credit_foiz` WHERE client_id = {$client_id}");
     $muddati_tani_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_tani WHERE client_id = {$client_id} AND status = 0");
     $muddati_foiz_qoldiq = $db->query("SELECT SUM(qarzdorlik) as qoldiq FROM muddati_o_foiz WHERE client_id = {$client_id} AND status = 0");
+
+    if(isset($_REQUEST['tolov']) && isset($_REQUEST['status'])){
+
+        $summa = $_REQUEST['summa'];
+        $izoh = $_REQUEST['izoh'];
+        $izoh = 'KREDIT YOPILDI: '.$izoh;
+        $turi = $_REQUEST['turi'];
+
+        $db->autocommit(false);
+        try{
+            $all_query_ok=true;
+
+            $insert_kredit_yopish = $db->query("
+                INSERT INTO `kassa` (
+                    `id`, 
+                    `sana`, 
+                    `client_id`, 
+                    `summa`, 
+                    `tolov_turi`, 
+                    `kir_chiq_status`, 
+                    `tasdiq_status`, 
+                    `filial_kodi`, 
+                    `insert_user_id`, 
+                    `update_user_id`, 
+                    `izox`) 
+                VALUES (
+                    NULL, 
+                    current_timestamp(), 
+                    '{$client_id}', 
+                    '{$summa}', 
+                    '{$turi}', 
+                    '0', 
+                    '2', 
+                    '{$user->filial_kodi}', 
+                    '{$user->user_id}', 
+                    '0', 
+                    '{$izoh}');
+                ") ? null : $all_query_ok=false;
+
+                $db->query("
+                    UPDATE `credit_tani`
+                        SET `status` = '1' 
+                        WHERE `credit_tani`.`client_id` = {$client_id};
+                ") ? null : $all_query_ok=false;
+                
+                $db->query("
+                    UPDATE `credit_foiz` 
+                        SET `kun` = '0' 
+                        WHERE `credit_foiz`.`client_id` = {$client_id};
+                ") ? null : $all_query_ok=false;
+
+                $db->query("
+                    UPDATE `muddati_o_foiz` 
+                        SET `status` = '1' 
+                        WHERE `muddati_o_foiz`.`client_id` = {$client_id};
+                ") ? null : $all_query_ok=false;
+
+                $db->query("
+                    UPDATE `muddati_o_tani` 
+                        SET `status` = '1' 
+                        WHERE `muddati_o_tani`.`client_id` = {$client_id};
+                ") ? null : $all_query_ok=false;
+
+
+            if(!$all_query_ok){
+                throw new Exception("Kreditni yopishda xatolik ! Qaytda urining");
+            }
+            
+            $db->commit();
+            
+        }catch(Exception $e){
+            ?>
+                <script !src="">
+                    alert("<?=$e->getMessage()?>");
+                </script>
+            <?php
+        }
+
+        ?><script> window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
+    }
 
     if(isset($_REQUEST['tolov'])){
         $summa = $_REQUEST['summa'];
@@ -71,13 +152,13 @@
             
         }catch(Exception $e){
             ?>
-                <script !src="">
+                 <script !src="">
                     alert("<?=$e->getMessage()?>");
                 </script>
             <?php
         }
 
-        ?><script>window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
+        ?><script> window.location.href = "index.php?a=haridor&client_id=<?=$client_id?>";</script><?php
     }
 
 
@@ -127,7 +208,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Haridor:  <?=$client[0]['fish']?></h1>
-            <h5 class="mt-2">
+            <h5 class="mt-2 d-none">
                 Kredit yopilishi <span class="badge badge-success">bugungi holatga</span><br>
                 Tani:  <b style="color:blue"><?=$tani_qoldiq[0]['qoldiq'] ?? 0?></b> so'm <br>
                 Foizi:  <b style="color:blue"><?=$foiz_qoldiq[0]['qoldiq'] ?? 0?></b> so'm <br>
@@ -137,13 +218,14 @@
             </h5>
             <p>
                 <?php
-                    // echo "<pre>";
+                    echo "<pre>";
                         // print_r($ajax->getAjax());
                         // print_r($user->user_name);
                         // print_r($user->filial_kodi);
                         // print_r($user->user_id);
                         // print_r(Ajax::requestSave());
-                    // echo "</pre>";
+                        // print_r($name);
+                    echo "</pre>";
                 ?> 
             </p>
           </div>
@@ -153,6 +235,62 @@
               <li class="breadcrumb-item active">Haridor</li>
             </ol>
           </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-2 col-sm-6 col-12">
+                <div class="info-box">
+                <span class="info-box-icon bg-info"><i class="far fa-credit-card"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Kredit tani</span>
+                    <span class="info-box-number"><?=Money::convert($tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-12">
+                <div class="info-box">
+                <span class="info-box-icon bg-success"><i class="fas fa-percent"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Foiz summasi</span>
+                    <span class="info-box-number"><?=Money::convert($foiz_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-12">
+                <div class="info-box">
+                <span class="info-box-icon bg-danger"><i class="far fa-chart-bar"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Tanidan o'tkan</span>
+                    <span class="info-box-number"><?=Money::convert($muddati_tani_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-12">
+                <div class="info-box">
+                <span class="info-box-icon bg-danger"><i class="fas fa-chart-area"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Foizidan o'tkan</span>
+                    <span class="info-box-number"><?=Money::convert($muddati_foiz_qoldiq[0]['qoldiq'], 'UZS') ?? 0?></span>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-12">
+                <div class="info-box">
+                <span class="info-box-icon bg-primary"><i class="far fa-star"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Ummumiy summa</span>
+                    <?php
+                        $sum = $tani_qoldiq[0]['qoldiq']+$foiz_qoldiq[0]['qoldiq']+$muddati_tani_qoldiq[0]['qoldiq']+$muddati_foiz_qoldiq[0]['qoldiq'];
+                    ?>
+                    <span class="info-box-number"><?=Money::convert($sum, 'UZS')?></span>
+                </div>
+                </div>
+            </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
